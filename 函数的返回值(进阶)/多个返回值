@@ -1,0 +1,19 @@
+def measure():
+    """测量温度"""
+
+    temp = 35
+    wetness = 455
+
+    return temp,wetness #多个结果输出使用元组来返回,可以不使用括号
+
+result = measure()
+gl_temp, gl_wetness = measure() #直接返回两个值
+
+print("GL_TEMP IS = %d, GL_WETNESS IS = %d"%(gl_temp, gl_wetness)) #使用时注意和元组的数据量一一对应
+print("Result is :",result)
+
+
+
+
+
+

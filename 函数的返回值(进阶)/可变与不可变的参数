@@ -1,0 +1,31 @@
+def demo(num, num_list):
+    """
+
+    :param num:
+    :param num_list:
+    :return:
+    """
+
+    num = 100  #只是在函数的内部的使用(涉及了赋值语句的使用,好比数值指向了一个新的地址)
+    num_list.append(4545454)  #列表的引用(相当于对一个数据的修改,是一个可变数据)
+
+    print("Local num is :%d" % num)
+    print("Local num_list is :", num_list)  #List的正规输出
+
+
+num1 = 4545
+num1_list = [45, 78, 96]
+demo(num1, num1_list)
+print("Num1 is :",num1, "\nNum_list is :", num1_list)
+
+
+
+
+
+
+
+
+
+
+
+

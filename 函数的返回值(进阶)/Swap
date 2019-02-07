@@ -1,0 +1,31 @@
+# 解法一
+def swap (a, b):
+
+    """ Swap Number """
+
+    temp = 0 #local variance
+
+    temp = a
+    a = b
+    b = temp
+
+    return a, b
+
+a, b = swap(100, 66)
+print("A is :%d, B is :%d"%(a, b))
+
+#解法二(使用元祖的返回值的使用,任然可以不使用小括号)*****
+a = 10
+b = 1122
+a, b = b, a
+print("a = %d, b = %d"%(a, b))
+
+#解法三
+c = 45
+d = 54
+
+d = c + d
+c = d - c
+d = d - c
+
+print("a = %d, b = %d"%(c, d))
