@@ -39,7 +39,7 @@ class Solider():
     def fire(self):
 
         #判断士兵是否有枪
-        if self.gun == None:
+        if self.gun is None:
 
             print("[%s]还没有枪..." % self.name)
 
@@ -62,5 +62,8 @@ sanduo = Solider("许三多")
 #给他把枪
 sanduo.gun = gun1
 sanduo.fire()
-
+"""
+注意：is　是用来判断引用地址是否相等(是否为同一个对象的引用)
+     ==　是用来判断值是否相等
+"""
 
