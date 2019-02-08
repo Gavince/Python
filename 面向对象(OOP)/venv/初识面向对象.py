@@ -2,8 +2,8 @@
 
 class Cat: #语法格式
 
-    def __init__(self, new_name):#1.定义一个类中的属性,是一个初始化的方法
-                                 #2.定义一个初始化的参数　进行对属性变量的修改
+    def __init__(self, new_name): #1.定义一个类中的属性,是一个初始化的方法
+                                  #2.定义一个初始化的参数　进行对属性变量的修改
         print("Init!")
         #增加属性的格式
         self.name = new_name #默认初始化

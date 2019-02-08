@@ -12,6 +12,6 @@ class Cat: #语法格式
 #创建类
 tom = Cat()
 #lazy_cat = Cat()
-tom.name = "kk" #可以直接在外部添加所要求的属性,属于tom对象（谁是谁的属性）noti
+tom.name = "kk" #可以直接在外部添加所要求的属性,属于tom对象（谁是谁的属性)
 tom.eat()
 tom.drink()
