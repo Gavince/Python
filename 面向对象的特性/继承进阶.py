@@ -1,6 +1,6 @@
 class Person:
     """
-    基类
+    人类
     """
     def __init__(self, name, age):
 
@@ -17,7 +17,7 @@ class Student(Person):
     学生类
     """
     def __init__(self, name, age, grade):
-        #重写父类的方法　并且出事呼哈
+        #重写父类的方法　并且初始化
         super(Student, self).__init__(name, age) #初始父类　保证子类中有基类的属性
         self.grade = grade
 

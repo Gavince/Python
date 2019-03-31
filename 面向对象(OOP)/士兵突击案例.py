@@ -23,6 +23,7 @@ class Gun:
             print("[%s]没有子弹了"%self.model)
 
             return
+
         self.bullet_count -= 1
         print("[%s] 突突突 ......[%d]" % (self.model, self.bullet_count))
 

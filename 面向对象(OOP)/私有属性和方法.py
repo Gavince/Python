@@ -15,8 +15,7 @@ class Woman:
 
 
 xm = Woman("xiaomei")
-xm .name
-
+xm._Woman__secret()
 
 
 

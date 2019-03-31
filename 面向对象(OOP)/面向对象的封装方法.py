@@ -25,7 +25,6 @@ gavin.run()
 print(gavin.name)
 print(gavin.weight)
 
-
 #初始化第二个对象xiaomei
 xiaomei = Person("xiaomei", 120.0)
 xiaomei.eat()
