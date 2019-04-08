@@ -20,6 +20,7 @@ class Gun:
         self.bullet_count -= 1
         print("[%s]突突突[%d]" % (self.model, self.bullet_count))
 
+
 class Soilder:
     """
 

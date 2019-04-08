@@ -1,13 +1,13 @@
 def demo(*args, **kwargs):#一个*表示元组, 两个**表示字典
     """
-
     :param args: nums
     :param kwargs: dic
     :return: NULL
     """
-    print(args)
     print("----------------")
+    print(args)
     print(kwargs)
+    print("----------------")
 
 
 gl_nums = (1, 2, 3, 4, 5)

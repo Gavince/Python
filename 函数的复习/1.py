@@ -9,7 +9,7 @@ def fun1(name, age, perference):
     :param perference:长相
     :return: 返回值
     """
-    print("姓名：%s, 年龄：%d, 长相：%s" % (name, age, perference))
+    print("姓名：%s, 年龄：%d, 长相：%s"%(name, age, perference))
 
 
 def fun2(age, kind="little", cost=122): #此处必须先列出没有缺省参数的值，然后子有具体参数的值

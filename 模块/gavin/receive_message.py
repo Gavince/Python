@@ -1,3 +1,0 @@
-def receive():
-
-    print("Receiving!")

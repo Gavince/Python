@@ -2,7 +2,7 @@ class Tool(object):
 
     count = 0 #一个类属性
 
-    def __init__(self, name):
+    def __init__(self, name):#每次创建对象后都会创建一个初始化对象
 
         self.name = name
         Tool.count += 1
@@ -12,9 +12,9 @@ tool1 = Tool("斧头")
 tool2 = Tool("榔头")
 tool3 = Tool("起子")
 
-tool3.count = 99 #添加一个count属性,不是一个个类属性
+tool3.count = 99 #添加一个count属性,不是一个个类属性(强烈推荐使用这种方法)
 print("对象的总数：%d" % tool3.count)
-print(Tool.count) #可以使用类名.类属性的名称
+print(tool1.count) #可以使用类名.类属性的名称
 
 print("工具对象的总数%d" % Tool.count)
 

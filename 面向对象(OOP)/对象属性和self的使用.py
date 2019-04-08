@@ -1,4 +1,7 @@
-class Cat: #语法格式
+#语法格式
+
+
+class Cat:
 
     def drink(self):
         """
