@@ -2,6 +2,7 @@
   <dictionary name="gavin">
     <words>
       <w>rects</w>
+      <w>svmdetectperson</w>
     </words>
   </dictionary>
 </component>

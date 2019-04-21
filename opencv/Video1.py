@@ -3,7 +3,8 @@ import cv2
 #打开摄像头
 
 cap = cv2.VideoCapture(0)
-while (1):
+
+while 1:
 
     ret, frame = cap.read()
     """

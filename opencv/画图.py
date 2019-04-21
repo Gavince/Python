@@ -1,11 +1,15 @@
+import cv2
 import numpy as np
-import matplotlib as plt
-import mat
 
-T = np.linspace(0,1000)
-X = np.sin(T)
-Y = np.cos(T) + np.power(X,2/3)
-plt.scatter(X,Y,C=Y)
-plt.scatter(-X,Y,c=Y)
-plt.axis([-2,2,-2,2])
-plt.show()
+hog = cv2.HOGDescriptor()
+hog.load('myHogDector.bin')
+cap = cv2.VideoCapture(0)
+while True:
+    ok, img = cap.read()
+    rects, wei = hog.detectMultiScale(img, winStride=(4,4), padding=(8, 8), scale=1.03, useMeanshiftGrouping=False)
+    for (x, y, w, h) in rects:
+        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
+    cv2.imshow('a', img)
+    if cv2.waitKey(1) & 0xff == 27:  # esc键
+        break
+cv2.destroyAllWindows()

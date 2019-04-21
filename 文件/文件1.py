@@ -7,15 +7,11 @@
 
         open("文件", "访问权限")
 """
-file = open("/home/gavin/File/file") #读取文件内容
+file = open("/home/gavin/Desktop/demo.txt", "w")
 
-text = file.read()#文件读取完后 文件指针已经到了文件的末尾
-print(text)
-
-print("*"*50)
-
-text = file.read()
-print(text)
+file.write("Hello, World!")
+file.write("你好！")
 
 file.close()
+
 
