@@ -1,40 +1,51 @@
 class Person:
     """
-    声明一个人物类
+    创建一个Person类，记录体重的增减
     """
-    def __init__(self, new_name, new_weight):
 
-        self.name = new_name
-        self.weight = new_weight
+    def __init__(self, name, weight):
+        """
+
+        :param name:
+        :param weight:
+        """
+        self.name = name
+        self.weight = weight
+
+    def run(self):
+        """
+
+        :return:
+        """
+        self.weight -= 1
+        print("你当前的体重"%self.weight)
+
+    def eat(self):
+        """
+
+        :return:
+        """
+        self.weight += 1
+        print(self)
+        print("你当前的体重%d"%self.weight)
 
     def __str__(self):
 
-        pass
+        return "%s当前的体重是%d" %(self.name, self.weight)
 
-    def run(self):
-        print("%s is an running man, wight is %d" % (self.name, self.weight))
 
-    def eat(self):
-        print("%s is a big eator!" % self.name)
-        self.weight += 10
+tom = Person("tom", 145)
+marry = Person("Marry", 100)
+for i in range(10):
+    tom.eat()
+print(tom)
+print(marry)
 
-#初始化第一个对象gavin
-gavin = Person("gavin", 140.0)
-gavin.eat()
-gavin.run()
-print(gavin.name)
-print(gavin.weight)
-
-#初始化第二个对象xiaomei
-xiaomei = Person("xiaomei", 120.0)
-xiaomei.eat()
-xiaomei.run()
-print(xiaomei.weight)
 
 """
-
 总结：
 01.创建的两个对象互相不干扰
 02.同类创建的对象,不会产生重叠
-
 """
+
+

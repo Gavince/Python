@@ -1,8 +1,5 @@
 #私有属性和方法是不希望被外部访问的的内容
 class Woman:
-    """
-    女人
-    """
     def __init__(self, name):
 
         self.name = name
@@ -15,6 +12,7 @@ class Woman:
 
 
 xm = Woman("xiaomei")
+xm.__age
 xm._Woman__secret()
 
 

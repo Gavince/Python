@@ -9,6 +9,9 @@ class Cat: #语法格式
     def eat(self):
         print("I want to eat!")
 
+    def __str__(self):
+        return "这是猫类"
+
 #创建类
 tom = Cat()
 lazy_cat = Cat()
@@ -35,3 +38,7 @@ lazy_cat.eat()
 　２．tom.name = "kk"　直接添加属性(不推荐使用)
 
 """
+
+
+
+

@@ -1,70 +1,52 @@
-#一个对象的属性可以是另外一个类创建的对象
 class Gun:
-
+    """
+    枪类
+    """
     def __init__(self, model):
-
-        #类型
         self.model = model
-
-        #子弹
-        self.bullet_count = 0
+        self.bullet_count = 0#初始化为0
 
     def add_bullet(self, count):
-
         self.bullet_count += count
 
     def shoot(self):
-        """
-        射击
-        :return:
-        """
         if self.bullet_count <= 0:
+            print("没有子弹")
+        else:
+            self.bullet_count -= 1
+            print("Tutututu.......")
 
-            print("[%s]没有子弹了"%self.model)
-
-            return
-
-        self.bullet_count -= 1
-        print("[%s] 突突突 ......[%d]" % (self.model, self.bullet_count))
+    def __str__(self):
+        return '剩余子弹%d'%self.bullet_count
 
 
-class Solider():
+class Solider:
+        """
+        士兵类
+        """
+        def __init__(self, name):
+            self.name = name
+            self.gun = None
 
-    def __init__(self, name):
+        def fire(self):
+            if self.gun is None:
+                print("士兵没有枪！")
+                return
+            else:
+                self.gun.shoot()
 
-        #士兵的名字
-        self.name = name
-        #枪
-        self.gun = None #可以先添加一个属性　后面在外部进行赋值
 
-    def fire(self):
+AK = Gun("AK47")
+AK.add_bullet(500)
+xm = Solider("xm")
+print("我要打仗了")
+xm.gun = AK
+for i in range(100):
+    xm.fire()
+print(AK)
 
-        #判断士兵是否有枪
-        if self.gun is None:
-
-            print("[%s]还没有枪..." % self.name)
-
-            return
-
-        print("冲啊！兄弟们.....")
-
-        #Add bullet
-        self.gun.add_bullet(100)
-
-        #Fire
-        self.gun.shoot()
-
-gun1 = Gun("AK47")
-gun1.add_bullet(555)
-gun1.shoot()
-
-#创建士兵
-sanduo = Solider("许三多")
-#给他把枪
-sanduo.gun = gun1
-sanduo.fire()
 """
-注意：is　是用来判断引用地址是否相等(是否为同一个对象的引用)
-     ==　是用来判断值是否相等
+总结：
+    （1）is　是用来判断引用地址是否相等(是否为同一个对象的引用)
+    （2）==　是用来判断值是否相等
 """
-
