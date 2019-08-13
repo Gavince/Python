@@ -1,2 +1,3 @@
 # Python
-Some the programme of python
+学习python的一些程序
+
