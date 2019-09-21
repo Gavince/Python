@@ -119,12 +119,7 @@ if __name__ == "__main__":
     data = [0, 1, 2, 3, 4]
     node = Singlelist()
     node.init_list(data)
-    node.is_empty()
-    node.get_length()
-    node.read_list()
-    node.insert_node(2, 45)
-    node.read_list()
-    node.del_node(3)
     node.read_list()
     node.reverse()
     node.read_list()
+

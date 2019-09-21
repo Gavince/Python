@@ -164,10 +164,8 @@ if __name__ == "__main__":
     list1 = SingleClist()
     list1.add(12)
     list1.add(45)
-    list1.append(122)
-    list1.travel()
-    list1.insert(1, 4555)
-    list1.travel()
     list1.remove(45)
+    list1.remove(12)
+
     list1.travel()
-    print("count:", list1.get_length())
+
