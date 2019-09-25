@@ -180,33 +180,19 @@ class TestModule():
 
 
 if __name__ == "__main__":
-    #  0. 初始化数据库
+    #  0. 初始化数据
     data = [1, 2, 3, 4, 5]
     node = LList()
 
+    #  1. 执行删除测试
+    test = TestModule(data, node)
+    # test.test_del()
+    #  2. 测试插入模块
+    # test.test_insert()
+    #  3.测试翻转模块
     # node.init_list(data)
     # node.read_list()
     # node.reverse()
     # print("*" * 10)
     # node.read_list()
-    # print(node.get_length())
-    # print(node.read_list())
-    # node.del_node(1)
-    # print(node.read_list())
-    # node.del_node(1)
-    # print(node.read_list())
 
-    # for i in data[:4]:
-    #     print(i)
-    #     node.del_node(1)
-    # print(node.get_length())
-    # print(node.read_list())
-    #  1. 执行测试
-    test = TestModule(data, node)
-    # test.test_del()
-    test.test_reverse()
-    #  2. 测试插入模块
-    # test.test_insert()
-    # #  3.测试查找模块
-    # print(Node.count)
-    #

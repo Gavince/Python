@@ -16,9 +16,8 @@
   class Node:
       """
       定义node节点
-      """
-      # 记录创建的节点数目
-      count = 0
+      """ 
+      count = 0  # 记录创建的节点数目
   
       def __init__(self, elem):
           self.elem = elem
@@ -44,6 +43,7 @@
   
       def is_empty(self):
           """判断空"""
+          
           return self.__head is None
   ```
 
@@ -55,6 +55,7 @@
       @staticmethod
       def get_length():
           """获得数据的长度"""
+          
           print("创建的数据节点数目为：", Node.count)
           return Node.count
   ```
@@ -93,13 +94,16 @@
 
 #### 尾插法
 
-- **图示![循环单链表尾插法](/home/gavin/Python/数据结构/Picture/循环单链表尾插法.png)**
+- **图示**
+
+   ![循环单链表尾插法](/home/gavin/Python/数据结构/Picture/循环单链表尾插法.png)
 
 - **代码**
 
   ```python
       def add_rear(self, elem):
           """尾插法"""
+          
           #  1. 申请节点
           node = Node(elem)
   
@@ -230,7 +234,6 @@
       """
       测试模块
       """
-  
       def test_add(self):
           """测试插入模块"""
   
@@ -260,7 +263,7 @@
           clist.del_data(12)
           clist.travel()
   ```
-
+  
 - **测试插入模块结果**
 
   ```python

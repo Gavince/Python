@@ -17,7 +17,7 @@ class DoubleList(object):
 
     def IsEmpty(self):
         """判断是否为空"""
-        return self.__head == None
+        return self.__head is None
 
     def length(self):
         # 得到列表的长度
@@ -50,7 +50,6 @@ class DoubleList(object):
             # 连接node 节点
             node.next = self.__head
             self.__head.prev = node
-
             # 重新定义头部
             self.__head = node
 

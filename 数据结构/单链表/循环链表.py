@@ -2,8 +2,7 @@ class Node:
     """
     定义node节点
     """
-    # 记录创建的节点数目
-    count = 0
+    count = 0  # 记录创建的节点数目
 
     def __init__(self, elem):
         self.elem = elem

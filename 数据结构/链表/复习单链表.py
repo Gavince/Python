@@ -3,6 +3,7 @@ class LNode(object):
     创建节点
     """
     count = 0
+
     def __init__(self, elem):
         """
 
@@ -17,13 +18,14 @@ class Singlelist(object):
     """
     操作单链表
     """
+
     def init_list(self, data):
         self.head = LNode(data[0])
         p = self.head
 
         for i in data[1:]:
             node = LNode(i);
-            p.next = node #链接新的节点
+            p.next = node  # 链接新的节点
             p = p.next
 
     def is_empty(self):
@@ -41,18 +43,18 @@ class Singlelist(object):
 
         p = self.head
         num = 0
-        if(self.is_empty()):
+        if (self.is_empty()):
             while p:
-                num +=1
+                num += 1
                 p = p.next
-        print("lengh is :"%num)
+        print("lengh is :" % num)
 
     def show(self):
 
         p = self.head
-        if(self.is_empty()):
+        if (self.is_empty()):
             while p:
-                print("p.elem = "% p.elem)
+                print("p.elem = " % p.elem)
                 p = p.next
         else:
             print("列表为空！")
@@ -64,14 +66,14 @@ class Singlelist(object):
             exit(0)
 
         p = self.head
-        index = 0 #z做为索引节点
+        index = 0  # z做为索引节点
 
-        #找节点位置
+        # 找节点位置
         while index < i:
             p = p.next
             index += 1
 
-        #创建节点
+        # 创建节点
         Node = LNode(num)
         Node.next = p.next
         p.next = Node
@@ -86,11 +88,10 @@ class Singlelist(object):
         index = 0
         p = self._head
         while index < i:
-
             index += 1
             pre = p
             p = p.next
-        pre.next = p.next#去除中间的一个节点删去主要的节点
+        pre.next = p.next  # 去除中间的一个节点删去主要的节点
 
     def reverse(self):
 
@@ -117,5 +118,3 @@ if __name__ == "__main__":
     node.read_list()
     node.reverse()
     node.read_list()
-
-
