@@ -1,38 +1,33 @@
 class Tool(object):
+    count = 0  # 一个类属性
 
-    count = 0 #一个类属性
-
-    @classmethod  #类方法需要用(修饰器)标识符标明方法
+    @classmethod  # 类方法需要用(修饰器)标识符标明方法
     def show_tool_count(cls):
-
         print("工具的对象的数量 %d" % cls.count)
 
-    #如果不访问类属性/实例属性
+    # 如果不访问类属性/实例属性
     @staticmethod
     def method():
-
         print("静态方法！")
 
     def __init__(self, name):
-
         self.name = name
         Tool.count += 1
 
 
-#调用类方法
-Tool.method() #通过类名 调用静态方法 - 不需要创建对象
+# 调用类方法
+Tool.method()  # 通过类名 调用静态方法 - 不需要创建对象
 tool1 = Tool("斧头")
 tool1.show_tool_count()
 
-tool1.count += 10 #外部创建了一个实例属性
-print(tool1.count)#实例属性
+tool1.count += 10  # 外部创建了一个实例属性
+print(tool1.count)  # 实例属性
 del tool1.count
 
 Tool.count += 10
-print(Tool.count)#类属性
+print(Tool.count)  # 类属性
 print(tool1.count)
 Tool.show_tool_count()
-
 
 """
 小结：

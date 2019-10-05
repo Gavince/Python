@@ -7,3 +7,5 @@ try:
     print("Result:",result)
 except Exception as result:
     print("未知错误%s" % result)
+    print(type(result))
+    print(result.args)

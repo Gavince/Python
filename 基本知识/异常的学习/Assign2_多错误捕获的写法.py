@@ -3,7 +3,7 @@ try:
     num = int(input("Please enter a num:"))
 
     result = 8/num
-
+    raise SyntaxError("dads")
     print("Result:",result)
 except ZeroDivisionError:
     print("除零错误！")
