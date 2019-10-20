@@ -28,6 +28,10 @@ class SStack:
         else:
             return self._elems.pop()  # 默认pop出栈底元素
 
+    def get_length(self):
+        """获得数栈长度"""
+        return len(self._elems)
+
     def show(self):
         print("SStack :", self._elems)
 
@@ -37,6 +41,7 @@ def check_parents(text):
     parents = "()[]{}"
     open_parents = "([{"
     opposite = {")": "(", "]": "[", "}": "{"}
+    flag = 0
 
     def parentheses(text):
         i, text_len = 0, len(text)
@@ -56,16 +61,21 @@ def check_parents(text):
         print(pr, i)
         if pr in open_parents:
             st.push(pr)
-            st.show()
+            flag += 1
         elif st.pop() != opposite[pr]:
             print("存在不匹配的括号!!!")
             st.show()
             return False
+
+    if flag == len(text) or st.get_length() != 0:
+        print("不匹配！")
+        return
+
     st.show()
     print("所有括号匹配正确!")
     return True
 
 
 if __name__ == "__main__":
-    text = "{[sahdashd()j][dasj，，，，dk(sdadas)]}"
+    text = "{{[]"
     check_parents(text)
