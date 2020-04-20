@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# @Time    : 2020/4/20 下午4:26
+# @Author  : gavin
+# @FileName: 函数实现二叉树遍历.py
+# @Software: PyCharm
+# @Blog    ：https://blog.csdn.net/weixin_35154281
+
 class Node:
     """
     二叉树节点
@@ -64,7 +71,8 @@ def post_order(root):
             print(node.val, end=" ")
             while stack and node == stack[-1].right:  # 输出左右结点之后，输出其根节点
                 node = stack.pop()
-                print("父节点：%d\n"%node.val, end=" ")
+                print(node.val, end=" ")
+                # print("父节点：%d\n"%node.val, end=" ")
 
 
 if __name__ == "__main__":
