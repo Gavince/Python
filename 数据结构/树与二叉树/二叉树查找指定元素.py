@@ -46,7 +46,7 @@ class Tree:
             else:
                 queue.append(tmp_node.right_child)
 
-    def bre_search(self, val):
+    def bro_search(self, val):
         """查找指定数据的父亲结点"""
         print("层序！！！")
         if self.root.val == val:  # 根节点无父亲节点
@@ -81,6 +81,7 @@ class Tree:
         if node.val == val:
             return node
         left_part = self.pre_search(node.left_child, val)
+        # 直接查找到结点，不在继续递归直接退出
         if left_part:
             return left_part
         right_part = self.pre_search(node.right_child, val)
@@ -130,7 +131,7 @@ if __name__ == "__main__":
         tree.add(i)
 
     # 查询某元素的父亲节点
-    print(tree.bre_search(4).val)
+    print(tree.bro_search(4).val)
     print(tree.pre_search(tree.root, 4).val)
     print(tree.in_search(tree.root, 4).val)
     print(tree.post_search(tree.root, 4).val)

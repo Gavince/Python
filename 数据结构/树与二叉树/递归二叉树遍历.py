@@ -78,7 +78,7 @@ class Tree:
         self.post_order(node.right_child)
         print(node.val, end=" ")
 
-    def bre_order(self):
+    def bro_order(self):
         """层序遍历"""
         if self.root is None:
             return None
@@ -95,10 +95,10 @@ class Tree:
 
 if __name__ == "__main__":
     tree = Tree()
-    for i in range(1, 9):
+    for i in range(10):
         tree.add(i)
     print("层序遍历：", end=" ")
-    tree.bre_order()
+    tree.bro_order()
     print("\n前序遍历：", end="")
     tree.pre_order(tree.root)
     print("\n中序遍历：", end=" ")
