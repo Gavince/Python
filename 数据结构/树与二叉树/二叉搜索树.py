@@ -115,6 +115,7 @@ class BinarySortTree:
         if node:
             while node.right:  # 遍历最右边的结点
                 node = node.right
+
         return node
 
     def del_node(self, node, val):
