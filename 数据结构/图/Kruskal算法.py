@@ -9,12 +9,12 @@
 class GMap:
 
     def __init__(self, vertex_data: [], matrix: []):
-        self.edge_num = 0
+
+        self.edge_num = 0  # 有效边书数目
         self.vertex_data = vertex_data
         self.matrix = matrix
 
         self.inf = float("inf")
-
         #  构建有效边数(不统计重复边)
         for i in range(len(vertex_data)):
             for j in range(i+1, len(vertex_data)):
@@ -53,7 +53,8 @@ class GMap:
         """统计所有顶点之间的有效边"""
 
         index = 0
-        edges = [0] * self.edge_num
+        edges = [0] * self.edge_num  # [["A",　＂B＂, weight]．．．．．．]
+
         for i in range(len(self.vertex_data)):
             for j in range(i+1, len(self.vertex_data)):
                 if self.matrix[i][j] != self.inf:
@@ -88,7 +89,7 @@ class GMap:
 
             m: int = self.get_end(ends, p1)
             n: int = self.get_end(ends, p2)
-
+            print("param", m, n)
             # 终点相同,则构成回路
             if m != n:
                 ends[m] = n
@@ -126,12 +127,6 @@ if __name__ == "__main__":
                     [16, 7, 6, float('inf'), 2, 0, 9],
                     [14, float('inf'), float('inf'), float('inf'), 8, 9, 0]]
     g = GMap(char_vertex, array_matrix)
-    # g2 = GMap(char_vertex, array_matrix)
-    # array = g.get_edges()
-    # g2.sort_edges(array)
-    # for item in array:
-    #     print(item.weight)
-    # print("*"*10)
     g.show_graph()
     for item in g.get_edges():
 
