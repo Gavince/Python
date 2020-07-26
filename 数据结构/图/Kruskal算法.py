@@ -17,7 +17,7 @@ class GMap:
         self.inf = float("inf")
         #  构建有效边数(不统计重复边)
         for i in range(len(vertex_data)):
-            for j in range(i+1, len(vertex_data)):
+            for j in range(i + 1, len(vertex_data)):
                 if self.matrix[i][j] != self.inf:
                     self.edge_num += 1
 
@@ -56,18 +56,19 @@ class GMap:
         edges = [0] * self.edge_num  # [["A",　＂B＂, weight]．．．．．．]
 
         for i in range(len(self.vertex_data)):
-            for j in range(i+1, len(self.vertex_data)):
+            for j in range(i + 1, len(self.vertex_data)):
                 if self.matrix[i][j] != self.inf:
                     edges[index] = EData(self.vertex_data[i]
                                          , self.vertex_data[j]
-                                         ,self.matrix[i][j])
+                                         , self.matrix[i][j])
                     index += 1
 
         return edges
 
-    def get_end(self, ends:[], i:[]):
+    def get_end(self, ends: [], i: []):
 
         while ends[i] != 0:
+            # 　　递进方式选择路径
             i = ends[i]
         return i
 
@@ -75,10 +76,10 @@ class GMap:
         """加边法"""
 
         index: int = 0
-        ends: [] = [0] * self.edge_num
+        ends: [] = [0] * self.edge_num  # 每一个有效边都会存在一个终点
 
         #  最终的有效边
-        result = [0] *self.edge_num
+        result = [0] * self.edge_num
         edges = self.get_edges()
         self.sort_edges(edges)  # 排序
 
@@ -108,8 +109,8 @@ class GMap:
 
 
 class EData(object):
-
     """ 存放边有效边之间的数据 """
+
     def __init__(self, start: str, end: str, weight: int):
         self.start = start
         self.end = end
@@ -126,13 +127,13 @@ if __name__ == "__main__":
                     [float('inf'), float('inf'), 5, 4, 0, 2, 8],
                     [16, 7, 6, float('inf'), 2, 0, 9],
                     [14, float('inf'), float('inf'), float('inf'), 8, 9, 0]]
+
+    
     g = GMap(char_vertex, array_matrix)
     g.show_graph()
-    for item in g.get_edges():
-
-        print(item)
-        print(item.start, item.end, item.weight, end="|")
-
+    for vlaue in g.get_edges():
+        print(vlaue)
+        print(vlaue.start, vlaue.end, vlaue.weight, end="|")
 
     print()
     print("总共的有效边数目", g.edge_num)

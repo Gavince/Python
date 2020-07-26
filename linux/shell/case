@@ -1,0 +1,12 @@
+#!/bin/sh
+echo "Please enter a choice:\c"
+read var
+
+case $var in
+    yes | y | Y) echo "true";;
+    no | N |n) echo "No";;
+    *) echo "input error!"
+
+esac
+
+exit 0

@@ -4,6 +4,7 @@
 # @FileName: prime算法.py
 # @Software: PyCharm
 # @Blog    ：https://blog.csdn.net/weixin_35154281
+# 加点法
 
 
 class MGraph:
@@ -40,6 +41,7 @@ class MinTree:
 
         # 遍历n-1次，寻找n-1条边,构成最小生成树
         for k in range(1, graph.vertex):
+
             # 遍历寻找具有最小的边的两个顶点
             for i in range(graph.vertex):
                 for j in range(graph.vertex):

@@ -1,0 +1,10 @@
+#!/bin/sh
+# 变量赋值时，等号两面不能有空格
+data="first shell scrip"
+readonly img="this is img"
+# img="sdd:"
+echo = "data is:"
+echo $data
+echo "$data"
+echo '$data'
+exit 0

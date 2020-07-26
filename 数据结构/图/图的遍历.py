@@ -72,7 +72,7 @@ class Graph:
 
         while queue:
             u = queue.pop(0)
-            w = jself.get_first_neighbor(u)
+            w = self.get_first_neighbor(u)
 
             while w != -1:
                 if not is_visited[w]:
