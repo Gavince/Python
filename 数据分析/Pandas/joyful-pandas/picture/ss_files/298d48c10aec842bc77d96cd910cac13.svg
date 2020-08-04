@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>架构云16px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="架构云16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" fill="#000000" opacity="0" x="0" y="0" width="16" height="16"></rect>
+        <line x1="8" y1="3" x2="8" y2="14" id="Line" stroke="#00A4FF" stroke-width="2" stroke-linecap="square"></line>
+        <circle id="Oval-Copy" stroke="#00A4FF" stroke-width="2" cx="2" cy="14" r="1"></circle>
+        <circle id="Oval-Copy-2" stroke="#00A4FF" stroke-width="2" cx="8" cy="14" r="1"></circle>
+        <circle id="Oval-Copy-3" stroke="#00A4FF" stroke-width="2" cx="14" cy="14" r="1"></circle>
+        <circle id="Oval" stroke="#00A4FF" stroke-width="2" cx="8" cy="2" r="1"></circle>
+        <polyline id="Path-Copy" stroke="#00A4FF" stroke-width="2" points="2 14 2 8 14 8 14 14"></polyline>
+    </g>
+</svg>

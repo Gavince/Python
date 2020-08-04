@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>容器服务-16px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="容器服务-16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" fill="#444444" opacity="0" x="0" y="0" width="16" height="16"></rect>
+        <path d="M9,0.5715 L9,7.0005 L15,7.0005 L15,4.0005 L9,0.5715 Z M10.7,3.5005 L13.299,4.9855 L13.299,5.3005 L10.7,5.3005 L10.7,3.5005 Z M7,0.5715 L1,4.0005 L1,7.0005 L7,7.0005 L7,0.5715 Z M2.7,4.9855 L5.3,3.5005 L5.3,5.3005 L2.7,5.3005 L2.7,4.9855 Z M9,8.9995 L9,15.4285 L15,11.9995 L15,8.9995 L9,8.9995 Z M10.7,10.7005 L13.299,10.7005 L13.299,11.0145 L10.7,12.4995 L10.7,10.7005 Z M1,8.9995 L1,11.9995 L7,15.4285 L7,8.9995 L1,8.9995 Z M2.7,11.0145 L2.7,10.7005 L5.3,10.7005 L5.3,12.4995 L2.7,11.0145 Z" id="Fill-1" fill="#00A4FF"></path>
+    </g>
+</svg>

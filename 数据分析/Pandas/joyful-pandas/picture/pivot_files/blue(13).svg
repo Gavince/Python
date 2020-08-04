@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>视频智能分类</title>
+    <desc>Created with Sketch.</desc>
+    <g id="视频智能分类" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" fill="#00A4FF" fill-rule="nonzero" x="1" y="1" width="5" height="2"></rect>
+        <rect id="Rectangle-2" fill="#00A4FF" fill-rule="nonzero" x="1" y="1" width="2" height="5"></rect>
+        <rect id="Rectangle-3" fill="#00A4FF" fill-rule="nonzero" x="10" y="1" width="5" height="2"></rect>
+        <rect id="Rectangle-4" fill="#00A4FF" fill-rule="nonzero" x="13" y="1" width="2" height="5"></rect>
+        <rect id="Rectangle-5" fill="#00A4FF" fill-rule="nonzero" x="1" y="13" width="5" height="2"></rect>
+        <rect id="Rectangle-6" fill="#00A4FF" fill-rule="nonzero" x="1" y="10" width="2" height="5"></rect>
+        <rect id="Rectangle-7" fill="#00A4FF" fill-rule="nonzero" x="10" y="13" width="5" height="2"></rect>
+        <rect id="Rectangle-8" fill="#00A4FF" fill-rule="nonzero" x="13" y="10" width="2" height="5"></rect>
+        <polygon id="Fill-1-path" fill="#00A4FF" fill-rule="nonzero" points="6 5 11.196 8 6 11"></polygon>
+    </g>
+</svg>

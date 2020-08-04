@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>制造16px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="制造16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" fill="#000000" opacity="0" x="0" y="0" width="16" height="16"></rect>
+        <path d="M9.49945254,1 C11.5282887,1.63696277 13,3.53224848 13,5.77127077 C13,8.01029306 11.5282887,9.90557877 9.49945254,10.5425415 L9.5,15.4780678 L6.5,15.4780678 L6.49953964,10.542225 C4.47122391,9.90495108 3,8.0099223 3,5.77127077 C3,3.53261924 4.47122391,1.63759046 6.49953964,1.00031653 L6.5,4.37132706 L9.5,4.37132706 L9.49945254,1 Z" id="Combined-Shape-Copy" stroke="#00A4FF" stroke-width="2" transform="translate(8.000000, 8.239034) rotate(-45.000000) translate(-8.000000, -8.239034) "></path>
+    </g>
+</svg>

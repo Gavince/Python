@@ -2,7 +2,7 @@
 
 read filename
 
-if [-d $filename]; then
+if [-e $filename]; then
 	echo "$filename is a document!"
 else
 	echo "$filename is not a document!"

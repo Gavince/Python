@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>医疗16px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="医疗16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" fill="#000000" opacity="0" x="0" y="0" width="16" height="16"></rect>
+        <path d="M16,4 L0,4 L0,16 L16,16 L16,4 Z M14,6 L14,14 L2,14 L2,6 L14,6 Z" id="Rectangle-Copy-3" fill="#00A4FF" fill-rule="nonzero"></path>
+        <path d="M12,1 L4,1 L4,6 L12,6 L12,1 Z M10,3 L10,4 L6,4 L6,3 L10,3 Z" id="Rectangle-Copy-4" fill="#00A4FF" fill-rule="nonzero"></path>
+        <polygon id="Combined-Shape-Copy" fill="#00A4FF" fill-rule="nonzero" points="9 7 9 9 11 9 11 11 8.999 11 9 13 7 13 6.999 11 5 11 5 9 7 9 7 7"></polygon>
+    </g>
+</svg>

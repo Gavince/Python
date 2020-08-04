@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>内容处理16px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="内容处理16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy-8" fill="#000000" opacity="0" x="0" y="0" width="16" height="16"></rect>
+        <rect id="Rectangle-Copy-33" stroke="#00A4FF" stroke-width="2" x="2" y="2" width="12" height="13"></rect>
+        <line x1="2" y1="6" x2="14" y2="6" id="Line-Copy-8" stroke="#00A4FF" stroke-width="2" stroke-linecap="square"></line>
+        <line x1="5" y1="1.42108547e-14" x2="5" y2="3" id="Line-2-Copy-4" stroke="#00A4FF" stroke-width="2" stroke-linecap="square"></line>
+        <line x1="11" y1="1.42108547e-14" x2="11" y2="3" id="Line-2-Copy-5" stroke="#00A4FF" stroke-width="2" stroke-linecap="square"></line>
+        <line x1="5" y1="9" x2="11" y2="9" id="Line-Copy-9" stroke="#00A4FF" stroke-width="2" stroke-linecap="square"></line>
+        <line x1="5" y1="12" x2="11" y2="12" id="Line-Copy-10" stroke="#00A4FF" stroke-width="2" stroke-linecap="square"></line>
+    </g>
+</svg>

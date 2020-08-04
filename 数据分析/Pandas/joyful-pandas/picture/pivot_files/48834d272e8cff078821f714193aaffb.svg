@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>传媒16px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="传媒16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" fill="#000000" opacity="0" x="0" y="0" width="16" height="16"></rect>
+        <circle id="Oval-Copy-4" stroke="#00A4FF" stroke-width="2" cx="8" cy="8" r="7"></circle>
+        <path d="M6,14.8603235 C5.2659591,14.3079563 4.44929885,14 3.58877307,14 C2.65821779,14 1.7789581,14.3601187 1,15" id="Path-Copy" stroke="#00A4FF" stroke-width="2"></path>
+        <circle id="Oval-Copy-5" fill="#00A4FF" cx="8" cy="4" r="1"></circle>
+        <circle id="Oval-Copy-7" fill="#00A4FF" transform="translate(12.000000, 8.000000) rotate(-270.000000) translate(-12.000000, -8.000000) " cx="12" cy="8" r="1"></circle>
+        <circle id="Oval-Copy-9" fill="#00A4FF" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000) " cx="8" cy="8" r="1"></circle>
+        <circle id="Oval-Copy-6" fill="#00A4FF" cx="8" cy="12" r="1"></circle>
+        <circle id="Oval-Copy-8" fill="#00A4FF" transform="translate(4.000000, 8.000000) rotate(-270.000000) translate(-4.000000, -8.000000) " cx="4" cy="8" r="1"></circle>
+    </g>
+</svg>

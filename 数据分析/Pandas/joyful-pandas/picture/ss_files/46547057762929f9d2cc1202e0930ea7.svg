@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>游戏16px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="游戏16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" fill="#000000" opacity="0" x="0" y="0" width="16" height="16"></rect>
+        <polygon id="Path-8-Copy" stroke="#00A4FF" stroke-width="2" points="4.60375498 4 11.4423301 4 15 6.9229119 15 14 11.4732207 14 9.10635869 12.2951438 6.9510347 12.2951438 4.58417268 14 1 14 1 6.9229119"></polygon>
+        <rect id="Rectangle-Copy-3" fill="#00A4FF" x="6" y="1" width="4" height="2"></rect>
+        <rect id="Rectangle-Copy-4" fill="#00A4FF" x="3" y="8" width="4" height="2"></rect>
+        <rect id="Rectangle-Copy-5" fill="#00A4FF" x="10" y="8" width="3" height="2"></rect>
+        <rect id="Rectangle-Copy-6" fill="#00A4FF" transform="translate(5.000000, 9.000000) rotate(-90.000000) translate(-5.000000, -9.000000) " x="3" y="8" width="4" height="2"></rect>
+    </g>
+</svg>

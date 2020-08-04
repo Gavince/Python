@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>数据上云16px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="数据上云16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy-9" fill="#000000" opacity="0" x="0" y="0" width="16" height="16"></rect>
+        <path d="M5,14 C2.790861,14 1,12.209139 1,10 C1,7.96000983 2.52711571,6.27669664 4.50052628,6.03088129 L4.5,6 C4.5,3.790861 6.290861,2 8.5,2 C10.709139,2 12.5,3.790861 12.5,6 C12.5,6.38263223 12.4462747,6.75271625 12.3459561,7.10312001 C13.8701782,7.48118478 15,8.85865038 15,10.5 C15,12.4329966 13.4329966,14 11.5,14 L8,14 L8,9.61803815" id="Path-Copy" stroke="#00A4FF" stroke-width="2"></path>
+        <polyline id="Path-14-Copy" stroke="#00A4FF" stroke-width="2" points="11 11 8 9 5 11"></polyline>
+    </g>
+</svg>

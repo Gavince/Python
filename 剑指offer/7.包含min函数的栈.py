@@ -48,14 +48,14 @@ class Stack:
 
     def top(self):
 
-        if self.stack is None:
+        if not self.stack:
             return None
         else:
             return self.stack[-1]
 
     def min(self):
         """返回栈中最小的元素"""
-        if self.stack is None:
+        if not self.stack:
             return None
         else:
             print(self.min_value)
@@ -72,8 +72,9 @@ class Stack1:
 
     def pop(self):
 
-        if self.stack is None:
+        if not self.stack:
             return None
+
         else:
             if self.stack[-1] == self.min_value[-1]:
                 self.min_value.pop()
@@ -100,7 +101,7 @@ class Stack1:
 
     def min(self):
         """返回栈中最小的元素"""
-        if self.stack is None:
+        if not self.stack:
             return None
         else:
             print(self.min_value)
@@ -114,5 +115,9 @@ if __name__ == "__main__":
     obj.push(5)
     obj.push(8)
     obj.push(4)
-    # obj.pop()
+    obj.push(8)
+    obj.push(4)
+    obj.pop()
+
+
     print(obj.min())

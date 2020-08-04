@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>金融16px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="金融16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" fill="#000000" opacity="0" x="0" y="0" width="16" height="16"></rect>
+        <circle id="Oval-Copy-4" fill="#00A4FF" cx="2" cy="2" r="2"></circle>
+        <circle id="Oval-Copy-5" fill="#00A4FF" cx="14" cy="14" r="2"></circle>
+        <polyline id="Path-3-Copy-4" stroke="#00A4FF" stroke-width="2" points="1 2 15 2 15 9"></polyline>
+        <polyline id="Path-3-Copy-5" stroke="#00A4FF" stroke-width="2" transform="translate(8.000000, 10.500000) scale(-1, -1) translate(-8.000000, -10.500000) " points="1 7 15 7 15 14"></polyline>
+        <polyline id="Path-Copy" stroke="#00A4FF" stroke-width="2" transform="translate(8.000000, 4.000000) rotate(-45.000000) translate(-8.000000, -4.000000) " points="10 6 6 6 6 2"></polyline>
+        <line x1="8" y1="8" x2="8" y2="11" id="Line-3-Copy-4" stroke="#00A4FF" stroke-width="2" stroke-linecap="square"></line>
+        <line x1="5" y1="7" x2="11" y2="7" id="Line-3-Copy-3" stroke="#00A4FF" stroke-width="2" stroke-linecap="square"></line>
+        <line x1="5" y1="10" x2="11" y2="10" id="Line-3-Copy-5" stroke="#00A4FF" stroke-width="2" stroke-linecap="square"></line>
+    </g>
+</svg>

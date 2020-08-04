@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>计算场景16px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="计算场景16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy-4" fill="#000000" opacity="0" x="0" y="0" width="16" height="16"></rect>
+        <path d="M15,0 L1,0 L1,16 L15,16 L15,0 Z M13,2 L13,14 L3,14 L3,2 L13,2 Z" id="Rectangle-Copy-25" fill="#00A4FF" fill-rule="nonzero"></path>
+        <rect id="Rectangle-Copy-26" fill="#00A4FF" x="4" y="4" width="8" height="2"></rect>
+        <polygon id="Rectangle-Copy-27" fill="#00A4FF" fill-rule="nonzero" points="6 8 6 10 4 10 4 8"></polygon>
+        <polygon id="Rectangle-Copy-29" fill="#00A4FF" fill-rule="nonzero" points="9 8 9 10 7 10 7 8"></polygon>
+        <polygon id="Rectangle-Copy-31" fill="#00A4FF" fill-rule="nonzero" points="12 8 12 10 10 10 10 8"></polygon>
+        <polygon id="Rectangle-Copy-32" fill="#00A4FF" fill-rule="nonzero" points="12 11 12 13 10 13 10 11"></polygon>
+        <polygon id="Rectangle-Copy-30" fill="#00A4FF" fill-rule="nonzero" points="9 11 9 13 7 13 7 11"></polygon>
+        <polygon id="Rectangle-Copy-28" fill="#00A4FF" fill-rule="nonzero" points="6 11 6 13 4 13 4 11"></polygon>
+    </g>
+</svg>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>音视频16px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="音视频16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" fill="#000000" opacity="0" x="0" y="0" width="16" height="16"></rect>
+        <path d="M14.4885002,4.66276285 C13.2729516,2.48102662 10.9026044,1 8.17757018,1 C4.21350763,1 1,4.13400675 1,8 C1,11.8659932 4.21350763,15 8.17757018,15 C11.3609026,15 14.0602127,12.9789227 15,10.180713" id="Path-Copy" stroke="#00A4FF" stroke-width="2" transform="translate(8.000000, 8.000000) scale(-1, 1) rotate(-180.000000) translate(-8.000000, -8.000000) "></path>
+        <polyline id="Path-5-Copy" stroke="#00A4FF" stroke-width="2" transform="translate(13.500000, 12.500000) scale(-1, 1) rotate(-180.000000) translate(-13.500000, -12.500000) " points="15 11 15 14 12 14"></polyline>
+        <path d="M9,7.66666667 L8,9 L10,9 L9,7.66666667 Z" id="Triangle-Copy" stroke="#00A4FF" stroke-width="2" transform="translate(9.000000, 8.000000) rotate(-270.000000) translate(-9.000000, -8.000000) "></path>
+    </g>
+</svg>

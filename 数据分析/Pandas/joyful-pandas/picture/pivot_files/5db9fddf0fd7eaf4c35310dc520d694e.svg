@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>大数据16px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="大数据16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy-9" fill="#000000" opacity="0" x="0" y="0" width="16" height="16"></rect>
+        <path d="M8,1.15470054 L2.07179677,4.57735027 L2.07179677,11.4226497 L8,14.8452995 L13.9282032,11.4226497 L13.9282032,4.57735027 L8,1.15470054 Z" id="Polygon-Copy" stroke="#00A4FF" stroke-width="2"></path>
+        <polyline id="Path-4-Copy" stroke="#00A4FF" stroke-width="2" stroke-linejoin="bevel" transform="translate(8.000000, 8.000000) rotate(-330.000000) translate(-8.000000, -8.000000) " points="5 9.07142857 8.21428571 11 8.20994902 5 11 6.5"></polyline>
+    </g>
+</svg>
