@@ -24,7 +24,7 @@ str.replace(" ", "%20")
 
 class Solution:
 
-    def replace_black(self, str):
+    def replace_block(self, str):
 
         str = str.replace(" ", "%20")
 
@@ -46,18 +46,16 @@ class Solution:
         if str is None:
             return None
 
-        # 统计空格
-        li1 = len(str)
         space_num = 0
-        for i in range(li1):
+        for i in range(len(str)):
             if str[i] == " ":
                 space_num += 1
-        # 创建新的临时空间
-        li2 = li1 + 2 * space_num
-        new_str = [1] * li2
 
-        p1 = li1 - 1
-        p2 = li2 - 1
+        li = len(str) + 2 * space_num
+        new_str = [1] * li
+
+        p1 = len(str) - 1
+        p2 = len(new_str) - 1
 
         while p1 >= 0:
             if str[p1] != " ":
@@ -71,7 +69,7 @@ class Solution:
                 p1 -= 1
                 p2 -= 3
 
-        return ''.join(new_str)
+        return "".join(new_str)
 
 
 if __name__ == "__main__":

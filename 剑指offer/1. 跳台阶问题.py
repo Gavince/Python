@@ -32,20 +32,25 @@ n = 3 4
 class Solution:
 
     def jump_floor(self, n: int):
+        """
+        :param n: 台阶
+        :return: 多少种跳法
+        """
 
         if n == 0 or n == 1 or n == 2:
             return n
+        if n >= 3:
+            result = [1, 2]
+            for i in range(2, n):
+                result.append(result[i-1] + result[i-2])
 
-        result = [1, 2]
-        for i in range(3, n + 1):
-            result.append(result[i - 2] + result[i - 3])
-
-        return result[-1]
+            return result[-1]
 
     def jump_floor1(self, n: int):
 
         if n == 0 or n == 1 or n == 2:
             return n
+
         if n > 2:
             a = 2
             b = 1
@@ -63,11 +68,11 @@ class Solution:
             return n
 
         if n > 2:
-            a = 1
+            max_val = 1
             temp = 1
             for i in range(2, n + 1):
-                temp = 2 * a
-                a = temp
+                temp = 2 * max_val
+                max_val = temp
 
         return temp
 

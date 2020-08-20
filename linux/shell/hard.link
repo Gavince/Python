@@ -1,7 +1,7 @@
 #!/bin/sh
 # 变量赋值时，等号两面不能有空格
 data="first shell scrip"
-
+val = dasd
 # 只读模式
 readonly img="this is img"
 
@@ -19,8 +19,8 @@ else
 	echo "优秀"
 fi 
 
+# 循环语句
 echo "执行循环"
-
 for i in a b c d e
 	do
 		echo "Var is :$i"

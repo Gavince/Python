@@ -35,7 +35,7 @@ class Solution:
 
         if self.output_stack:  # 有值
             return self.output_stack.pop()
-        else:
+        else:  # 输出输出栈同时为空
             return None
 
 
@@ -46,7 +46,9 @@ if __name__ == "__main__":
     obj.push(3)
     # 1 2 3
     print(obj.pop())
+    obj.push(555)
     print(obj.pop())
     print(obj.pop())
+    obj.push(55)
     print(obj.pop())
     print(obj.pop())

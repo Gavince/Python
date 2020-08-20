@@ -63,11 +63,11 @@ if __name__ == "__main__":
     Rl2 = [3, 4, 5, 1, 2]
     Rl3 = [4, 5, 1, 2, 3]
     Rl4 = [5, 1, 2, 3, 4]
-    print(obj.find_num(Rl1))
-    print(obj.find_num(Rl2))
-    print(obj.find_num(Rl3))
-    print(obj.find_num(Rl4))
-    print(obj.find_num([5, 2, 4]))
-    print(obj.find_num([5, 1]))
-    print(obj.find_num([5]))
-    print(obj.find_num([4, 5, 5, 1, 1, 2, 3]))
+    print(obj.find_num(Rl1), end=" ")
+    print(obj.find_num(Rl2), end=" ")
+    print(obj.find_num(Rl3), end=" ")
+    print(obj.find_num(Rl4), end=" ")
+    print(obj.find_num([5, 2, 4]), end=" ")
+    print(obj.find_num([5, 1]), end=" ")
+    print(obj.find_num([5]), end=" ")
+    print(obj.find_num([4, 5, 5, 1, 1, 2, 3]), end=" ")

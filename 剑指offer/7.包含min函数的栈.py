@@ -104,7 +104,7 @@ class Stack1:
         if not self.stack:
             return None
         else:
-            print(self.min_value)
+
             return self.min_value[-1]
 
 

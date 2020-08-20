@@ -36,7 +36,6 @@ class Solution:
         ncols = len(array[0])
         # 定义维度
         r = nrows - 1
-        # c = ncol - 1
         i = 0
         j = ncols - 1
         flag = False
@@ -45,11 +44,9 @@ class Solution:
             if array[i][j] == target:  # 正确查找
                 flag = True
                 break
-
-            if array[i][j] > target:  # 有效值可能存在于左边
+            if array[i][j] > target:  # 目标值可能存在于左边
                 j -= 1
-
-            if array[i][j] < target:  # 有效值可能存在于底部
+            if array[i][j] < target:  # 目标值可能存在于底部
                 i += 1
 
         return flag

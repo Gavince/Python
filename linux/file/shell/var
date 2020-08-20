@@ -1,0 +1,18 @@
+#!/bash/sh
+
+var1="变量的参数设定问题"
+var2="1"
+var3="2"
+
+echo "The name of shell":$0
+echo 变量的个数:$#0  # #0输出变量的个数
+
+#  shift  # 参数左移
+read var2
+echo $var2:$1
+echo $var3:$2
+echo "额外参数":$3
+echo $*
+echo $$
+echo $?
+echo $!
