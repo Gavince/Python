@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 # 变量赋值时，等号两面不能有空格
 data="first shell scrip"
 val = dasd
-# 只读模式
+# 只读模式:
 readonly img="this is img"
 
 echo "执行条件语句"
