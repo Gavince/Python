@@ -52,10 +52,10 @@ class Solution:
             return -1
         if n == 1:
             return 0
-        return (self.LastRemaining_Solution(n - 1, m) + m) % n
+        return (self.LastRemaining_Solution1(n - 1, m) + m) % n
 
 
 if __name__ == "__main__":
     obj = Solution()
     print(obj.LastRemaining_Solution(5, 3))
-    print(obj.LastRemaining_Solution1(1, 5))
+    print(obj.LastRemaining_Solution1(5, 3))
