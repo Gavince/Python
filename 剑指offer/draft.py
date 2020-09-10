@@ -1,16 +1,22 @@
+class TreeNode:
+
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+
 class Solution:
 
-    def fun(self, pHead):
+    def Mirror(self, root):
 
-        if pHead is None:
-            return
+        if root is None:
+            return None
+        if root.left is None and root.right is None:
+            return root
+        root.left, root.right = root.right, root.left
 
-        cur = pHead
-        stack = []
-        while cur:
-            if cur not in stack:
-                stack.append(cur)
-                cur = cur.next
-            else:
-                return cur
-        return None
+        self.Mirror(root.left)
+        self.Mirror(root.right)
+
+        return root
