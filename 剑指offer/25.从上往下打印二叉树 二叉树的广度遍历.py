@@ -71,4 +71,5 @@ if __name__ == "__main__":
     obj = Solution()
     for i in range(1, 9):
         obj.add_node(i)
-    print(obj.PrintFromTopToBottom(obj.root))  # [1, 2, 3, 4, 5, 6, 7, 8]
+    # print(obj.PrintFromTopToBottom(obj.root))  # [1, 2, 3, 4, 5, 6, 7, 8]
+    print(obj.FindPath(obj.root, 15))

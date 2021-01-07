@@ -14,6 +14,7 @@
 递归
 """
 
+
 class TreeNode:
 
     def __init__(self, x):
@@ -59,11 +60,12 @@ class Solution:
         if len(pre) == 0:
             return None
         else:
+            # 根据前序遍历，找出根节点在中序遍历中的位置
             pos = tin.index(pre[0])
 
         root = TreeNode(pre[0])
-        root.left = self.reConstructBinaryTree1(pre[1:pos+1], tin[:pos])
-        root.right = self.reConstructBinaryTree1(pre[pos+1:], tin[pos+1:])
+        root.left = self.reConstructBinaryTree1(pre[1:pos + 1], tin[:pos])
+        root.right = self.reConstructBinaryTree1(pre[pos + 1:], tin[pos + 1:])
 
         return root
 

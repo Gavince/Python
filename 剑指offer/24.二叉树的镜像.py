@@ -39,6 +39,7 @@ class Solution:
         if root.left is None and root.right is None:
             return root
 
+        # 左右互换
         root.left, root.right = root.right, root.left
         self.Mirror(root.left)
         self.Mirror(root.right)
