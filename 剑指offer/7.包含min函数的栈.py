@@ -66,45 +66,44 @@ class Stack:
 class Stack1:
 
     def __init__(self):
-
         self.stack = []
         self.min_value = []
-
-    def pop(self):
-
-        if not self.stack:
-            return None
-
-        else:
-            if self.stack[-1] == self.min_value[-1]:
-                self.min_value.pop()
-
-            return self.stack.pop()
 
     def push(self, val):
 
         self.stack.append(val)
 
-        # 判断是否为最小值
         if self.min_value:
+            # 储存最小值
             if self.min_value[-1] >= val:
                 self.min_value.append(val)
         else:
+            # 初始值
             self.min_value.append(val)
+
+    def pop(self):
+        if not self.stack:
+            return None
+        else:
+            # 保证有效数组的最小值
+            if self.stack[-1] == self.min_value[-1]:
+                self.min_value.pop()
+
+            return self.stack.pop()
 
     def top(self):
 
-        if self.stack is None:
+        if not self.stack:
             return None
         else:
             return self.stack[-1]
 
     def min(self):
-        """返回栈中最小的元素"""
+        """抛出最小值，栈顶元素永远储存最小值"""
+
         if not self.stack:
             return None
         else:
-
             return self.min_value[-1]
 
 

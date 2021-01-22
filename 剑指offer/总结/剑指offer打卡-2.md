@@ -1,3 +1,7 @@
+# 剑指offer打卡-2
+
+[toc]
+
 ### 旋转数组中的最小数字
 
 - 问题描述
@@ -9,38 +13,38 @@
   
   解决方案:
   1. 暴力搜索
-  2. 二分法
+  2. 分治法
+  分治法是不断的缩小范围,从而找到符合条件的解
+  二分法的分析我们知道,数组可以分为前后两个递增数组,下面的分析也都利用递增的特性
+  当numbers[mid] > numbers[high]时,说明最小值在mid的右边,缩小范围low = mid + 1
+  当numbers[mid] == numbers[high]时,我们不知道最小值的范围,但是可以肯定的是去除numbers[high]是没有影响的,缩小范围high -= 1
+  当numbers[mid] < numbers[high]时,我们知道最小值的不是numbers[mid]就是在mid的左边,缩小范围high = mid
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/solution/pythonti-jie-er-fen-fa-shuang-100he-zhi-jie-cha-zh/)）
 
   ```python
   class Solution:
   
-      def find_num(self, RotateArray):
+      def find_min(self, RotateArray):
   
           # 条件1：数组大小为空，返回0
           if not RotateArray:
-              return 0
-  
-          if len(RotateArray) == 1:
-              return RotateArray[0]
-  
+              return None
+          
           left = 0
           right = len(RotateArray) - 1
-  
-          while left <= right:
-              middle = (right + left) // 2
-              # 真值比左面小，则表示找到相应的数值
-              if RotateArray[middle] < RotateArray[middle - 1]:
-                  return RotateArray[middle]
-              # 中值小于右面, 其值在左面
-              elif RotateArray[middle] < RotateArray[right]:
-                  right = middle - 1
+          
+          while left < right:
+              mid = (left + right)//2
+              if RotateArray[mid] > RotateArray[right]:
+               	left = mid + 1
+              elif RotateArray[mid] == RotateArray[right]:
+                      right -= 1
               else:
-                  left = middle + 1
-  
-          return 0
+                      right = mid
+         
+          return RotateArray[left]
   ```
 
   测试样例：
@@ -51,14 +55,14 @@
   Rl2 = [3, 4, 5, 1, 2]
   Rl3 = [4, 5, 1, 2, 3]
   Rl4 = [5, 1, 2, 3, 4]
-  print(obj.find_num(Rl1))
-  print(obj.find_num(Rl2))
-  print(obj.find_num(Rl3))
-  print(obj.find_num(Rl4))
-  print(obj.find_num([5, 2, 4]))
-  print(obj.find_num([5, 1]))
-  print(obj.find_num([5]))
-  print(obj.find_num([4, 5, 5, 1, 1, 2, 3]))
+  print(obj.find_min(Rl1), end=" ")
+  print(obj.find_min(Rl2), end=" ")
+  print(obj.find_min(Rl3), end=" ")
+  print(obj.find_min(Rl4), end=" ")
+  print(obj.find_min([5, 2, 4]), end=" ")
+  print(obj.find_min([5, 5]), end=" ")
+  print(obj.find_min([5]), end=" ")
+  print(obj.find_min([4, 5, 5, 1, 1, 2, 3]), end=" ")
   ```
 
   测试结果:
@@ -67,23 +71,25 @@
   1 1 1 1 2 1 5 1 
   ```
 
-###  调整顺序使得奇数位于前面
+  ###  调整顺序使得奇数位于前面
 
-- 问题描述
+- 问题描述：
 
-  ```python
-  问题描述：
-  输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，
-  所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
-  
-  解决方案：
-  1. 暴力遍历
-  2. sorted
-  3.冒泡排序分类
-  ```
-
+    ```python
+   输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，
+    所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
+    
+    解决方案：
+    1. 暴力遍历
+    2. sorted
+    3.冒泡排序分类
+   ```
 - 代码
 
+  冒泡法图示：
+  
+  ![](./imgs/冒泡排序.gif)
+  
   ```python
   class Solution:
   
@@ -108,14 +114,16 @@
       def fun3(self, array):
           """冒泡排序"""
           
-          for i in range(len(array)-1):
+          for i in range(len(array) - 1):
               flag = False
-              for j in range(len(array)-1-i):
-                  if array[j]%2 == 0 and array[j+1]%2 == 1:
+              for j in range(len(array) - 1 - i):
+                  if array[j] % 2 == 0 and array[j+1] % 2 == 1:
+                      # change position
                       array[j], array[j+1] = array[j+1], array[j]
                       flag = True
-                  if flag is False:
-                      break
+              if flag is False:
+                  break
+          return array
                       
           return array
   ```
@@ -137,46 +145,48 @@
 - 代码
 
   ```python
-  class Solution:
-  
+  class Stack:
+      
       def __init__(self):
-  
           self.stack = []
-          self.min_values = []  # 存储最小栈元素
-  
-      def pop(self):
-  
-          if not self.stack:
-              return None
-  
-          if self.stack[-1] == self.min_values[-1]:
-              self.min_values.pop()
-  
-          return self.stack.pop()
+          self.min_value = []
   
       def push(self, val):
   
           self.stack.append(val)
   
-          if self.min_values:
-              #  是否为当前最小元素
-              if self.min_values[-1] >= val:
-                  self.min_values.append(val)
+          if self.min_value:
+              # 储存最小值
+              if self.min_value[-1] >= val:
+                  self.min_value.append(val)
           else:
-              self.min_values.append(val)
+              # 初始值
+              self.min_value.append(val)
   
-      def min(self):
-  
-          if not self.min_values:
+      def pop(self):
+          if not self.stack:
               return None
           else:
-              return self.min_values[-1]
+              # 保证有效数组的最小值
+              if self.stack[-1] == self.min_value[-1]:
+                  self.min_value.pop()
+  
+              return self.stack.pop()
   
       def top(self):
   
           if not self.stack:
               return None
-          return self.stack[-1]
+          else:
+              return self.stack[-1]
+  
+      def min(self):
+          """抛出最小值，栈顶元素永远储存最小值"""
+  
+          if not self.stack:
+              return None
+          else:
+              return self.min_value[-1]
   ```
 
 ###　判断一个序列是否为该栈的弹出序列
@@ -197,7 +207,11 @@
   4 5 3 1 2(元素1不可行, 不满足栈的性质)
   ```
 
-- 代码
+- 实例：压入顺序：1, 2, 3, 4, 5　出栈顺序：4, 5, 3, 2, 1？
+
+  <table><tbody><tr><td> <p><span style="font-size:14px">步骤 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></p> </td><td> <p><span style="font-size:14px">操作 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></p> </td><td> <p><span style="font-size:14px">&nbsp;栈中元素 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></p> </td><td> <p><span style="font-size:14px">弹出数字&nbsp;&nbsp;第一个为<span style="font-family:Arial">4</span><span style="font-family:宋体">，先找到</span><span style="font-family:Arial">4</span></span></p> </td></tr><tr><td> <p><span style="font-size:14px">1</span></p> </td><td> <p><span style="font-size:14px">1&nbsp;<span style="font-family:宋体">入栈</span></span></p> </td><td> <p><span style="font-size:14px">&nbsp;1</span></p> </td><td> <p><span style="font-size:14px">&nbsp;</span></p> </td></tr><tr><td> <p><span style="font-size:14px">2</span></p> </td><td> <p><span style="font-size:14px">2<span style="font-family:宋体">入栈</span></span></p> </td><td> <p><span style="font-size:14px">&nbsp;1&nbsp;2</span></p> </td><td> <p><span style="font-size:14px">&nbsp;</span></p> </td></tr><tr><td> <p><span style="font-size:14px">3</span></p> </td><td> <p><span style="font-size:14px">3<span style="font-family:宋体">入栈</span></span></p> </td><td> <p><span style="font-size:14px">1&nbsp;2&nbsp;3</span></p> </td><td> <p><span style="font-size:14px">&nbsp;</span></p> </td></tr><tr><td> <p><span style="font-size:14px">4</span></p> </td><td> <p><span style="font-size:14px">4<span style="font-family:宋体">入栈</span></span></p> </td><td> <p><span style="font-size:14px">1&nbsp;2&nbsp;3&nbsp;4</span></p> </td><td> <p><span style="font-size:14px">此时栈顶元素等于出栈顺序的第一个，找到了，下一步就是要出栈该元素</span></p> </td></tr><tr><td> <p><span style="font-size:14px">5</span></p> </td><td> <p><span style="font-size:14px">4&nbsp;<span style="font-family:宋体">出栈</span></span></p> </td><td> <p><span style="font-size:14px">1&nbsp;2&nbsp;3</span></p> </td><td> <p><span style="font-size:14px">4&nbsp;<span style="font-family:宋体">出栈顺序往后移动，指向</span><span style="font-family:Arial">5&nbsp;</span></span></p> </td></tr><tr><td> <p><span style="font-size:14px">6</span></p> </td><td> <p><span style="font-size:14px">5<span style="font-family:宋体">入栈</span></span></p> </td><td> <p><span style="font-size:14px">1&nbsp;2&nbsp;3&nbsp;5</span></p> </td><td> <p><span style="font-size:14px">此时栈顶元素等于出栈顺序的第一个，找到了，下一步就是要出栈该元素</span></p> </td></tr><tr><td> <p><span style="font-size:14px">7</span></p> </td><td> <p><span style="font-size:14px">5<span style="font-family:宋体">出栈</span></span></p> </td><td> <p><span style="font-size:14px">1&nbsp;2&nbsp;3</span></p> </td><td> <p><span style="font-size:14px">4&nbsp;5&nbsp;<span style="font-family:宋体">出栈往后移动&nbsp;&nbsp;指向</span><span style="font-family:Arial">3</span></span></p> </td></tr><tr><td> <p><span style="font-size:14px">8</span></p> </td><td> <p><span style="font-size:14px">3<span style="font-family:宋体">出栈</span></span></p> </td><td> <p><span style="font-size:14px">1&nbsp;2&nbsp;</span></p> </td><td> <p><span style="font-size:14px">4&nbsp;5&nbsp;3<span style="font-family:宋体">因为栈顶元素等于&nbsp;出栈元素</span></span></p> </td></tr><tr><td> <p><span style="font-size:14px">9</span></p> </td><td> <p><span style="font-size:14px">2<span style="font-family:宋体">出栈</span></span></p> </td><td> <p><span style="font-size:14px">1</span></p> </td><td> <p><span style="font-size:14px">4&nbsp;5&nbsp;3&nbsp;2<span style="font-family:宋体">因为栈顶元素等于&nbsp;出栈元素</span></span></p> </td></tr><tr><td> <p><span style="font-size:14px">10</span></p> </td><td> <p><span style="font-size:14px">1<span style="font-family:宋体">出栈</span></span></p> </td><td> <p><span style="font-size:14px">&nbsp;</span></p> </td><td> <p><span style="font-size:14px">4&nbsp;5&nbsp;3&nbsp;2&nbsp;1<span style="font-family:宋体">出完了&nbsp;&nbsp;如果占为空&nbsp;且出栈序列中没有了其他就表示为</span><span style="font-family:Arial">true</span></span></p> </td></tr></tbody></table>
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/solution/mian-shi-ti-31-zhan-de-ya-ru-dan-chu-xu-lie-mo-n-2/)）
 
   ```python
   class Solution:
@@ -236,7 +250,7 @@
   [8, 7, 5]
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/solution/mian-shi-ti-06-cong-wei-dao-tou-da-yin-lian-biao-d/)）
 
   ```python
   # 版本一
@@ -278,7 +292,7 @@
           return result
   
   
-  # 版本三(递归)
+  # 版本三(递归:递归就是一栈，先进后出)
   class Sulution2:
   
       def PrintListFromTailToHead(self, listNode):

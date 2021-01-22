@@ -1,34 +1,36 @@
-class TreeNode:
-
-    def __init__(self, val):
-
-        self.val = val
-        self.left = None
-        self.right = None
-
-
 class Solution:
 
-    def HasSubTree(self, pRoot1, pRoot2):
+    def FindFristCommonNode(self, head1, head2):
 
-        if pRoot2 is None or pRoot1 is None:
+        if head1 is None or head2 is None:
             return None
-        return self.isSubTree(pRoot1, pRoot2)
 
-    def isSubTree(self, pRoot1, pRoot2):
+        p1 = head1
+        p2 = head2
 
-        if pRoot2 is None and pRoot1 is None:
-            return True
-        if pRoot1 is None:
-            return False
-        if pRoot2 is None:
-            return False
+        while p1!=p2:
+            p1 = head2 if p1 is None else p1.next
+            p2 = head1 if p2 is None else p2.next
 
-        if pRoot1.val == pRoot2.val:
-            if pRoot2.left is None and pRoot2.right is None:
-                return True
-            else:
-                if self.isSubTree(pRoot1.left, pRoot2.left) and self.isSubTree(pRoot1.right, pRoot2.right):
-                    return True
+        return p1
 
-        return self.isSubTree(pRoot1.left, pRoot2) or self.isSubTree(pRoot1.right, pRoot2)
+    def FindFristCommonNode1(self, phead1, phead2):
+
+        if phead1 is None or phead2 is None:
+            return None
+
+        stack1 = []
+        stack2 = []
+
+        while phead1:
+            stack1.append(phead1)
+            phead1 = phead1.next
+
+        while phead2:
+            stack2.append(phead2)
+            phead2 = phead2.next
+
+        while stack1 and stack2 and stack1[-1] == stack2[-1]:
+            res = stack1.pop()
+            stack2.pop()
+        return res

@@ -31,8 +31,7 @@ class Solution:
         if not pHead or pHead.next is None:
             return pHead
 
-        newHead = None
-        cur = pHead
+        newHead, cur = None, pHead
         while cur:
             tmp = cur.next
             cur.next = newHead

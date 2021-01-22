@@ -6,7 +6,9 @@
 # @Blog    ：https://blog.csdn.net/weixin_35154281
 """
 问题描述：
-１　１　２　３　５　８　... F(n) = F(n-1) + F(n-2)
+斐波那契数，通常用 F(n) 表示，形成的序列称为 斐波那契数列 。该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和
+０　１　１　２　３　５　８　... F(n) = F(n-1) + F(n-2)
+n > １
 """
 
 
@@ -16,8 +18,10 @@ class Solution:
         """递归算法(时间复杂度极高O(n)=２^n)"""
         if n == 0:
             return 0
+
         if n == 1 or n == 2:
             return 1
+
         if n > 2:
             return self.fibonacci(n - 1) + self.fibonacci(n - 2)
 

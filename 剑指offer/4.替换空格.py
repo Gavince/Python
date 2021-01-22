@@ -30,7 +30,7 @@ class Solution:
 
         return str
 
-    def replace_black1(self, str):
+    def replace_block1(self, str):
 
         new_str = []
 
@@ -41,7 +41,7 @@ class Solution:
                 new_str.append(str[i])
         return ''.join(new_str)
 
-    def replace_black2(self, str):
+    def replace_block2(self, str):
 
         if str is None:
             return None
@@ -75,6 +75,6 @@ class Solution:
 if __name__ == "__main__":
     obj = Solution()
     str1 = "Hello world   ! "
-    print(obj.replace_black(str1))
-    print(obj.replace_black1(str1))
-    print(obj.replace_black2(str1))
+    print(obj.replace_block(str1))
+    print(obj.replace_block1(str1))
+    print(obj.replace_block2(str1))

@@ -1,3 +1,7 @@
+# 剑指offer打卡-3
+
+[toc]
+
 ### 链表中倒数第k个结点
 
 - 问题描述
@@ -7,10 +11,13 @@
   输入一个链表，输出该链表中倒数第k个结点
   
   解决方案：
-  使用栈存储，先进后出。
+  方法1：使用栈存储，先进后出。
+  方法2：双指针(双指针相差k，先前指针走完时，正好后指针到指定结点)
   ```
 
-- 代码
+- 代码（[解题思路](![Picture0.png](https://pic.leetcode-cn.com/ab52aeb21d3ea0c2b2aaca94241413db5d060b88e950461953db64e36a89a435-Picture0.png))）
+
+- ![](./imgs/双指针.png)
 
   ```python
   class Solution:
@@ -33,6 +40,21 @@
               return node
           else:
               return None
+         
+      def FindKthToTail(self, head, k):
+          """双指针，两个指针之间相差k值"""
+  
+          former, latter = head, head
+          for _ in range(k):
+              if not former: return None
+              former = former.next
+  
+          while former:
+              former = former.next
+              latter = latter.next
+  
+          return latter
+  
   ```
 
 ### 链表的翻转（重点）
@@ -48,7 +70,9 @@
   2. 循环
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/problems/reverse-linked-list/solution/fan-zhuan-lian-biao-shuang-zhi-zhen-di-gui-yao-mo-/)）
+
+- ![](./imgs/链表翻转.gif)
 
   ```python
   class ListNode:
@@ -123,7 +147,7 @@
   2. 递归
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof/solution/mian-shi-ti-25-he-bing-liang-ge-pai-xu-de-lian-b-2/)）
 
   ```python
   class ListNode:
@@ -168,6 +192,22 @@
               temp.next = p2
   
           return newnode
+      
+   def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+  
+          phead, cur = ListNode(0), ListNode(0)
+          phead = cur
+  
+          while l1 and l2:
+              
+              if l1.val < l2.val:
+                  cur.next, l1 = l1, l1.next
+              else:
+                  cur.next, l2 = l2, l2.next
+              cur = cur.next
+          cur.next = l1 if l1 else l2
+          
+          return phead.nex
   ```
 
 ### 复杂链表的复制
@@ -182,12 +222,19 @@
   解决方案：
   A---  a***  --->B  ***>b
   A.next.random = a.random.next问题描述：
-  输入一个复杂链表（每个节点中有节点值，以及两个指针，**一个指向下一个节点，另一个特殊指针指向任意一个节点**），
-  返回结果为复制后复杂链表的head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空。
+  
   ```
 
-- 代码
+  实例：
 
+  ![实例](./imgs/复杂指针.png)
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/solution/jian-zhi-offer-35-fu-za-lian-biao-de-fu-zhi-ha-xi-/)）
+
+- 计算图示：
+
+   ![](imgs/复杂指针计算.png)
+  
   ```python
   class RandomListNode:
   
@@ -235,7 +282,7 @@
           return newHead
   ```
 
-### 两个链表的第一个公共结点
+### 两个链表的第一个公共结点（浪漫相遇）:heart:
 
 <img src="./imgs/14.png" style="zoom: 67%;" />
 
@@ -244,22 +291,23 @@
   ```python
   解决方案：
   1. 暴力搜索
-  不推荐
+  No Recommend
   2.使用栈从后向前找出第一个不相等的结点
   A:1 2 5 6
   公共结点---->10 11 55 88
   B:2 4 8 9
+  
   3. 交替遍历指针
   p1 -> --->......p1=p2
   p2 --> ---->......return p1
   实例：
-  a:1 2 3 4 
-  b:0 7 8 9 6 5 2
+  a:(1 2 3 4 ) 10 10 10
+  b:(0 7 8 9 6 5 2)  10 10 10
   c(公共部分): 10 10 10
   a + c + b = b + c + a
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/solution/shuang-zhi-zhen-fa-lang-man-xiang-yu-by-ml-zimingm/)）
 
   ```python
   class Solution:
@@ -305,7 +353,7 @@
               p1 = pHead2 if p1 is None else p1.next  # 遍历完p1结点遍历p2结点
               p2 = pHead1 if p2 is None else p2.next  # 遍历完p2结点遍历p1结点
               
-          return p
+          return p1
   ```
 
 ### 参考

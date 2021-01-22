@@ -30,7 +30,7 @@ class Solution:
                     return True
         return False
 
-    def find1(self, array, target):
+    def find_target_from_array(self, array, target):
         """T(O) = n"""
         nrows = len(array)
         ncols = len(array[0])
@@ -59,4 +59,4 @@ if __name__ == "__main__":
              [10, 11, 12, 13]]
     obj = Solution()
     print("Existing:", obj.find(Array, 100))
-    print("Existing:", obj.find1(Array, 0))
+    print("Existing:", obj.find_target_from_array(Array, 1000))

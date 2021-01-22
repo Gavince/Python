@@ -54,23 +54,23 @@ class Solution:
 
     def reorder1(self, li):
 
-        for i in range(len(li) - 1):
+        for i in range(len(array) - 1):
             flag = False
-            for j in range(len(li) - 1 - i):
-                if li[i] % 2 == 0 and li[i + 1] % 2 == 1:
-                    li[i], li[i + 1] = li[i + 1], li[i]
+            for j in range(len(array) - 1 - i):
+                if array[j] % 2 == 0 and array[j+1] % 2 == 1:
+                    # change position
+                    array[j], array[j+1] = array[j+1], array[j]
                     flag = True
             if flag is False:
                 break
-
-        return li
+        return array
 
 
 if __name__ == "__main__":
     obj = Solution()
     array = [1, 2, 9, 5, 6, 8, 7, 3, 12]
     print("原数据：", array)
-    print("排序： ", obj.sort1(array))
-    print("排序： ", obj.sort2(array))
-    print("排序： ", obj.reorder(array))
+    # print("排序： ", obj.sort1(array))
+    # print("排序： ", obj.sort2(array))
+    # print("排序： ", obj.reorder(array))
     print("排序： ", obj.reorder1(array))

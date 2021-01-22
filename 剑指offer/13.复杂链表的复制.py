@@ -27,39 +27,40 @@ class RandomListNode:
 
 class Solution:
 
-    def clone(self, pHead):
+    def clone(self, phead):
 
-        if pHead is None:
+        if phead is None:
             return None
 
-        # 复制一个新的node,插入到原有的node当中，实现次序的链接的指针
-        pTemp = pHead
-        while pTemp:
-            node = RandomListNode(pTemp.val)
-            node.next = pTemp.next
-            pTemp.next = node
-            pTemp = node.next  # 临时头结点向下移动
+        # 复制结点(插入结点的思想)
+        ptemp = phead
+        while ptemp:
+            node = RandomListNode(ptemp.val)
+            node.next = ptemp.next
+            ptemp.next = node
+            ptemp = node.next
 
-        # 对随机指针进行复制
-        pTemp = pHead
-        while pTemp:
-            if pTemp.random:
-                pTemp.next.random = pTemp.random.next
-            pTemp = pTemp.next.next
+        # 复制random指针
+        ptemp = phead
 
-        # 断开原来的链表
-        pTemp = pHead
-        newHead = pHead.next
-        pNewTemp = pHead.next
+        while ptemp:
+            if ptemp.random:
+                ptemp.next.random = ptemp.random.next
+            ptemp = ptemp.next.next
 
-        # 两个指针同时遍历，并连接自己的下一个结点
-        while pTemp:
-            pTemp.next = pTemp.next.next
-            if pNewTemp.next:
-                pNewTemp.next = pTemp.next.next
-                pNewTemp = pNewTemp.next
-            pTemp = pTemp.next
-        return newHead
+        #  分离拆解
+        ptemp = phead
+        newhead = phead.next
+        newtemphead = phead.next
+
+        while ptemp:
+            ptemp.next = ptemp.next.next
+            if newtemphead.next:
+                newtemphead.next = ptemp.next.next
+                newtemphead = newtemphead.next
+            ptemp = ptemp.next
+
+        return newhead
 
 if __name__ == '__main__':
     n1 = RandomListNode(1)

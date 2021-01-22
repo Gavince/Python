@@ -7,7 +7,7 @@
 
 """
 问题描述1：一只青蛙一次可以跳上1级台阶，也可以跳上2级。
-求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果
+求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果)
 解决方案：
 当n=0 0
 n=1 1
@@ -48,33 +48,40 @@ class Solution:
 
     def jump_floor1(self, n: int):
 
-        if n == 0 or n == 1 or n == 2:
-            return n
-
-        if n > 2:
-            a = 2
-            b = 1
-            ret = 0
-            for i in range(3, n + 1):
-                ret = a + b
-                b = a
-                a = ret
-
-        return ret
-
-    def jump_floor2(self, n: int):
-
+        """
+        跳台阶
+        :param n:台阶数目
+        :return: 不同的跳台阶次数
+        """
         if n == 0 or n == 1:
             return n
 
-        if n > 2:
-            max_val = 1
-            temp = 1
-            for i in range(2, n + 1):
-                temp = 2 * max_val
-                max_val = temp
+        if n > 1:
+            max_value = 1
+            min_value = 0
+            for i in range(2, n+1):
+                ret = max_value + min_value
+                min_value = max_value
+                max_value = ret
 
-        return temp
+            return ret
+
+    def jump_floor2(self, n: int):
+        """
+        青蛙可以一次跳多级台阶
+        :param n: 台阶数目
+        :return: 可调方式数目
+        """
+        if n == 0 or n == 1:
+            return n
+
+        if n > 1:
+            max_val = 1
+            for i in range(2, n+1):
+                temp_val = max_val*2
+                max_val = temp_val
+
+            return max_val
 
     def jump_floor3(self, n: int):
 

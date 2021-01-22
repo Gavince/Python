@@ -31,30 +31,32 @@ class Solution:
             else:
                 return array[i]
 
-    def find_num(self, RotateArray):
+    def find_min_insert(self, number):
+        """"使用内置函数"""
 
-        # 条件1：数组大小为空，返回0
+        if not number:
+            return None
+
+        return min(number)
+
+    def find_min(self, RotateArray):
+
         if not RotateArray:
-            return 0
-
-        if len(RotateArray) == 1:
-            return RotateArray[0]
+            return None
 
         left = 0
         right = len(RotateArray) - 1
 
-        while left <= right:
-            middle = (right + left) // 2
-            # 真值比左面小，则表示找到相应的数值
-            if RotateArray[middle] < RotateArray[middle - 1]:
-                return RotateArray[middle]
-            # 中值小于右面, 其值在左面
-            elif RotateArray[middle] < RotateArray[right]:
-                right = middle - 1
+        while left < right:
+            mid = (left + right) // 2
+            if RotateArray[mid] > RotateArray[right]:  # 存在循环有序数列
+                left = mid + 1
+            elif RotateArray[mid] == RotateArray[right]:
+                right = right -1
             else:
-                left = middle + 1
+                right = mid
 
-        return 0
+        return RotateArray[left]
 
 
 if __name__ == "__main__":
@@ -63,11 +65,11 @@ if __name__ == "__main__":
     Rl2 = [3, 4, 5, 1, 2]
     Rl3 = [4, 5, 1, 2, 3]
     Rl4 = [5, 1, 2, 3, 4]
-    print(obj.find_num(Rl1), end=" ")
-    print(obj.find_num(Rl2), end=" ")
-    print(obj.find_num(Rl3), end=" ")
-    print(obj.find_num(Rl4), end=" ")
-    print(obj.find_num([5, 2, 4]), end=" ")
-    print(obj.find_num([5, 1]), end=" ")
-    print(obj.find_num([5]), end=" ")
-    print(obj.find_num([4, 5, 5, 1, 1, 2, 3]), end=" ")
+    print(obj.find_min(Rl1), end=" ")
+    print(obj.find_min(Rl2), end=" ")
+    print(obj.find_min(Rl3), end=" ")
+    print(obj.find_min(Rl4), end=" ")
+    print(obj.find_min([5, 2, 4]), end=" ")
+    print(obj.find_min([5, 5]), end=" ")
+    print(obj.find_min([5]), end=" ")
+    print(obj.find_min([4, 5, 5, 1, 1, 2, 3]), end=" ")

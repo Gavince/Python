@@ -13,8 +13,10 @@
 弹出序列。（注意：这两个序列的长度是相等的）
 
 解决方案：
-使用栈来作为临时的变换
-Eg:
+我们可以按以下顺序执行：
+push(1), push(2), push(3), push(4), pop() -> 4,
+push(5), pop() -> 5, pop() -> 3, pop() -> 2, pop() -> 1
+
 1 2 3 4 5
 4 5 3 2 1(可行)
 """
@@ -27,13 +29,12 @@ def find_pop(push_value, pop_value):
     :return: 弹出序列是否可行
     """
 
-    # 1. 是否为有效序列
-    if not push_value or len(push_value) != len(pop_value):
+    if not push_value and len(push_value) != len(pop_value):
         return None
 
-    # 2. 判断弹出序列的可行性
-    stack = []
+    stack = []  # 使用一个栈来模拟栈的输出
     index = 0
+
     for item in push_value:
         stack.append(item)
         while stack and stack[-1] == pop_value[index]:
