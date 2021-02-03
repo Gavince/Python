@@ -1,36 +1,24 @@
+import heapq
+
+
 class Solution:
 
-    def FindFristCommonNode(self, head1, head2):
+    def getLeastNumbers(self, arr, k):
 
-        if head1 is None or head2 is None:
-            return None
+        if not arr:
+            return list()
 
-        p1 = head1
-        p2 = head2
+        # 构建最大堆
+        hp = [-x for x in arr[:k]]
 
-        while p1!=p2:
-            p1 = head2 if p1 is None else p1.next
-            p2 = head1 if p2 is None else p2.next
+        heapq.heapify(hp)
+        for i in range(k, len(arr)):
+            if -hp[0] > arr[i]:
+                heapq.heappop(hp)
+                heapq.heappush(hp, -arr[i])
+        ans = [-x for x in hp]
 
-        return p1
+        return ans
 
-    def FindFristCommonNode1(self, phead1, phead2):
 
-        if phead1 is None or phead2 is None:
-            return None
-
-        stack1 = []
-        stack2 = []
-
-        while phead1:
-            stack1.append(phead1)
-            phead1 = phead1.next
-
-        while phead2:
-            stack2.append(phead2)
-            phead2 = phead2.next
-
-        while stack1 and stack2 and stack1[-1] == stack2[-1]:
-            res = stack1.pop()
-            stack2.pop()
-        return res
+print(Solution().getLeastNumbers([3, 2, 1], 2))

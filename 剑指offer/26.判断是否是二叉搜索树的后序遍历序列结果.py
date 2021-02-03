@@ -15,34 +15,37 @@
 """
 
 
-class Solution:
+class Solution(object):
+    def verifyPostorder(self, postorder):
+        """
+        :type postorder: List[int]
+        :rtype: bool
+        """
+        if not postorder:
+            return True
 
-    def VerifySquenceOfBST(self, squence):
-        if len(squence) == 0:
-            return False
-
-        root = squence.pop()
-        lefttree = []
-        righttree = []
-
-        for i in range(len(squence)):
-            if squence[i] < root:
-                lefttree.append(squence[i])
-            else:
-                break
-        for i in range(len(lefttree), len(squence) - 1):
-            if squence[i] <= root:
-                return False
-            righttree.append(squence[i])
-
-        # 叶子结点
-        if len(lefttree) <= 1:
+        def isTree(postorder):
+            """"递归循环测试"""
+            root = postorder[-1]
+            length = len(postorder)
+            # 是否吗满足条件：左小有大对于根
+            for i in range(length):
+                if postorder[i] > root:
+                    break
+            # 右子树
+            for j in range(i, length - 1):
+                if postorder[j] < root:
+                    return False
             left = True
-        else:
-            left = self.VerifySquenceOfBST(lefttree)
-        if len(righttree) <= 1:
+            if i > 0:
+                left = isTree(postorder[:i])
             right = True
-        else:
-            right = self.VerifySquenceOfBST(righttree)
+            if i < length - 1:
+                right = isTree(postorder[i:length - 1])
+            return left and right
 
-        return left and right
+        return isTree(postorder)
+
+
+if __name__ == "__main__":
+    print(Solution().verifyPostorder([]))

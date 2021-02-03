@@ -1,167 +1,88 @@
-### 二叉树中和为某一值的路径
+# Python 剑指offer打卡-5
+
+[toc]
+
+##　求第n个丑数
 
 - 问题描述
 
-  ```python
-  问题描述：
-  输入一颗二叉树的根节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树
-  的根结点开始往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的list中，数组长度大的数
-  组靠前).
+  ```
+  把只包含质因子2、3和5的数称作丑数（Ugly Number）。例如6、8都是丑数，但14不是，因为它包含质因子7。
+  习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。（1也是丑数）
   
-  解决方案：
-  递归
+  说明：
+  首先从丑数的定义我们知道，一个丑数的因子只有2,3,5，那么丑数p = 2 ^ x * 3 ^ y * 5 ^ z，
+  换句话说一个丑数一定由另一个丑数乘以2或者乘以3或者乘以5得到，那么我们从1开始乘以2,3,5，
+  就得到2,3,5三个丑数，在从这三个丑数出发乘以2,3,5就得到4，6,10,6，9,15,10,15,25九个丑数，
+  我们发现这种方法会得到重复的丑数，而且我们题目要求第N个丑数，这样的方法得到的丑数也是无序
+  nums2 = {1*2, 2*2, 3*2, 4*2, 5*2, 6*2, 8*2...}
+  nums3 = {1*3, 2*3, 3*3, 4*3, 5*3, 6*3, 8*3...}
+  nums5 = {1*5, 2*5, 3*5, 4*5, 5*5, 6*5, 8*5...}
   ```
 
 - 代码
 
+  图解
+
+  ![](./imgs/丑数.png)
+
   ```python
   class Solution:
-  
-      def FindPath(self, root, expectNumber):
-  
-          if root is None:
-              return []
-  
-          res = []
-          if root.val == expectNumber and root.left is None and root.right is None:
-              res.append(root.val)
-  
-          left = self.FindPath(root.left, expectNumber - root.val)
-          right = self.FindPath(root.right, expectNumber - root.val)
-          for path in left + right:
-              # 向上添加路径
-              res.append([root.val] + path)
-  
-          return res
+      
+      def GetUglyNumber(self, index: int) -> int:
+          """动态调整位置"""
+          
+          # 初始化
+          
+          if index == 0:
+              return 0
+          
+          # 有序丑数数组
+          res = [1]
+          n2, n3, n5 = 0, 0, 0
+          i = 0
+          while i < index:
+              min_val = min(res[n2] * 2, res[n3] * 3, res[n5] * 5)
+              res.append(min_val)
+              
+              if min_val == res[n2]*2:
+                  n2 += 1
+              if min_val == res[n3]*3:
+                  n3 += 1
+              if min_val == res[n5]*5:
+                  n5 += 1
+              i += 1
+              
+          return res[i - 1]
   ```
 
-
-### 判断是否是二叉搜索树的后序遍历序列结果
+## 只出现一次的数字
 
 - 问题描述
 
-  ```python
-  问题描述：
-  输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,
-  否则输出No。假设输入的数组的任意两个数字都互不相同。
+  ```
+  1. 交换律：a ^ b ^ c <=> a ^ c ^ b
+  2. 任何数于0异或为任何数 0 ^ n => n
+  3. 相同的数异或为0: n ^ n => 0
   
-  解决方案：
-  BST:整体上应该保证结点数值右大左小
-  递归
+  var a = [2,3,2,4,4]
+  
+  2 ^ 3 ^ 2 ^ 4 ^ 4等价于 2 ^ 2 ^ 4 ^ 4 ^ 3 => 0 ^ 0 ^3 => 3
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/problems/single-number/comments/)）
 
   ```python
   class Solution:
-  
-      def VerifySquenceOfBST(self, squence):
-          if len(squence) == 0:
-              return False
-  
-          root = squence.pop()
-          lefttree = []
-          righttree = []
-  
-          for i in range(len(squence)):
-              if squence[i] < root:
-                  lefttree.append(squence[i])
-              else:
-                  break
-          for i in range(len(lefttree), len(squence) - 1):
-              if squence[i] <= root:  # 表示右子树的结点值小于其对应根结点,不满足BST原则
-                  return False
-              righttree.append(squence[i])
-  
-          # 叶子结点
-          if len(lefttree) <= 1:
-              left = True
-          else:
-              left = self.VerifySquenceOfBST(lefttree)
-          if len(righttree) <= 1:
-              right = True
-          else:
-              right = self.VerifySquenceOfBST(righttree)
-  
-          return left and right
+      def singleNumber(self, nums) -> int:
+          a = 0
+          for num in nums:
+              a = a ^ num
+          return a
   ```
 
-### 从上往下打印二叉树 二叉树的广度遍历
 
-- 问题描述
-
-  ```python
-  问题描述：
-  从上往下打印出二叉树的每个节点，同层节点从左至右打印
-  
-  解决方案：
-  简单的层序遍历
-  ```
-
-- 代码
-
-  ```python
-  class TreeNode:
-  
-      def __init__(self, val):
-  
-          self.val = val
-          self.left = None
-          self.right = None
-  
-  
-  class Solution:
-  
-      def __init__(self):
-          self.root = None
-  
-      def add_node(self, val):
-  
-          node = TreeNode(val)
-          if self.root is None:
-              self.root = node
-              return
-          queue = [self.root]
-          while queue:
-              temp_node = queue.pop(0)
-              if temp_node.left is None:
-                  temp_node.left = node
-                  return
-              else:
-                  queue.append(temp_node.left)
-              if temp_node.right is None:
-                  temp_node.right = node
-                  return
-              else:
-                  queue.append(temp_node.right)
-  
-          return
-  
-      def PrintFromTopToBottom(self, root):
-  
-          if root is None:
-              return None
-          queue = [root]
-          ret = []
-          while queue:
-              temp_node = queue.pop(0)
-              ret.append(temp_node.val)
-              if temp_node.left:
-                  queue.append(temp_node.left)
-              if temp_node.right:
-                  queue.append(temp_node.right)
-          return ret
-  
-  
-  if __name__ == "__main__":
-      obj = Solution()
-      for i in range(1, 9):
-          obj.add_node(i)
-      # print(obj.PrintFromTopToBottom(obj.root))  # [1, 2, 3, 4, 5, 6, 7, 8]
-      print(obj.FindPath(obj.root, 15))
-  ```
-
-### 二叉树的镜像
+## 二叉树的镜像
 
 - 问题描述
 
@@ -172,6 +93,7 @@
   解决方案：
   
   源二叉树：
+  方法：递归
   　　８
   　６　10
   5    7    9     11
@@ -184,31 +106,26 @@
 - 代码
 
   ```python
-  class TreeNode:
-  
-      def __init__(self, val):
-          self.val = val
-          self.left = None
-          self.right = None
-  
+   class TreeNode:
+       def __init__(self, x):
+           self.val = x
+           self.left = None
+           self.right = None
   
   class Solution:
+      def mirrorTree(self, root: TreeNode) -> TreeNode:
   
-      def Mirror(self, root):
-          if root is None:
+          if not root:
               return None
-          if root.left is None and root.right is None:
-              return root
-          
-          # 左右互换
+  
           root.left, root.right = root.right, root.left
-          self.Mirror(root.left)
-          self.Mirror(root.right)
+          self.mirrorTree(root.left)
+          self.mirrorTree(root.right)
   
           return root
   ```
 
-### 重建二叉树
+## 重建二叉树
 
 - 问题描述
 
@@ -223,8 +140,12 @@
   递归
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/solution/mian-shi-ti-07-zhong-jian-er-cha-shu-di-gui-fa-qin/)）
 
+  图解
+  
+  ![](./imgs/重建二叉树.png)
+  
   ```python
   class TreeNode:
   
@@ -235,37 +156,7 @@
   
   
   class Solution:
-  
-      def reConstructBinaryTree(self, pre, tin):
-          """
-          :param pre: 前序遍历结果
-          :param tin: 中序遍历结果
-          :return:
-          """
-  
-          if not pre or not tin:
-              return None
-          if len(pre) is not len(tin):
-              return None
-  
-          # 根节点为前序遍历的第一个值
-          val = pre[0]
-          root = TreeNode(val)
-          pos = tin.index(val)
-          tin_left = tin[:pos]
-          tin_right = tin[pos + 1:]
-  
-          pre_left = pre[1:pos + 1]
-          pre_right = pre[pos + 1:]
-  
-          # 递归遍历
-          left_node = self.reConstructBinaryTree(pre_left, tin_left)
-          right_node = self.reConstructBinaryTree(pre_right, tin_right)
-          root.left = left_node
-          root.right = right_node
-  
-          return root
-  
+      
       def reConstructBinaryTree1(self, pre, tin):
   
           if len(pre) == 0:
@@ -281,7 +172,7 @@
           return root
   ```
 
-### 二叉树的子结构
+## 二叉树的子结构
 
 - 问题描述
 
@@ -296,7 +187,7 @@
   ③如果B.val != A.val 则遍历Ａ结点的子节点和B进行比较，找到相同结点后，转②，否则return False
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/solution/mian-shi-ti-26-shu-de-zi-jie-gou-xian-xu-bian-li-p/)）
 
   ```python
   class TreeNode:
@@ -306,34 +197,28 @@
           self.left = None
           self.right = None
   class Solution:
-      def HasSubTree(self, pRoot1, pRoot2):
+      def isSubstructure(self, A, B):
   
-          if pRoot1 is None or pRoot2 is None:
+          # A,B 不都为空
+          if not A or not B:
               return False
-          return self.isSubTree(pRoot1, pRoot2)
   
-      def isSubTree(self, pRoot1, pRoot2):
-          if pRoot1 is None and pRoot2 is None:
+          # 先序遍历，寻找子结构
+          return self.isInclude(A, B) or self.isSubstructure(A.left, B) or self.isSubstructure(A.right, B)
+  
+      def isInclude(self, A, B):
+  
+          # B优先遍历完，且为子结构
+          if not B:
               return True
-  
-          if pRoot1 is None:
+          #　A优先遍历完，且不存在子结构
+          if not A or A.val != B.val:
               return False
-          if pRoot2 is None:
-              return False
-  
-          if pRoot1.val == pRoot2.val:
-              if pRoot2.left is None and pRoot2.right is None:  # 此时pRoot2无子节点
-                  return True
-              else:
-                  if self.isSubTree(pRoot1.left, pRoot2.left) and self.isSubTree(pRoot1.right, pRoot2.right):
-                      return True
-  
-          # A,B树原始根结点不相同
-          return self.isSubTree(pRoot1.left, pRoot2) or self.isSubTree(pRoot1.right, pRoot2)
-  
+          # 递归寻找匹配
+          return self.isInclude(A.left, B.left) and self.isInclude(A.right, B.right)
   ```
 
-### 参考
+## 参考
 
 [VISUALIZE CODE EXECUTION](http://www.pythontutor.com/)
 

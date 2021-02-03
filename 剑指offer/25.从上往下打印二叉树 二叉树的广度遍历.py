@@ -13,6 +13,7 @@
 解决方案：
 简单的层序遍历
 """
+from typing import List
 
 
 class TreeNode:
@@ -51,10 +52,10 @@ class Solution:
 
         return
 
-    def PrintFromTopToBottom(self, root):
+    def PrintFromTopToBottom(self, root) -> List[int]:
 
         if root is None:
-            return None
+            return []
         queue = [root]
         ret = []
         while queue:

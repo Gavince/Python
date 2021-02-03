@@ -26,7 +26,7 @@ class Solution:
 
         res = []
         if root.val == expectNumber and root.left is None and root.right is None:
-            res.append(root.val)
+            res.append([root.val])
 
         left = self.FindPath(root.left, expectNumber - root.val)
         right = self.FindPath(root.right, expectNumber - root.val)

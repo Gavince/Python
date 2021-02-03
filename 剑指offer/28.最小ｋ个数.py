@@ -24,31 +24,18 @@ import heapq  # 默认构建最小堆，即父节点的值大于其任意子节�
 
 class Solution:
 
-    def GetLeastNumbers_Solution(self, tinput, k):
+    def getLeastNumbers(self, arr, k):
 
-        maxhead = []
-        if k <= 0 or len(tinput) < k or tinput == []:
-            return []
+        if k == 0:
+            return list()
+        # 默认最大堆
+        hp = [-x for x in arr[:k]]
+        heapq.heapify(hp)
+        for i in range(k, len(arr)):
+            if -hp[0] > arr[i]:
+                heapq.heappop(hp)
+                heapq.heappush(hp, -arr[i])
+        ans = [-x for x in hp]
+        return ans
 
-        # 　构建堆
-        for i in range(k):
-            heapq.heappush(maxhead, -tinput[i])
-
-        for i in range(k, len(tinput)):
-            if maxhead[0] > -tinput[i]:  # 当输入元素小于堆的最小元素时，则不进行堆内添加,以维持k值最小，如:-8 < -4
-                continue
-            else:
-                heapq.heappushpop(maxhead, -tinput[i])
-
-        result = []
-
-        for i in range(k):
-            result.insert(0, -heapq.heappop(maxhead))
-
-        return result
-
-
-if __name__ == "__main__":
-    obj = Solution()
-    li = [4, 5, 1, 6, 2, 7, 3, 8]
-    print(obj.GetLeastNumbers_Solution(li, 4))
+print(Solution().getLeastNumbers([3, 2, 1], 2))

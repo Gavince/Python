@@ -36,9 +36,6 @@ class Solution:
     def Mirror(self, root):
         if root is None:
             return None
-        if root.left is None and root.right is None:
-            return root
-
         # 左右互换
         root.left, root.right = root.right, root.left
         self.Mirror(root.left)

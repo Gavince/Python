@@ -14,8 +14,6 @@
 A.left.val == B.left.val 和 A.right.val == B.right.val
 ③如果B.val != A.val 则遍历Ａ结点的子节点和B进行比较，找到相同结点后，转②，否则return False
 """
-
-
 class TreeNode:
 
     def __init__(self, val):
@@ -26,6 +24,7 @@ class TreeNode:
 
 class Solution:
 
+    # 方法一
     def HasSubtree(self, pRoot1, pRoot2):
 
         if pRoot1 is None or pRoot2 is None:
@@ -58,7 +57,19 @@ class Solution:
                 return True
         ret = self.HasSubtree(pRoot1.left, pRoot2)
         if ret:
-            return True
+            if k == 0:
+            return list()
+        # 默认最大堆
+        hp = [-x for x in arr[:k]]
+        heapq.heapify(hp)
+        for i in range(k, len(arr)):
+            if -hp[0] > arr[i]:
+                heapq.heappop(hp)
+                heapq.heappush(hp, -arr[i])
+        ans = [-x for x in hp]
+        return ans
+
+Solution().getLeastNumbers([3, 2, 1], 2)        return True
         ret = has_equal(pRoot1.right, pRoot2)
 
         return ret
@@ -87,3 +98,24 @@ class Solution:
 
         # A,B树原始根结点不相同
         return self.isSubTree(pRoot1.left, pRoot2) or self.isSubTree(pRoot1.right, pRoot2)
+
+    # 方法二
+    def isSubstructure(self, A, B):
+
+        # A,B 不都为空
+        if not A or not B:
+            return False
+
+        # 先序遍历，寻找子结构
+        return self.isInclude(A, B) or self.isInclude(A.left, B) or self.isInclude(A.right, B)
+
+    def isInclude(self, A, B):
+
+        # B优先遍历完，且为子结构
+        if not B:
+            return True
+        #　A优先遍历完，且不存在子结构
+        if not A or A.val != B.val:
+            return False
+        # 递归寻找匹配
+        return self.isInclude(A.left, B.left) and self.isInclude(A.right, B.right)
