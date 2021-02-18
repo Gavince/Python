@@ -176,8 +176,55 @@
           return arr[:k]
   ```
 
+## 数据流中的中位数
+
+- 问题描述
+
+  ```
+  问题描述：
+  中位数是有序列表中间的数。如果列表长度是偶数，中位数则是中间两个数的平均值。
   
+  例如，
+  
+  [2,3,4] 的中位数是 3
+  
+  [2,3] 的中位数是 (2 + 3) / 2 = 2.5
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/find-median-from-data-stream/solution/tu-jie-pai-xu-er-fen-cha-zhao-you-xian-dui-lie-by-/)）
+
+  ```python
+  import heapq
+  
+  
+  class Solution:
+  
+      def __init__(self):
+          """初始化最大最小堆"""
+  
+          self.max_heap = []
+          self.min_heap = []
+  
+      def addNum(self, num: int) -> None:
+          """添加元素"""
+  
+          # 相等保证最小堆个数大于等于最大堆（最大相差一个）
+          # 最大堆－>最小堆　　—>最大堆
+          if len(self.max_heap) == len(self.min_heap):
+              heapq.heappush(self.min_heap, -heapq.heappushpop(self.max_heap, -num))
+          else:
+              heapq.heappush(self.max_heap, -heapq.heappushpop(self.min_heap, num))
+  
+      def findMedian(self) -> float:
+          if len(self.min_heap) == len(self.max_heap):
+              return (-self.max_heap[0] + self.min_heap[0]) / 2
+          else:
+              return self.min_heap[0]
+  ```
+
 
 ## 参考
 
 [heapq库的简单使用](https://blog.csdn.net/jamfiy/article/details/88185512)
+
+[数据结构与算法(4)——优先队列和堆](https://zhuanlan.zhihu.com/p/39615266)

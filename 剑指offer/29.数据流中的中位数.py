@@ -13,7 +13,36 @@
 均值。我们使用Insert()方法读取数据流，使用GetMedian()方法获取当前读取数据的中位数.
 
 """
+import heapq
 
 
 class Solution:
-    pass
+
+    def __init__(self):
+        """初始化最大最小堆"""
+
+        self.max_heap = []
+        self.min_heap = []
+
+    def addNum(self, num: int) -> None:
+        """添加元素"""
+
+        # 相等保证最小堆个数大于最大堆
+        # 最大堆－>最小堆　　—>最大堆
+        if len(self.max_heap) == len(self.min_heap):
+            heapq.heappush(self.min_heap, -heapq.heappushpop(self.max_heap, -num))
+        else:
+            heapq.heappush(self.max_heap, -heapq.heappushpop(self.min_heap, num))
+
+    def findMedian(self) -> float:
+        if len(self.min_heap) == len(self.max_heap):
+            return (-self.max_heap[0] + self.min_heap[0]) / 2
+        else:
+            return self.min_heap[0]
+
+
+if __name__ == "__main__":
+    obj = Solution()
+    obj.addNum(2)
+    obj.addNum(3)
+    print(obj.findMedian())

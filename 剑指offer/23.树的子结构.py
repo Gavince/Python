@@ -51,28 +51,16 @@ class Solution:
 
             return False
 
-        if pRoot1.val == pRoot2.val:
-            ret = has_equal(pRoot1, pRoot2)
+            if pRoot1.val == pRoot2.val:
+                ret = has_equal(pRoot1, pRoot2)
+                if ret:
+                    return True
+            ret = self.HasSubtree(pRoot1.left, pRoot2)
             if ret:
                 return True
-        ret = self.HasSubtree(pRoot1.left, pRoot2)
-        if ret:
-            if k == 0:
-            return list()
-        # 默认最大堆
-        hp = [-x for x in arr[:k]]
-        heapq.heapify(hp)
-        for i in range(k, len(arr)):
-            if -hp[0] > arr[i]:
-                heapq.heappop(hp)
-                heapq.heappush(hp, -arr[i])
-        ans = [-x for x in hp]
-        return ans
+            ret = has_equal(pRoot1.right, pRoot2)
 
-Solution().getLeastNumbers([3, 2, 1], 2)        return True
-        ret = has_equal(pRoot1.right, pRoot2)
-
-        return ret
+            return ret
 
     def HasSubTree(self, pRoot1, pRoot2):
 
