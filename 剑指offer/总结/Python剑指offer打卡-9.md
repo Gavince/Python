@@ -116,8 +116,84 @@
 ## 正则表达式匹配
 
 - 问题描述
+
+  ```
+  问题描述：
+  请实现一个函数用来匹配包含'. '和'*'的正则表达式。模式中的字符'.'表示任意一个字符，而'*'表示它前面的字符可以出现任意次（含0次）。在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串"aaa"与模式"a.a"和"ab*ac*a"匹配，但与"aa.a"和"ab*a"均不匹配。
+  解题方法：
+  1.回朔法
+  2.动态规划法
+  ```
+
 - 代码（[解题思路](https://leetcode-cn.com/problems/zheng-ze-biao-da-shi-pi-pei-lcof/)）
 
+  ```python
+class Solution:
   
+      def isMathch(self, s: str, p: str) -> bool:
+  	"""回朔法"""
+          if not p: return not s
+          # 首字符匹配
+          first_match = bool(s and p[0] in {s[0], "."})
+  
+          # 如果第二个字符为"*"，则分为“*”字符前字符出现零次或一次以上两种情况
+          if len(p)>=2 and p[1] == "*":
+              return self.isMathch(s, p[2:]) \
+                     or first_match and self.isMathch(s[1:], p)
+          else:
+              return first_match and self.isMathch(s[1:], p[1:])
+  ```
+## 表示数值的字符串
+
+- 问题描述
+
+  ```
+  问题描述：
+  请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。例如，字符串"+100"、"5e2"、"-123"、"3.1416"、"-1E-16"、"0123"都表示数值，但"12e"、"1a3.14"、"1.2.3"、"+-5"及"12e+5.4"都不是。
+  
+  解题方法：
+  有限自动机，构建状态转移表。
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/biao-shi-shu-zhi-de-zi-fu-chuan-lcof/solution/mian-shi-ti-20-biao-shi-shu-zhi-de-zi-fu-chuan-y-2/)）
+
+  状态转移表
+
+  ![](./imgs/状态转移表.png)
+
+  ```python
+  class Solution:
+      
+      def isNumber(self, s: str) -> bool:
+  
+              # 状态转移表
+              states = [
+                  {" ": 0, ".": 4, "s": 1, "d": 2},
+                  {"d": 2, ".": 4},
+                  {"d": 2, ".": 3, "e": 5, " ": 8},
+                  {"d": 3, "e":5, " ": 8}, 
+                  {"d": 3},
+                  {"d": 7, "s": 6},
+                  {"d": 7},
+                  {"d": 7, " ": 8},
+                  {" ": 8}
+              ]
+  
+              # 起始状态
+              p = 0
+              for c in s:
+                  if "0" <= c <= "9": t="d"
+                  elif c in "+-": t="s"
+                  elif c in ". ": t=c # 注意存在blank
+                  elif c in "eE": t="e"
+                  else: t="?"
+  
+                  # 转态跳转
+                  if t not states[p]: return False
+                  p = states[p][t]
+  
+              # 终止状态
+              return p in (2, 3, 7, 8)
+  ```
 
   
