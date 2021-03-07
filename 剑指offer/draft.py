@@ -1,23 +1,21 @@
+import collections
+from typing import List
+
+
 class Solution:
 
-    def findRepeatNumber(self, nums: [int]) -> int:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
 
-        dic = set()
+        deque = collections.deque()
+        res, n = [], len(nums)
 
-        for num in nums:
-            if num in dic: return num
-            dic.add(num)
+        # bianlishuzu
+        for i, j in zip(range(1 - k, n - k + 1), range(n)):
+            if i > 0 and deque[0] == nums[i - 1]: deque.popleft()
+            while deque and deque[-1] < nums[j]: deque.pop()
 
-        return -1
+            deque.append(nums[j])
 
-    def findRepeatNumber1(self, nums: [int]) -> int:
-
-        i = 0
-
-        while i < len(nums):
-            if nums[i] == i:
-                i += 1
-                continue
-            if nums[nums[i]] == nums[i]: return nums[i]
-            nums[nums[i]], nums[i] = nums[i], nums[nums[i]]
-        return -1
+            if i >= 0:
+                res.append(deque[0])
+        return res

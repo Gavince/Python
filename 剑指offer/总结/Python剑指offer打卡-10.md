@@ -1,0 +1,259 @@
+# Python剑指offer打卡-10
+
+[toc]
+
+## 字符流中第一个不重复的字符
+
+- 问题描述
+
+  ```
+  问题描述：
+  在字符串 s 中找出第一个只出现一次的字符。如果没有，返回一个单空格。 s 只包含小写字母。
+  如：
+  s = "abaccdeff"
+  返回 "b"
+  
+  s = ""
+  返回 " "
+  
+  解题方法：
+  1.哈希表
+  字典
+  2.有序哈希表
+  ```
+
+- 代码
+
+  ```python
+  class Solution:
+  
+      def firstUniqueChar(self, s: str) -> bool:
+  
+          dic = {}
+          for c in s:
+              # 重复出现，value值为False
+              dic[c] = not c in dic
+              
+          # 查询(新版本的字典是有序字典，顺序遍历)
+          for k, v in dic.items():
+              if v: return k
+  
+          return " "
+  ```
+
+## 滑动窗口最大值
+
+- 问题描述
+
+  ```
+  问题描述：
+  给你一个整数数组 nums，有一个大小为k的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的k个数字。滑动窗口每次只向右移动一位。返回滑动窗口中的最大值。
+  
+  如：
+  输入：nums = [1,3,-1,-3,5,3,6,7], k = 3
+  输出：[3,3,5,5,6,7]
+  解释：
+  滑动窗口的位置                最大值
+  ---------------               -----
+  [1  3  -1] -3  5  3  6  7       3
+   1 [3  -1  -3] 5  3  6  7       3
+   1  3 [-1  -3  5] 3  6  7       5
+   1  3  -1 [-3  5  3] 6  7       5
+   1  3  -1  -3 [5  3  6] 7       6
+   1  3  -1  -3  5 [3  6  7]      7
+   
+   解题方法：
+  单调队列：只需要维护有可能成为窗口里最大值的元素就可以了，同时保证队里里的元素数值是由大到小的。
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/solution/mian-shi-ti-59-i-hua-dong-chuang-kou-de-zui-da-1-6/)）
+
+  ```python
+  import collections
+  
+  class Solution:
+      
+      def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+  
+          deque = collections.deque()
+          res, n = [], len(nums)
+  
+          # 遍历窗口
+          for i, j in zip(range(1-k, n-k+1), range(n)):
+  
+              # 左删除
+              if i > 0 and deque[0] == nums[i - 1]: deque.popleft()
+              # 右添加,单调递减
+              while deque and deque[-1] < nums[j]: deque.pop()
+  	  # 队列头部元素最大
+              deque.append(nums[j])
+  
+              if i >= 0:
+                  res.append(deque[0])
+                  
+          return res 
+  ```
+
+
+## 数值的整数次方
+
+- 问题描述
+
+  ```
+  问题描述：
+  实现函数double Power(double base, int exponent)，求base的exponent次方。不得使用库函数，同时不需要考虑大数问题。
+  
+  解题方法：
+  快速幂解析
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/solution/mian-shi-ti-16-shu-zhi-de-zheng-shu-ci-fang-kuai-s/)）
+
+  ```python
+  class Solution:
+  
+      def myPow(self, x: float, n: int) -> float:
+  
+          if x == 0: return 0
+          res = 1  # 存储计算数
+  
+          # 负数变为正数计算
+          if n < 0: x,  n = 1/x,  -n
+          while n:
+              if n&1: res *= x  # 等价n%2
+              x *= x
+              n >>= 1  # 等价ｎ//2
+  
+          return res
+  ```
+
+## 顺时针打印矩阵
+
+- 问题描述
+
+  ```
+  问题描述：
+  输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。
+  实例：
+  输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+  输出：[1,2,3,4,8,12,11,10,9,5,6,7]
+  
+  
+  解题方法：
+  方法1:
+  zip使用旋转矩阵
+   ma
+  [[4, 5, 6], [7, 8, 9]]
+  
+  list(zip(*ma))
+  [(4, 7), (5, 8), (6, 9)]
+  
+  list(zip(*ma))[::-1]
+  [(6, 9), (5, 8), (4, 7)]
+  
+  方法2:
+  边界条件
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/solution/mian-shi-ti-29-shun-shi-zhen-da-yin-ju-zhen-she-di/)）
+
+  ```python
+  """
+  问题描述：
+  输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。
+  实例：
+  输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+  输出：[1,2,3,4,8,12,11,10,9,5,6,7]
+  
+  
+  解题方法：
+  方法1:
+  zip使用旋转矩阵
+   ma
+  [[4, 5, 6], [7, 8, 9]]
+  
+  list(zip(*ma))
+  [(4, 7), (5, 8), (6, 9)]
+  
+  list(zip(*ma))[::-1]
+  [(6, 9), (5, 8), (4, 7)]
+  
+  方法2:
+  边界条件
+  
+  """
+  from typing import List
+  
+  
+  class Solution:
+  
+      def spiralOrder(self, matirx: List[List[int]]) -> List[int]:
+  
+          res = []
+          while matirx:
+              res += matirx.pop(0)
+              # 旋转数组
+              matirx = list(zip(*matirx))[::-1]
+  
+          return res
+  
+      def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+  
+          if not matrix: return []
+          res = []
+          #  输入边界条件
+          l, r, t, b = 0, len(matrix[0]) - 1, 0, len(matrix) - 1
+          while True:
+              # 从左向右
+              for i in range(l, r + 1): res.append(matrix[t][i])
+              t += 1
+              if t > b: break
+              # 从上之下
+              for i in range(t, b + 1): res.append(matrix[i][r])
+              r -= 1
+              if r > l: break
+              # 从右向左
+              for i in range(r, l - 1, -1): res.append(matrix[b][i])
+              b -= 1
+              if b < t: break
+              # 从下之上
+              for i in range(b, t - 1, -1): res.append(matrix[i][l])
+              l += 1
+              if l > r: break
+  
+          return res
+  
+  
+  if __name__ == "__main__":
+      obj = Solution()
+      ma = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+      print(obj.spiralOrder(ma))
+  
+  ```
+
+## 字符串的排列
+
+- 问题描述
+
+  ```
+  
+  ```
+
+- 代码
+
+  ```python
+  
+  ```
+
+  
+
+
+
+
+
+
+
+
+
+
+
