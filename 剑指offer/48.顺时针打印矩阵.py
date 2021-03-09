@@ -57,7 +57,7 @@ class Solution:
             # 从上之下
             for i in range(t, b + 1): res.append(matrix[i][r])
             r -= 1
-            if r > l: break
+            if r < l: break
             # 从右向左
             for i in range(r, l - 1, -1): res.append(matrix[b][i])
             b -= 1

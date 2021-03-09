@@ -157,34 +157,11 @@
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/solution/mian-shi-ti-29-shun-shi-zhen-da-yin-ju-zhen-she-di/)）
 
+  边界条件描述：
+  
+  ![](./imgs/打印矩阵.png)
+  
   ```python
-  """
-  问题描述：
-  输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。
-  实例：
-  输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
-  输出：[1,2,3,4,8,12,11,10,9,5,6,7]
-  
-  
-  解题方法：
-  方法1:
-  zip使用旋转矩阵
-   ma
-  [[4, 5, 6], [7, 8, 9]]
-  
-  list(zip(*ma))
-  [(4, 7), (5, 8), (6, 9)]
-  
-  list(zip(*ma))[::-1]
-  [(6, 9), (5, 8), (4, 7)]
-  
-  方法2:
-  边界条件
-  
-  """
-  from typing import List
-  
-  
   class Solution:
   
       def spiralOrder(self, matirx: List[List[int]]) -> List[int]:
@@ -211,7 +188,7 @@
               # 从上之下
               for i in range(t, b + 1): res.append(matrix[i][r])
               r -= 1
-              if r > l: break
+              if r < l: break
               # 从右向左
               for i in range(r, l - 1, -1): res.append(matrix[b][i])
               b -= 1
@@ -236,15 +213,36 @@
 - 问题描述
 
   ```
+  问题描述：
+  输入一个字符串，打印出该字符串中字符的所有排列。
+  你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
   
+  实例：
+  输入：s = "abc"
+  输出：["abc","acb","bac","bca","cab","cba"]
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/solution/mian-shi-ti-38-zi-fu-chuan-de-pai-lie-hui-su-fa-by/)）
 
   ```python
-  
+  class Solution:
+      def permutation(self, s: str) -> List[str]:
+        c, res = list(s), []
+          def dfs(x):
+              if x == len(c) - 1:
+                  res.append(''.join(c))   # 添加排列方案
+                  return
+              dic = set()
+              for i in range(x, len(c)):
+                  if c[i] in dic: continue # 重复，因此剪枝
+                  dic.add(c[i])
+                  c[i], c[x] = c[x], c[i]  # 交换，将 c[i] 固定在第 x 位
+                  dfs(x + 1)               # 开启固定第 x + 1 位字符
+                  c[i], c[x] = c[x], c[i]  # 恢复交换
+          dfs(0)
+          return res
   ```
-
+  
   
 
 
