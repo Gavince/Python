@@ -168,7 +168,7 @@
   输出：[[1,2,3,4,5],[4,5,6],[7,8]]
   
   解题方法：
-  1. 初始化： 左边界 i = 1i=1 ，右边界 j = 2j=2 ，元素和 s = 3s=3 ，结果列表 res ；
+  1. 初始化： 左边界 i = 1 ，右边界 j = 2，元素和 s = 3，结果列表 res ；
   2. 循环： 当 i≥j 时跳出；
       当 s > targets 时： 向右移动左边界 i = i + 1 ，并更新元素和 s ；
       当 s < targets 时： 向右移动右边界 j = j + 1，并更新元素和 s ；
@@ -178,6 +178,8 @@
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/solution/jian-zhi-offer-57-ii-he-wei-s-de-lian-xu-t85z/)）
 
+  ![](./imgs/滑动窗口.png)
+  
   ```python
   class Solution:
   
@@ -195,7 +197,95 @@
                   j += 1  # 先加后减
                   s += j
   
-          return res
+        return res
   ```
+  
+
+## 左旋转字符串
+
+- 问题描述
+
+  ```
+  问题描述：
+  字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。比如，输入字符串"abcdefg"和数字2，
+  该函数将返回左旋转两位得到的结果"cdefgab"
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/solution/mian-shi-ti-58-ii-zuo-xuan-zhuan-zi-fu-chuan-qie-p/)）
+
+  ```python
+  class Solution:
+  
+      def reverseselectWords_fun1(self, s: str, n: int) -> str:
+          """切片方法"""
+  
+          return s[n:] + s[:n]
+  
+      def reverseselectWords_fun2(self, s: str, n: int) -> str:
+          """遍历算法"""
+  
+          res = []
+          for i in range(n, len(str) + n):
+              res.append(s[i % len(s)])
+  
+          return "".join(res)
+  
+      def recverseselectWords_fun3(self, s: str, n: int) -> str:
+  
+          res = []
+          # 尾部
+          for i  in range(n, len(str)):
+              res.append(str[i])
+          # 头部
+          for i in range(n):
+              res.append(str[i])
+  
+          return "".join(res)
+  ```
+
+
+## 翻转单词顺序列
+
+- 问题描述
+
+  ```
+  问题描述：
+  输入一个英文句子，翻转句子中单词的顺序，但单词内字符的顺序不变。为简单起见，标点符号和普通字母一样处理。
+  例如输入字符串"I am a student. "，则输出"student. a am I"。
+  
+  解题方法：
+  1. 倒置排序
+  ```
+
+- 代码
+
+  ```python
+  class Solution:
+  
+      def reverseWords(self, s:str) -> str:
+          """双指针法"""
+  
+          # 消除首尾空格
+          s = s.strip()
+          i = j = len(str) - 1
+          res = []
+          while i >= 0:
+              # 搜索单词首字符
+              while i >= 0 and s[i] != " ": i -= 1
+              res.append(s[i+1, j+1])
+              while s[i] == " ": i -= 1
+              j = i
+          return " ".join(res)
+  
+      def reverseWords(self, s:str) -> str:
+  
+          return " ".join(s.strip().split()[::-1])  # 分割倒置
+  ```
+
+  
+
+
+
+
 
   
