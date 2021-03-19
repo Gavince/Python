@@ -1,27 +1,25 @@
 class Solution:
 
-    def minNumber(self, nums):
+    def strtoInt(self, str: str) -> int:
 
-        def quick(l, r):
-            if l >= r:
-                return
+        str = str.strip()
+        if not str: return 0
+        res, i, sign = 0, 1, 1
 
-            low, hight = l, r
-            while low < hight:
-                while low < hight and strs[low] + strs[l] < strs[l] + strs[low]: low += 1
-                while low < hight and strs[hight] + strs[l] >= strs[l] + strs[hight]: hight -= 1
-                # change
-                strs[low], strs[hight] = strs[hight], strs[low]
-            strs[low], strs[l] = strs[l], strs[low]
-            quick(l, low - 1)
-            quick(low + 1, r)
+        # boundry
+        int_max, int_min, bndry = 2 ** 31 - 1, -2 ** 31, 2 ** 31 // 2
+        if str[0] == "-":
+            sign = -1
+        elif str[0] != "+":
+            i = 0
 
-        strs = [str(c) for c in nums]
-        quick(0, len(strs) - 1)
+        for c in str[i:]:
+            if not "0" <= c <= "9": break
 
-        return "".join(strs)
+            if res > bndry or res == bndry and c > "7":
+                return int_max if sign == 1 else int_min
 
+            # updata
+            res = res * 10 + ord(c) - ord("0")
 
-if __name__ == "__main__":
-    obj = Solution()
-    print(obj.minNumber(nums=[3, 30, 34, 5, 9]))
+        return res
