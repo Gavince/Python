@@ -197,35 +197,46 @@
   多少个格子？
   
   解题方法：
-  回朔法
+  回朔法（DFS）
+  
+  注意条件：
+  1.不能越界
+  2.满足行列坐标位数和要求
+  3.机器人起始点为[0, 0]
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/solution/mian-shi-ti-13-ji-qi-ren-de-yun-dong-fan-wei-dfs-b/)）
 
   位数和
   
-  
-  
-  
-  
-  
-  
-  
-  
   ```python
   class Solution:
   
       def movingCount(self, m: int, n: int, k, int) -> int:
-        def dfs(i, j, si, sj):
+  
+          def dfs(i, j, si, sj):
+              
               # 越界条件
               if i >= m or j >= n or k < si + sj or (i, j) in visited: return 0
               visited.add((i, j))
-              return 1 + dfs(i + 1, j, si + 1 if (i + 1) % 10 else si - 8, sj) + dfs(i, j + 1, si,
-                                                                                     sj + 1 if (j + 1) % 10 else sj - 8)
-  
+              # 先下后右
+              return 1 + dfs(i + 1, j, si + 1 if (i + 1) % 10 else si - 8, sj) \
+                   + dfs(i, j + 1, si, sj + 1 if (j + 1) % 10 else sj - 8)
+          # 设置已访问标记
           visited = set()
           return dfs(0, 0, 0, 0)
+  
+      def sums(self, x):
+          """位数和"""
+  
+          s = 0
+          while x != 0:
+              s += x % 10
+              x = x // 10
+          return s
   ```
+  
+  
   
   
 

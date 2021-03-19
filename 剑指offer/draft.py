@@ -1,25 +1,22 @@
 class Solution:
 
-    def strtoInt(self, str: str) -> int:
+    def movingCount(self, m: int, n: int, k: int) -> int:
+        """dfs"""
 
-        str = str.strip()
-        if not str: return 0
-        res, i, sign = 0, 1, 1
+        def dfs(i, j, si, sj):
 
-        # boundry
-        int_max, int_min, bndry = 2 ** 31 - 1, -2 ** 31, 2 ** 31 // 2
-        if str[0] == "-":
-            sign = -1
-        elif str[0] != "+":
-            i = 0
+            # 边界条件
+            if i >= m or j >= n or k < si + sj or (i, j) in visited:return 0
+            # 标记访问
+            visited.add((i, j))
+            return 1 + dfs(i+1, j, si + 1 if (i + 1) % 10 else si - 8, sj)\
+                   + dfs(i, j+1, si, sj + 1 if (j + 1) % 10 else sj - 8)
 
-        for c in str[i:]:
-            if not "0" <= c <= "9": break
+        # 设置已访问比较
+        visited = set()
+        return dfs(0, 0, 0, 0)
 
-            if res > bndry or res == bndry and c > "7":
-                return int_max if sign == 1 else int_min
 
-            # updata
-            res = res * 10 + ord(c) - ord("0")
-
-        return res
+if __name__ == "__main__":
+    obj = Solution()
+    print(obj.movingCount(4, 4, 2))
