@@ -23,7 +23,9 @@
 class Solution:
 
     def movingCount(self, m: int, n: int, k, int) -> int:
+
         def dfs(i, j, si, sj):
+
             # 越界条件
             if i >= m or j >= n or k < si + sj or (i, j) in visited: return 0
             visited.add((i, j))
