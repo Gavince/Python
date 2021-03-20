@@ -1,22 +1,52 @@
+from typing import List
+
+
 class Solution:
 
-    def movingCount(self, m: int, n: int, k: int) -> int:
-        """dfs"""
+    def __init__(self):
+        self.res = 0
 
-        def dfs(i, j, si, sj):
+    def isStraight(self, nums:List[int]) -> bool:
+        """抽取牌面是否为顺子"""
 
-            # 边界条件
-            if i >= m or j >= n or k < si + sj or (i, j) in visited:return 0
-            # 标记访问
-            visited.add((i, j))
-            return 1 + dfs(i+1, j, si + 1 if (i + 1) % 10 else si - 8, sj)\
-                   + dfs(i, j+1, si, sj + 1 if (j + 1) % 10 else sj - 8)
+        # 设置初始条件
+        repeat = set()
+        mi, ma = 0, 14
 
-        # 设置已访问比较
-        visited = set()
-        return dfs(0, 0, 0, 0)
+        for num in nums:
+            if num == 0: continue
+            mi = min(num, mi)
+            ma = max(num, ma)
+            # 判断重复
+            if num in repeat: return False
+            repeat.add(num)
 
+        return ma - mi < 5
 
-if __name__ == "__main__":
-    obj = Solution()
-    print(obj.movingCount(4, 4, 2))
+    def sumNums(self, n: int) -> int:
+        """ｎ数据累加"""
+
+        # 递归
+        n > 1 and self.sumNums(n-1)
+        self.res += n
+        return self.res
+
+    def strToInt(self, str:str) -> int:
+
+        # 去除空格
+        str = str.strip()
+        # 设置初始值
+        res, i, sign = 0, 1, 1
+        # 边界条件
+        mi_int, ma_int, bndry = -2**31, 2**31, 2**31//10
+        if str[0] == "-": sign = -1
+        elif str[0] != "+": i = 0  # 无符号整数
+        # 遍历字符串
+        for c in str[i:]:
+            if not "0" <= c <= "9": break
+            # 越界判断
+            if res > bndry or res == bndry and c > "7":return ma_int if sign == 1 else ma_int
+            # 更新
+            res = res*10 + ord(c) - ord("0")
+
+        return sign*res

@@ -44,6 +44,7 @@ class Solution:
             # 标记已访问的路径
             board[i][j] = ""
             res = dfs(i + 1, j, k+1) or dfs(i - 1, j, k+1) or dfs(i, j + 1, k+1) or dfs(i, j - 1, k+1)
+            # 回退已访问标记
             board[i][j] = word[k]
             return res
 

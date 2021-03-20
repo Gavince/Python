@@ -75,10 +75,10 @@
       def __init__(self):
           self.res = 0
   
-      def sunNums(self, n: int) -> int:
+      def sumNums(self, n: int) -> int:
           """递归求和"""
   
-          n > 1 and self.sunNums(n - 1)
+          n > 1 and self.sumNums(n - 1)
           self.res += n
           return  self.res
   ```
@@ -132,23 +132,27 @@
 
 - 问题描述
 
-  ```
+  ```python
   问题描述：
   请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩
   阵中的任意一格开始，每一步可以在矩阵中向左、右、上、下移动一格。如果一条路径经过了矩阵的
   某一格，那么该路径不能再次进入该格子。例如，在下面的3×4的矩阵中包含一条字符串“bfce”的
-  路径（路径中的字母用加粗标出）。
-  [["a","b","c","e"],
-  ["s","f","c","s"],
-  ["a","d","e","e"]]
+  路径（路径中的字母用"| |"标出）。
+   
+  [["a","|b|","c","e"],
+  ["s","|f|","|c|","s"],
+  ["a","d","|e|","e"]]
   
   但矩阵中不包含字符串“abfb”的路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子
   之后，路径不能再次进入这个格子。
   
   解题方法:
   回朔法
-  注意：回朔过程中要进行还原：　用来进行回溯的，如果当前的节点不满足路径要求，需要撤回到
-  上一个节点，然而上一个节点此时已经赋值为“/”，需要还原一下，继续探索。
+  
+  注意：
+  1. 回朔过程中要进行还原：用来进行回溯的，如果当前的节点不满足路径要求，需要撤回到上一个节点
+  ，然而上一个节点此时已经赋值为“/”，需要还原一下，继续探索。（打标记和撤标记）。
+  2. 起始点为任意一格(需要寻找入口)，且每次只能移动一格数据。
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof/solution/mian-shi-ti-12-ju-zhen-zhong-de-lu-jing-shen-du-yo/))
@@ -172,11 +176,12 @@
               if k == len(word) - 1: return True
               # 标记已访问的路径
               board[i][j] = ""
+              # 下上右左进行访问
               res = dfs(i + 1, j, k+1) or dfs(i - 1, j, k+1) or dfs(i, j + 1, k+1) or dfs(i, j - 1, k+1)
               board[i][j] = word[k]
               return res
   
-          # 　寻找出口
+          # 　寻找入口
           for i in range(len(board)):
               for j in range(len(board[0])):
                   if dfs(i, j, 0): return True
@@ -202,13 +207,11 @@
   注意条件：
   1.不能越界
   2.满足行列坐标位数和要求
-  3.机器人起始点为[0, 0]
+  3.机器人起始点为[0, 0]（区别与上一题中的任意入口）
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/solution/mian-shi-ti-13-ji-qi-ren-de-yun-dong-fan-wei-dfs-b/)）
 
-  位数和
-  
   ```python
   class Solution:
   
@@ -221,9 +224,9 @@
               visited.add((i, j))
               # 先下后右
               return 1 + dfs(i + 1, j, si + 1 if (i + 1) % 10 else si - 8, sj) \
-                   + dfs(i, j + 1, si, sj + 1 if (j + 1) % 10 else sj - 8)
+                     + dfs(i, j + 1, si, sj + 1 if (j + 1) % 10 else sj - 8)
           # 设置已访问标记
-          visited = set()
+         visited = set()
           return dfs(0, 0, 0, 0)
   
       def sums(self, x):
@@ -231,8 +234,8 @@
   
           s = 0
           while x != 0:
-              s += x % 10
-              x = x // 10
+              s += x % 10  # 求余数，得低位置
+              x = x // 10  # 去低位
           return s
   ```
   
