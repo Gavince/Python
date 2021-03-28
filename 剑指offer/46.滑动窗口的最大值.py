@@ -34,7 +34,7 @@ from rope.base.builtins import List
 
 class Solution:
 
-    def maxSlidingWindow(self, num:List[int], k: int) -> List[int]:
+    def maxSlidingWindow(self, nums, k: int):
         """
         滑动窗口最大值
         :param num: 数组
@@ -43,28 +43,20 @@ class Solution:
         """
 
         deque = collections.deque()
-        n, res = len(num), []
-
-        for i, j in zip(range(1-k, k-n+1), range(n)):
+        res, n = [], len(nums)
+        # 共n-k+1个有效窗口
+        for i, j in zip(range(1 - k, n - k + 1), range(n)):
             # 左删除
-            if i > 0 and deque[0] == num[i - 1]: deque.popleft()  # 被删除元素等于队列最大值，一并删除
-
-            # 右添加
-            # 保持队列递减
-            while deque and deque[-1] < num: deque.pop()
-            deque.append(num[j])
+            if i > 0 and deque[0] == nums[i - 1]: deque.popleft()
+            # 右添加，保留最大
+            while deque and deque[-1] < nums[j]: deque.pop()
+            deque.append(nums[j])
             if i >= 0:
                 res.append(deque[0])
 
         return res
 
 
-
-
-
-
-
-
-
-
-
+if __name__ == "__main__":
+    obj = Solution()
+    print(obj.maxSlidingWindow(nums=[3, 3, 5, 6, 7], k=3))

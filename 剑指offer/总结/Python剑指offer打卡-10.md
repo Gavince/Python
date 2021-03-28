@@ -6,7 +6,7 @@
 
 - 问题描述
 
-  ```
+  ```python
   问题描述：
   在字符串 s 中找出第一个只出现一次的字符。如果没有，返回一个单空格。 s 只包含小写字母。
   如：
@@ -63,7 +63,7 @@
    1  3  -1  -3  5 [3  6  7]      7
    
    解题方法：
-  单调队列：只需要维护有可能成为窗口里最大值的元素就可以了，同时保证队里里的元素数值是由大到小的。
+  单调队列：只需要维护有可能成为窗口里最大值的元素就可以了，同时保证队里里的元素数值是由大到小的。(左删除，右添加原则)
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/solution/mian-shi-ti-59-i-hua-dong-chuang-kou-de-zui-da-1-6/)）
@@ -92,7 +92,16 @@
                   res.append(deque[0])
                   
           return res 
+      
+      
+  if __name__ == "__main__":
+      obj = Solution()
+      print(obj.maxSlidingWindow(nums=[3, 3, 5, 6, 7], k=3))
   ```
+  
+- 代码运行
+
+  ![](./imgs/46.代码运行.png)
 
 
 ## 数值的整数次方
@@ -226,7 +235,9 @@
 
   ```python
   class Solution:
+      
       def permutation(self, s: str) -> List[str]:
+          
         c, res = list(s), []
           def dfs(x):
               if x == len(c) - 1:
@@ -242,6 +253,10 @@
           dfs(0)
           return res
   ```
+  
+- 代码运行图示
+  
+  ![](./imgs/49.递归过程.png)
   
   
 
