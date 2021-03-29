@@ -11,7 +11,7 @@
   给定一个二叉树，判断它是否是高度平衡的二叉树。
   
   解题方法：
-  二叉树的每个节点的左右子树的高度差的绝对值不超过 1，则二叉树是平衡二叉树。根据定义，
+  二叉树的f每个节点的左右子树的高度差的绝对值不超过 1，则二叉树是平衡二叉树。根据定义，
   一棵二叉树是平衡二叉树，当且仅当其所有子树也都是平衡二叉树，因此可以使用递归的方式
   判断二叉树是不是平衡二叉树，递归的顺序可以是自顶向下或者自底向上，其中自低向上复杂
   度最优。
@@ -56,7 +56,9 @@
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/solution/mian-shi-ti-03-shu-zu-zhong-zhong-fu-de-shu-zi-yua/)）
 
-  ![](./imgs/重复数组.png)
+  原地交换图示（注意索引与值的对应关系）：
+  
+  ![](./imgs/41.图示.png)
   
   ```python
   class Solution:
@@ -79,9 +81,9 @@
                   i += 1
                   continue
   
-              if nums[nums[i]] == nums[i]: return nums[i]  # 索引与值(一对多)重复
+            if nums[nums[i]] == nums[i]: return nums[i]  # 索引与值(一对多)重复
               nums[nums[i]], nums[i] = nums[i], nums[nums[i]]  # 交换
-
+  
           return -1
   ```
 ## 构建数组乘积
@@ -122,13 +124,15 @@
 
   ```
   问题描述：
-  请实现一个函数用来匹配包含'. '和'*'的正则表达式。模式中的字符'.'表示任意一个字符，而'*'表示它前面的字符可以出现任意次（含0次）。在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串"aaa"与模式"a.a"和"ab*ac*a"匹配，但与"aa.a"和"ab*a"均不匹配。
+  请实现一个函数用来匹配包含'. '和'*'的正则表达式。模式中的字符'.'表示任意一个字符，而
+  '*'表示它前面的字符可以出现任意次（含0次）。在本题中，匹配是指字符串的所有字符匹
+  配整个模式。例如，字符串"aaa"与模式"a.a"和"ab*ac*a"匹配，但与"aa.a"和"ab*a"均不匹配。
   解题方法：
   1.回朔法
   2.动态规划法
   ```
 
-- 代码（[解题思路](https://leetcode-cn.com/problems/zheng-ze-biao-da-shi-pi-pei-lcof/)）
+- 代码（[解题思路](https://leetcode-cn.com/problems/zheng-ze-biao-da-shi-pi-pei-lcof/solution/hui-su-dong-tai-gui-hua-by-ml-zimingmeng/)）
 
   ```python
 class Solution:

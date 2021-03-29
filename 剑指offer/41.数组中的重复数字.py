@@ -43,3 +43,8 @@ class Solution:
             nums[nums[i]], nums[i] = nums[i], nums[nums[i]]  # 交换
 
         return -1
+
+
+if __name__ == "__main__":
+    obj = Solution()
+    print(obj.findRepeatNumber_1(nums=[1, 2, 3, 4, 4, 5, 3]))
