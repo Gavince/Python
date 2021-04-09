@@ -26,12 +26,15 @@ class Solution(object):
 
         def isTree(postorder):
             """"递归循环测试"""
+
             root = postorder[-1]
             length = len(postorder)
+
             # 是否吗满足条件：左小有大对于根
             for i in range(length):
                 if postorder[i] > root:
                     break
+
             # 右子树
             for j in range(i, length - 1):
                 if postorder[j] < root:

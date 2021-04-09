@@ -68,6 +68,6 @@ class Solution:
 if __name__ == '__main__':
     obj = Solution()
     alist = [54, 26, 93, 17, 77, 31, 44, 55, 20]
-    # obj.quick_sort(alist, 0, len(alist) - 1)
-    obj.minNumber(alist)
+    obj.quick_sort(alist, 0, len(alist) - 1)
+    # obj.minNumber(alist)
     print(alist)

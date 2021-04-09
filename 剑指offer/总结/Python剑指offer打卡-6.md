@@ -14,6 +14,9 @@
   
   解决方案：
   递归
+  
+  注意：
+  路径表示为根结点到叶子结点的全路径
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/solution/pythonti-jie-yi-dong-de-di-gui-jie-fa-by-xiao-xue-/)）
@@ -76,7 +79,6 @@
                       break
   
               for j in range(i, length-1):
-                  index = j
                   if postorder[j]<root:
                       return False
               left = True

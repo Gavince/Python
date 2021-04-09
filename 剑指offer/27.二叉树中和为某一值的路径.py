@@ -30,8 +30,8 @@ class Solution:
 
         left = self.FindPath(root.left, expectNumber - root.val)
         right = self.FindPath(root.right, expectNumber - root.val)
-        for i in left + right:
+        for path in left + right:
             # 向上添加路径
-            res.append([root.val] + i)
+            res.append([root.val] + path)
 
         return res

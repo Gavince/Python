@@ -34,5 +34,5 @@ class Solution:
             while tmp_node.next:  # 当前节点为父节点的左节点
                 if tmp_node.next.left == tmp_node:
                     return tmp_node.next
-                tmp_node = tmp_node.next  # 寻找父结点，　当前结点为父节点的右节点
+                tmp_node = tmp_node.next  # 寻找父结点，当前结点为父节点的右节点
             return None

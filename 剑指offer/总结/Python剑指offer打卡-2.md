@@ -252,6 +252,8 @@
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/solution/mian-shi-ti-06-cong-wei-dao-tou-da-yin-lian-biao-d/)）
 
+  ![](./imgs/tailtohead.png)
+  
   ```python
   # 版本一
   class Solution:

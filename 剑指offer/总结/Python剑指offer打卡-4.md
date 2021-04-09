@@ -29,7 +29,7 @@
   
   class Solution:
   
-      def LastRemaining_Solution(self, n: int, m: int):
+      def LastRemaining_Solution(self, n: int, m: i):
           """
           :param n:小孩数
           :param m: 指定编号
@@ -59,16 +59,24 @@
           if n == 1:
               return 0
           return (self.LastRemaining_Solution1(n - 1, m) + m) % n
+      
+         def lastRemaining(self, n, m):
+          """迭代法"""‘
+          
+          x = 0
+          for i in range(2, n + 1):
+              x = (x + m) % i
+        return x
   
-  
+
   if __name__ == "__main__":
       obj = Solution()
       print(obj.LastRemaining_Solution(5, 3))
       print(obj.LastRemaining_Solution1(5, 3))
   ```
-
+  
   **递归过程解析**：
-
+  
   ![](./imgs/15.1.png)
 ### 链表中环的入口结点
 - 问题描述

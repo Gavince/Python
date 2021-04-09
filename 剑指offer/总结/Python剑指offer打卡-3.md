@@ -13,6 +13,8 @@
   解决方案：
   方法1：使用栈存储，先进后出。
   方法2：双指针(双指针相差k，先前指针走完时，正好后指针到指定结点)
+   former + after = after + former
+   K + M = Ｍ + K
   ```
 
 - 代码（[解题思路](![Picture0.png](https://pic.leetcode-cn.com/ab52aeb21d3ea0c2b2aaca94241413db5d060b88e950461953db64e36a89a435-Picture0.png))）
@@ -21,26 +23,7 @@
 
   ```python
   class Solution:
-  
-      @staticmethod
-      def FindKthToTail(head, k):
-  
-          if not head or not k:
-              return None
-          
-          node = None
-          stack = []
-          temp = head
-          while temp:
-              stack.append(temp)
-              temp = temp.next
-          if len(stack) >= k:  # k值限制
-              for i in range(k):  # 倒数第k个结点
-                  node = stack.pop()
-              return node
-          else:
-              return None
-         
+      
       def FindKthToTail(self, head, k):
           """双指针，两个指针之间相差k值"""
   
@@ -70,69 +53,26 @@
   2. 循环
   ```
 
-- 代码（[解题思路](https://leetcode-cn.com/problems/reverse-linked-list/solution/fan-zhuan-lian-biao-shuang-zhi-zhen-di-gui-yao-mo-/)）
+- 代码（[解题思路](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/jian-zhi-offer-24-fan-zhuan-lian-biao-die-dai-di-2/)）
 
 - ![](./imgs/链表翻转.gif)
 
   ```python
-  class ListNode:
-  
-      def __init__(self, val):
-          self.val = val
-          self.next = None
-  
-  
   class Solution:
   
-      @staticmethod
-      def reverse_list(pHead):
+      def reverseList(self, pHead):
+          """链表的翻转"""
   
-          if not pHead or pHead.next is None:
-              return pHead
-  
-          newHead = None
-          cur = pHead
+          cur, pre = pHead, None
           while cur:
               tmp = cur.next
-              cur.next = newHead
-              newHead = cur
+              cur.next = pre
+              pre = cur
               cur = tmp
   
-          return newHead
+          return pre
   ```
-
-- 样例测试
-
-  ```python
-  n1 = ListNode(1)  # 依次实例5个结点
-  n2 = ListNode(2)
-  n3 = ListNode(3)
-  n4 = ListNode(4)
-  n5 = ListNode(5)
-  n1.next = n2  # 依次将结点链接起来，形成一个链表
-  n2.next = n3
-  n3.next = n4
-  n4.next = n5
-  head1, head2 = n1, n1
-  print("翻转前的链表：", end=" ")
-  while head1:
-      print(head1.val, end=" ")
-      head1 = head1.next
   
-  obj = Solution()
-  p = obj.reverse_list(head2)
-  print("\n翻转后的链表：", end=" ")
-  while p:
-      print(p.val, end=" ")
-      p = p.next
-  ```
-
-- 结果
-
-  ```python
-  翻转前的链表： 1 2 3 4 5 
-  翻转后的链表： 5 4 3 2 1 
-  ```
 
 ### 合并两个排序的链表
 
@@ -150,64 +90,23 @@
 - 代码（[解题思路](https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof/solution/mian-shi-ti-25-he-bing-liang-ge-pai-xu-de-lian-b-2/)）
 
   ```python
-  class ListNode:
-  
-      def __init__(self, x):
-          self.val = x
-          self.next = None
-  
-  
   class Solution:
-  
-      @staticmethod
-      def merge(pHead1, pHead2):
-  
-          if not pHead1 and not pHead2:
-              return None
-  
-          if not pHead1:
-              return pHead2
-          if not pHead2:
-              return pHead1
-  
-          # 构建新的链表
-          newnode = ListNode(-1)
-          temp = newnode
-          p1, p2 = pHead1, pHead1
-  
-          while p1 and p2:
-  
-              if p1.val < p2.val:
-                  temp.next = ListNode(p1.val)
-                  temp = temp.next
-                  p1 = p1.next
-              else:
-                  temp.next = ListNode(p2.val)
-                  temp = temp.next
-                  p2 = p2.next
-          # 连接未遍历部分的数据
-          if p1:
-              temp.next = p1
-          if p2:
-              temp.next = p2
-  
-          return newnode
       
-   def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+      def mergeTwoList(self, l1, l2):
+          """合并两个有序链表"""
   
-          phead, cur = ListNode(0), ListNode(0)
-          phead = cur
-  
+          # 申请新的结点
+          cur = dum = TreeNode(0)
           while l1 and l2:
-              
               if l1.val < l2.val:
                   cur.next, l1 = l1, l1.next
               else:
                   cur.next, l2 = l2, l2.next
               cur = cur.next
+  
           cur.next = l1 if l1 else l2
-          
-          return phead.nex
+  
+          return dum.next
   ```
 
 ### 复杂链表的复制
@@ -236,50 +135,39 @@
    ![](imgs/复杂指针计算.png)
   
   ```python
-  class RandomListNode:
-  
-      def __init__(self, val):
-          self.val = val
-          self.next = None
-          self.random = None
-  
-  
   class Solution:
   
-      def clone(self, pHead):
+      def copyRandomList(self, head):
+          """复制复杂链表"""
   
-          if pHead is None:
-              return None
+          if head is None:
+              return  None
   
-          #   复制一个新的node,插入到原有的node当中，实现次序的链接的指针
-          pTemp = pHead
-          while pTemp:
-              node = RandomListNode(pTemp.val)
-              node.next = pTemp.next
-              pTemp.next = node
-              pTemp = node.next  # 临时头结点向下移动
+          # 添加附加结点
+          cur = head
+          while cur:
+              tmp = ListNode(0)
+              tmp.next = cur.next
+              cur.next = tmp
+              cur = tmp.next
   
-          #   对随机指针进行复制
-          pTemp = pHead
-          while pTemp:
-              if pTemp.random:
-                  pTemp.next.random = pTemp.random.next
-              pTemp = pTemp.next.next
+          # 附加结点随机指针指向
+          cur = head
+          while cur:
+              if cur.random:
+                  cur.next.random = cur.random.next
+              cur = cur.next.next
   
-          # 断开原来的链表
-          pTemp = pHead
-          newHead = pHead.next
-          pNewTemp = pHead.next
-  
-          # 两个指针同时遍历，并连接自己的下一个结点
-          while pTemp:
-              pTemp.next = pTemp.next.next
-              if pNewTemp.next:
-                  pNewTemp.next = pTemp.next.next
-                  pNewTemp = pNewTemp.next
-              pTemp = pTemp.next
-              
-          return newHead
+          # 主结点和复附属结点连接
+          cur = res = head.next
+          pre = head
+          while cur.next:
+              pre.next = pre.next.next
+              cur.next = cur.next.next
+              pre = pre.next
+              cur = cur.next
+          pre.next = None  # 对尾结点进行处理
+          return res
   ```
 
 ### 两个链表的第一个公共结点（浪漫相遇）:heart:
@@ -312,48 +200,15 @@
   ```python
   class Solution:
   
-      def FindFristCommonNode(self, pHead1, pHead2):
+      def findFirstCommonNode(self, pHead1, pHead2):
+          """烂漫相遇问题（我走过你来时的路）"""
   
-          res_set = {}  # 集合的无序性
-          # 加入
-          while pHead1:
-              res_set.add(pHead1)
-              pHead1 = pHead1.next
-          # 对比
-          while pHead2:
-              if pHead2 in res_set:
-                  return pHead2
-              pHead2 = pHead2.next
-  
-      def FindFristCommonNode1(self, pHead1, pHead2):
-  
-          stack1 = []
-          stack2 = []
-          
-          while pHead1:
-              stack1.append(pHead1)
-              pHead1 = pHead1.next
-          while pHead2:
-              stack2.append(pHead2)
-              pHead2 = pHead2.next
-          while stack1 and stack2 and stack1[-1] == stack2[-1]:
-              res = stack1.pop()
-              stack2.pop()
+          node1, node2 = pHead1, pHead2
+          while node1 != node2:
+              node1 = node1.next if node1 else pHead2
+              node2 = node2.next if node2 else pHead1
               
-          return res
-  
-      def FindFristCommonNode2(self, pHead1, pHead2):
-  
-          if pHead1 is None or pHead2 is None:
-              return None
-          
-          p1 = pHead1
-          p2 = pHead2
-          while p1 != p2:
-              p1 = pHead2 if p1 is None else p1.next  # 遍历完p1结点遍历p2结点
-              p2 = pHead1 if p2 is None else p2.next  # 遍历完p2结点遍历p1结点
-              
-          return p1
+          return node1
   ```
 
 ### 参考

@@ -26,34 +26,24 @@
   
       def fibonacci1(self, n):
           """动态规划问题"""
-  
-          if n == 0:
-              return 0
-          if n == 1:
-              return 1
-          if n > 1:
-              a = 1  # 较大值
-              b = 0  # 较小值
-              ret = 0
-              for i in range(2, n + 1):  # 左闭右开
-                  ret = a + b
-                  b = a
-                  a = ret
-  
-              return ret
+  	
+      　a, b = 0, 1
+          for _ in range(n):
+              a, b = b, a+b
+              
+          return a%1000000007
   
       def fibonacci2(self, n):
           """列表写法O(n)=n(推荐)"""
   
-          if n == 0:
-              return 0
-          if n == 1:
-              return 1
+          if n == 0 or n == 1:
+              return n
+          
           result = [0, 1]
           for i in range(2, n + 1):
               result.append(result[i - 1] + result[i - 2])
   
-          return result[-1]
+          return result[-1]%100000000
   ```
 
 ### 跳台阶问题

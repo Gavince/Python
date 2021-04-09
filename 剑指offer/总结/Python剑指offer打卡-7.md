@@ -11,8 +11,6 @@
   给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。
   ```
 
-  
-
 - 代码（[解题思路](https://www.nowcoder.com/questionTerminal/9023a0c988684a53960365b889ceaf5e)）
 
   图解
@@ -69,6 +67,7 @@
   
           def recur(L, R):
               if not L and not R: return True
+              # 存在一个提前终止
               if not L or not R or L.val != R.val: return False
               return recur(L.left, R.right) and recur(L.right, R.left)
   
