@@ -18,18 +18,6 @@ class Solution:
 
         return -1
 
-    def findRepeatNumber(self, nums):
-        """寻找重复数组"""
-        i = 1
-        while i < len(nums):
-            if nums[i] == i:
-                i += 1
-                continue
-            if nums[nums[i]] == nums[i]: return nums[i]
-            nums[nums[i]], nums[i] = nums[i], nums[nums[i]]
-
-        return -1
-
     def constrcuctArr(self, a):
         """构建数组乘积"""
 
@@ -538,7 +526,7 @@ class Tree:
             if cur is None: return None
             dfs(cur.left)
             if self.pre:
-                self.pre.right, cur.right = cur, self.pre
+                self.pre.right, cur.left = cur, self.pre
             else:
                 self.head = cur
 
@@ -696,6 +684,7 @@ class ListNode:
         while node1 != node2:
             node1 = node1.next if node1 else pHead2
             node2 = node2.next if node2 else pHead1
+            
         return node1
 
     def mergeTwoList(self, l1, l2):
@@ -770,23 +759,6 @@ class ListNode:
 
         return newhead.next
 
-    def deleteDoublicates(self, pHead):
-        """消除重复结点"""
-
-        newHead = TreeNode(0)
-        newHead.next = pHead
-        pre = newHead
-        while pHead and pHead.next:
-            if pHead.val == pHead.next.val:
-                tmp = pHead.val
-                while pHead and pHead.val == tmp:
-                    pHead = pHead.next
-            else:
-                pre = pHead
-                pHead = pHead.next
-
-        return newHead.next
-
     def entryNodeOfLoop(self, pHead):
         """链表环入口"""
 
@@ -806,7 +778,7 @@ class ListNode:
         return None
 
 
-class Solution:
+class SolutionString:
 
     def lastRemaining(self, n, m):
         """约瑟夫环问题"""

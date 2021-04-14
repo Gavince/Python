@@ -66,9 +66,10 @@
           x = 0
           for i in range(2, n + 1):
               x = (x + m) % i
-        return x
-  
+              
+           return x
 
+  
   if __name__ == "__main__":
       obj = Solution()
       print(obj.LastRemaining_Solution(5, 3))
@@ -103,7 +104,7 @@
   
   class Solution:
   
-      def EntryNodeOfLoopCollections(self, pHead):
+      def entryNodeOfLoopCollections(self, pHead):
           """链表环中第一个入口结点"""
           if pHead is None:
               return

@@ -164,26 +164,16 @@
                       return True
           return False
   
-      def find1(self, array, target):
-          """T(O) = n"""
-          nrows = len(array)
-          ncols = len(array[0])
-          # 定义维度
-          r = nrows - 1
-          i = 0
-          j = ncols - 1
-          flag = False
+      def findNumberIn2DArray(self, matrix, target):
+          """在二维数组中找到指定数字"""
   
-          while i <= r and j >= 0:  # 右上角进行查找
-              if array[i][j] == target:  # 正确查找
-                  flag = True
-                  break
-              if array[i][j] > target:  # 目标值可能存在于左边
-                  j -= 1
-              if array[i][j] < target:  # 目标值可能存在于底部
-                  i += 1
+          i, j = len(matrix)-1, 0
+          while i > 0 and j < len(matrix[0]):
+              if matrix[i][j] > target: i -= 1
+              elif matrix[i][j] < target: j += 1
+              else: return True
   
-          return flag
+          return False
   ```
 
 ### 使用两个栈实现一个队列

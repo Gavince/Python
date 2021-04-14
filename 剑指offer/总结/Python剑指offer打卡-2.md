@@ -19,6 +19,7 @@
   当numbers[mid] > numbers[high]时,说明最小值在mid的右边,缩小范围low = mid + 1
   当numbers[mid] == numbers[high]时,我们不知道最小值的范围,但是可以肯定的是去除numbers[high]是没有影响的,缩小范围high -= 1
   当numbers[mid] < numbers[high]时,我们知道最小值的不是numbers[mid]就是在mid的左边,缩小范围high = mid
+  # 51234, 34512, 22222
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/solution/pythonti-jie-er-fen-fa-shuang-100he-zhi-jie-cha-zh/)）
@@ -26,106 +27,59 @@
   ```python
   class Solution:
   
-      def find_min(self, RotateArray):
+  	def minArray(self, numbers):
+  		"""旋转数组最小值"""
   
-          # 条件1：数组大小为空，返回0
-          if not RotateArray:
-              return None
-          
-          left = 0
-          right = len(RotateArray) - 1
-          
-          while left < right:
-              mid = (left + right)//2
-              if RotateArray[mid] > RotateArray[right]:
-               	left = mid + 1
-              elif RotateArray[mid] == RotateArray[right]:
-                      right -= 1
-              else:
-                      right = mid
-         
-          return RotateArray[left]
-  ```
-
-  测试样例：
-
-  ```python
-  obj = Solution()
-  Rl1 = [2, 3, 4, 5, 1]
-  Rl2 = [3, 4, 5, 1, 2]
-  Rl3 = [4, 5, 1, 2, 3]
-  Rl4 = [5, 1, 2, 3, 4]
-  print(obj.find_min(Rl1), end=" ")
-  print(obj.find_min(Rl2), end=" ")
-  print(obj.find_min(Rl3), end=" ")
-  print(obj.find_min(Rl4), end=" ")
-  print(obj.find_min([5, 2, 4]), end=" ")
-  print(obj.find_min([5, 5]), end=" ")
-  print(obj.find_min([5]), end=" ")
-  print(obj.find_min([4, 5, 5, 1, 1, 2, 3]), end=" ")
-  ```
-
-  测试结果:
-
-  ```python
-  1 1 1 1 2 1 5 1 
-  ```
-
-  ###  调整顺序使得奇数位于前面
-
+  		# 二分法
+  		# 三种情况
+  		# 51234, 34512, 22222
+  		if not numbers is None:
+  			return 0
+  		
+  		low, hight = 0, len(numbers) - 1
+  		while low < hight:
+  			mid = (low + hight) >> 1
+  			if number[mid] > number[hight]:
+  				low += 1
+  			elif number[mid] == number[hight]:
+  				hight -= 1
+  			else:
+  				hight = mid
+  
+  		return numbers[mid]
+```
+  
+###  调整顺序使得奇数位于前面
+  
 - 问题描述：
 
     ```python
    输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，
-    所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
+   所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
     
-    解决方案：
-    1. 暴力遍历
-    2. sorted
-    3.冒泡排序分类
+   解决方案：
+   快慢指针
    ```
-- 代码
+   
+- 代码（[解题思路](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/solution/jian-zhi-offer-21-diao-zheng-shu-zu-shun-77jc/)）
 
-  冒泡法图示：
-  
-  ![](./imgs/冒泡排序.gif)
+  ![](./imgs/指针.gif)
   
   ```python
   class Solution:
   
-      def fun1(self, array):
-          """奇数在前，偶数在后，相对位置保持不变"""
-          new_arry = []
-  
-          for i in range(len(array)):
-              if array[i] & 1 == 1:  # 二进制与操作，奇数（***1(奇数) & 0001 = 0001）
-                  new_arry.append(array[i])
-          for j in range(len(array)):
-              if array[j] & 1 == 0:
-                  new_arry.append(array[j])
-  
-          return new_arry
-  
-      def fun2(self, array):
-  
-          # sorted 默认降序排列
-          return sorted(array, key=lambda x:x%2, reverse=True)
-  
-      def fun3(self, array):
-          """冒泡排序"""
+      def exchange(self, nums: List[int]) -> List[int]:
+          """双指针"""
           
-          for i in range(len(array) - 1):
-              flag = False
-              for j in range(len(array) - 1 - i):
-                  if array[j] % 2 == 0 and array[j+1] % 2 == 1:
-                      # change position
-                      array[j], array[j+1] = array[j+1], array[j]
-                      flag = True
-              if flag is False:
-                  break
-          return array
-                      
-          return array
+          fast, slow  = 0, 0
+          
+          while fast < len(nums):
+              if nums[fast] % 2 == 1:
+                  nums[fast], nums[slow] = nums[slow], nums[fast]
+                  slow += 1
+              fast += 1
+          
+          return nums
   ```
 
 ### 包含min函数的栈

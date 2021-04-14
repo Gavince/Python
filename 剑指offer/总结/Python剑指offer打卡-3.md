@@ -40,7 +40,7 @@
   
   ```
 
-### 链表的翻转（重点）
+### 链表的翻转（==重点==）
 
 - 问题描述
 
@@ -74,7 +74,7 @@
   ```
   
 
-### 合并两个排序的链表
+### 合并两个排序的链表（==重点==）
 
 - 问题描述
 
@@ -146,7 +146,7 @@
           # 添加附加结点
           cur = head
           while cur:
-              tmp = ListNode(0)
+              tmp = ListNode(cur.val)
               tmp.next = cur.next
               cur.next = tmp
               cur = tmp.next
@@ -204,6 +204,7 @@
           """烂漫相遇问题（我走过你来时的路）"""
   
           node1, node2 = pHead1, pHead2
+          
           while node1 != node2:
               node1 = node1.next if node1 else pHead2
               node2 = node2.next if node2 else pHead1
