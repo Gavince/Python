@@ -205,8 +205,11 @@
   由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。
   解决方案：
   1.字典{}
+  2. 快速排序法
+  3.摩尔投票法（时间复杂度O(n), 空间复杂度O(1)）
+  注意：[1, 2, 2, 3, 3, 3, 2, 2] 此时输出结果为3, 但注意题目要求必须超过数组一半长度，而此时是相等
   ```
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/solution/)）
 
   ```python
   class Solution:
@@ -244,6 +247,16 @@
                   return num
               
               return 0
+       def majorityElement(self, nums: List[int]) -> int:
+          """摩尔投票法"""
+  
+          votes = 0
+  
+          for num in nums:
+              if votes == 0: x = num  # 假定x是众数
+              votes += 1 if x == num else -1  # num是众数加１，非众数减１
+          
+          return x
   ```
 
 ### 1～n 整数中 1 出现的次数

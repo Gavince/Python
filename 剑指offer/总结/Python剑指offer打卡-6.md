@@ -81,11 +81,12 @@
               for i in range(length):
                   if postorder[i] > root:
                       break
-  
+  	  left = True
+      
               for j in range(i, length-1):
                   if postorder[j]<root:
                       return False
-              left = True
+              right = True
               if i > 0:
                   left = isTree(postorder[:i])
               right = True
@@ -115,26 +116,56 @@
   
   ```python
   class Solution:
-      def levelOrder(self, root: TreeNode) -> List[int]:
-  
-          if root is None:
-              return []
-  
-          # 使用队列
-          queue = [root]
-          res = []
-  
-          while queue:
-  
-              tmp_node = queue.pop(0)
-              res.append(tmp_node.val)
+          def levelOrder(self, root: TreeNode) -> List[int]:
+              """"层序遍历"""
               
-              if tmp_node.left:
-                  queue.append(tmp_node.left)
-              if tmp_node.right:
-                  queue.append(tmp_node.right)
-              
-          return res
+                  if not root: return []
+                  res, queue = [], collections.deque()
+                  queue.append(root)
+                  
+                  while queue:
+                          node = queue.popleft()
+                          res.append(node.val)
+                          if node.left: queue.append(node.left)
+                          if node.right: queue.append(node.right)
+                              
+         	        return res
+      
+  	def levelOrder(self, root):
+  		"""层序遍历（每一层遍历）"""
+          
+  		if root is None: return []
+  		res, deque = [], collections.deque()
+  		deque.append(root)
+  		
+  		while deque:
+  			tmp = []
+  			for _ in range(len(deque)):
+  				node = deque.popleft()
+  				tmp.append(node.val)
+  				if node.left: deque.append(node.left)
+  				if node.right: deque.append(node.right)
+  			res.append(tmp)
+  
+  		rerurn res
+  	
+              def levelOrder(self, root: TreeNode) -> List[List[int]]:
+              	"""Z字形遍历"""
+                  
+                  if not root: return []
+                  res, deque = [], collections.deque([root])
+  
+                  while deque:
+                      tmp = collections.deque()
+                      for _ in range(len(deque)):
+                          node = deque.popleft() # 从左向右遍历
+                          if len(res) % 2: tmp.appendleft(node.val) # 偶数层,队列首部
+                          else: tmp.append(node.val) # 奇数层，队列尾部
+                          if node.left: deque.append(node.left)
+                          if node.right: deque.append(node.right)
+  
+                      res.append(list(tmp))
+                  return res
   ```
 
 ## 最小的k个数

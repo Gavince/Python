@@ -33,24 +33,23 @@
   		# 二分法
   		# 三种情况
   		# 51234, 34512, 22222
-  		if not numbers is None:
-  			return 0
-  		
-  		low, hight = 0, len(numbers) - 1
-  		while low < hight:
-  			mid = (low + hight) >> 1
-  			if number[mid] > number[hight]:
-  				low += 1
-  			elif number[mid] == number[hight]:
-  				hight -= 1
-  			else:
-  				hight = mid
-  
-  		return numbers[mid]
-```
-  
-###  调整顺序使得奇数位于前面
-  
+                  if not numbers:
+                      return None
+                  low = 0
+                  high = len(numbers) - 1
+                  while low < high:
+                      mid = (low + high) >> 1
+                      if numbers[mid] > numbers[high]:
+                          low = mid + 1
+                      elif numbers[mid] == numbers[high]:
+                          high -= 1
+                      else:
+                          high = mid
+                  return numbers[low]
+  ```
+
+  ###  调整顺序使得奇数位于前面
+
 - 问题描述：
 
     ```python

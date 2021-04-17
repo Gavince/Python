@@ -145,19 +145,6 @@ class Solution:
           # 首字符匹配
           first_match = bool(s and p[0] in {s[0], "."})
   
-      def firstUniqueChar(self, s: str) -> bool:
-          """找寻字符流中第一个不重复的值"""
-  
-          dic = {}
-  
-          for c in s:
-              dic[c] = not c in dic
-  
-          for k, v in dic:
-              if v: return k
-  
-          return " "
-  
           # 如果第二个字符为"*"，则分为“*”字符前字符出现零次或一次以上两种情况
           if len(p)>=2 and p[1] == "*":
               return self.isMathch(s, p[2:]) \
