@@ -207,7 +207,9 @@
   1.字典{}
   2. 快速排序法
   3.摩尔投票法（时间复杂度O(n), 空间复杂度O(1)）
-  注意：[1, 2, 2, 3, 3, 3, 2, 2] 此时输出结果为3, 但注意题目要求必须超过数组一半长度，而此时是相等
+  注意：
+  1. [1, 2, 2, 3, 3, 3, 2, 2] 此时输出结果为3, 但注意题目要求必须超过数组一半长度，而此时是相等
+  2. 若不存在，则需要输出０(摩尔投票法需要加入验证环节)
   ```
 - 代码（[解题思路](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/solution/)）
 
@@ -247,16 +249,20 @@
                   return num
               
               return 0
-       def majorityElement(self, nums: List[int]) -> int:
-          """摩尔投票法"""
-  
+      def MoreThanHalfNum_Solution(self, numbers):
+          # write code here
+          # 摩尔投票法
           votes = 0
-  
-          for num in nums:
-              if votes == 0: x = num  # 假定x是众数
-              votes += 1 if x == num else -1  # num是众数加１，非众数减１
-          
-          return x
+          count = 0
+          for num in numbers:
+              # 假设x为众数
+              if votes == 0: x = num
+              # 进行投票表决
+              votes += 1 if x == num else -1
+          # 验证环节
+          for num in numbers:
+              if num == x: count += 1
+          return x if count > len(numbers) >> 1 else 0 # 当无众数时返回 0
   ```
 
 ### 1～n 整数中 1 出现的次数

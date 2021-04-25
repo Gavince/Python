@@ -26,8 +26,8 @@ class Solution:
 
         for i in range(len(array)):
             if min_num < array[i] and min_num != 0:
-                min_num =min_num
-                
+                min_num = min_num
+
             else:
                 return array[i]
 
@@ -52,7 +52,7 @@ class Solution:
             if RotateArray[mid] > RotateArray[right]:  # 存在循环有序数列
                 left = mid + 1
             elif RotateArray[mid] == RotateArray[right]:
-                right = right -1
+                right = right - 1
             else:
                 right = mid
 

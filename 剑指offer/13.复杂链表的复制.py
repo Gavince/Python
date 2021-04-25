@@ -26,58 +26,38 @@ class RandomListNode:
 
 
 class Solution:
-
-    def clone(self, phead):
+    def copyRandomList(self, phead: 'Node') -> 'Node':
 
         if phead is None:
             return None
 
-        # 复制结点(插入结点的思想)
-        ptemp = phead
-        while ptemp:
-            node = RandomListNode(ptemp.val)
-            node.next = ptemp.next
-            ptemp.next = node
-            ptemp = node.next
+        # 复制结点
+        cur = phead
+        while cur:
+            tmpNode = RandomListNode(cur.val)
+            tmpNode.next = cur.next
+            cur.next = tmpNode
+            cur = tmpNode.next
 
-        # 复制random指针
-        ptemp = phead
+        # 随机指针复制
+        cur = phead
+        while cur:
+            if cur.random:
+                cur.next.random = cur.random.next
+            cur = cur.next.next
 
-        while ptemp:
-            if ptemp.random:
-                ptemp.next.random = ptemp.random.next
-            ptemp = ptemp.next.next
+        # 拆分结点
+        cur = res = phead.next
+        pre = phead
 
-        #  分离拆解
-        ptemp = phead
-        newhead = phead.next
-        newtemphead = phead.next
+        while cur.next:
+            pre.next = pre.next.next
+            cur.next = cur.next.next
+            pre = pre.next
+            cur = cur.next
+        # pre.next =None
 
-        while ptemp:
-            ptemp.next = ptemp.next.next
-            if newtemphead.next:
-                newtemphead.next = ptemp.next.next
-                newtemphead = newtemphead.next
-            ptemp = ptemp.next
-
-        return newhead
-
-if __name__ == '__main__':
-    n1 = RandomListNode(1)
-    n2 = RandomListNode(2)
-    n3 = RandomListNode(3)
-    n4 = RandomListNode(4)
-    n5 = RandomListNode(5)
-
-    n1.next = n2
-    n2.next = n3
-    n3.next = n4
-    n4.next = n5
-    obj = Solution()
-    new_head = obj.clone(n1)
-    while new_head:
-        print(new_head.val)
-        new_head = new_head.next
+        return res
 
 
 

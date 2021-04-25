@@ -27,7 +27,7 @@ class Solution:
 
         def dfs(i, j, si, sj):
             # 越界条件
-            if i >= m or j >= n or k < si + sj or (i, j) in visited: return 0
+            if i >= m or j >= n or k > si + sj or (i, j) in visited: return 0
             visited.add((i, j))
             # 先下后右
             return 1 + dfs(i + 1, j, si + 1 if (i + 1) % 10 else si - 8, sj) \

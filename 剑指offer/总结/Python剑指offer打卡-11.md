@@ -17,9 +17,14 @@
   说明：
   输出结果可能非常大，所以你需要返回一个字符串而不是整数
   拼接起来的数字可能会有前导 0，最后结果不需要去掉前导0
+  若拼接字符串 x + y > y + x，则 x “大于” y；
+  反之，若 x + y < y + x，则 x “小于” y；
+  
   
   解题方法：
   快速排序法
+  时间复杂度：O(nlogn)
+  
   ```
 
 - 知识点
@@ -35,33 +40,32 @@
   快速排序演示代码（[排序算法：快速排序【图解+代码】](https://www.bilibili.com/video/BV1bz411e7vY?from=search&seid=17579587592323875466)）：
 
   ```python
-  class Solution:
-      
-      def quiclk_sort(self, nums, start, end):
-          """快速排序法"""
-          
+      def quick_sort(self, nums, start, end):
+          """实现快速排序法"""
+  
           if start >= end:
-              return 
-          # 设置基准
+              return
+          # 基准数据
           mid = nums[start]
           low = start
-          hight = end
-          while low < hight:
-              # 左部分
-              while low < hight and nums[low] < mid: low += 1
-              # 右部分
-              while low < hight and nums[hight] >= mid: hight -=1
-              # 交换
-              nums[low], nums[hight] = nums[hight], nums[low]
-          
-          # 交换基准
+          high = end
+          while low < high:
+              # 右半部分大(注意边界条件，右半部分个大于等于)
+              while low < high and nums[high] >= mid:
+                  high -= 1
+              nums[low] = nums[high]
+              while low < high and nums[low] < mid:
+                  low += 1
+              nums[high] = nums[low]
+  
+          # 交换分界线
           nums[low] = mid
-          # 递归子部分排序
-          self.quiclk_sort(nums, start, low - 1)
-          self.quiclk_sort(nums, low + 1, end)
+          # 左半部分(递归调用)
+          self.quick_sort(nums, start, low - 1)
+          self.quick_sort(nums, low + 1, end)
   ```
-
-- 代码
+  
+- 代码[解题思路](https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/solution/mian-shi-ti-45-ba-shu-zu-pai-cheng-zui-xiao-de-s-4/)
 
   ```python
   class Solution:
@@ -93,7 +97,7 @@
       print(obj.minNumber(nums=[3, 30, 34, 5, 9]))
   ```
 
-## 统计一个数字在排序数组中出现的次数
+## 数组在升序数组中出现的次数
 
 - 问题描述
 
@@ -106,10 +110,10 @@
   输出: 2
   
   解题方法：
+  因为题目中出现了有序，所以应该首先想到二分查找
   二分法排序
+  时间复杂度：O(logn)
   ```
-
-  
 
 - 知识点
 
@@ -124,26 +128,27 @@
   ```python
   class Solution:
   
-      def BinarySearch(self, array, t):
-          # 二分查找算法必须有序
-  
+      def binarySearch(self, nums, target):
+          """
+          二分查找法
+          :param nums: 有序列表 
+          :param target: 查找目标
+          :return: 指定元素值，无则返回-1
+          """
+          
           low = 0
-          height = len(array) - 1
-  
-          while low <= height:
-              mid = (low + height) // 2
-              if array[mid] > t:
-                  height = mid - 1
-              elif array[mid] < t:
+          high = len(nums) - 1
+          
+          while low <= high:
+              mid = (low + high) >> 1
+              if nums[mid] > target:
+                  high = mid - 1
+              elif nums[mid] < target:
                   low = mid + 1
               else:
-                  return array[mid]
+                  return nums[mid]
+  
           return -1
-  
-  
-  if __name__ == "__main__":
-      obj = Solution()
-      print(obj.BinarySearch([1, 2, 5, 7, 20], 20))
   ```
   
 - 代码（[解题思路](https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof/solution/)）
@@ -159,10 +164,10 @@
   
               while i<=j:
                   mid = (i + j) // 2
-                  if nums[mid] <= tar:
+                  if nums[mid] <= tar:  # j == i
                       i = mid + 1
                   else:
-                      j = mid - 1
+                      j = mid - 1  # j < i　越界
               return i   # 返回右边界的索引
           
           return helper(target) - helper(target - 1)

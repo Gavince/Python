@@ -12,6 +12,9 @@
 解题方法：
 # 条件（大小王除外, 且不重复）
 max - min < 5
+
+注意：
+1. 不是一副扑克牌，大小王不止一张，即也有可能抽到五张大小，组成任意的
 """
 from typing import List
 
@@ -21,7 +24,7 @@ class Solution:
     def isSraight(self, nums: List[int]) -> bool:
 
         repeat = set()
-        mi, ma = 0, 14
+        ma, mi = 0, 14
         for num in nums:
             if num == 0: continue  # 遇见大小王则跳过
             mi = min(mi, num)
@@ -29,7 +32,7 @@ class Solution:
             if num in repeat: return False  # 有重复数值,直接返回
             repeat.add(num)
 
-        return ma - mi < 5
+        return abs(ma - mi) < 5
 
     def isStraight(self, nums: List[int]) -> bool:
 

@@ -28,18 +28,24 @@ class Solution:
 
         if start >= end:
             return
+
         # 基准数据
         mid = nums[start]
         low = start
         high = end
+
         while low < high:
             # 右半部分大(注意边界条件，右半部分个大于等于)
-            while low < high and nums[high] >= mid: high -= 1
-            while low < high and nums[low] < mid: low += 1
-            nums[low], nums[high] = nums[high], nums[low]
+            while low < high and nums[high] >= mid:
+                high -= 1
+            nums[low] = nums[high]
+
+            while low < high and nums[low] < mid:
+                low += 1
+            nums[high] = nums[low]
+
         # 交换分界线
         nums[low] = mid
-
         # 左半部分(递归调用)
         self.quick_sort(nums, start, low - 1)
         self.quick_sort(nums, low + 1, end)
@@ -62,6 +68,7 @@ class Solution:
 
         strs = [str(num) for num in nums]
         quick_sort(0, len(strs) - 1)
+
         return "".join(strs)
 
 

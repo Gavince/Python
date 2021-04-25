@@ -50,6 +50,22 @@ class Solution:
                 return num
             return 0
 
+    def moreThanHalfNum(self, numbers):
+        """数组中超过一半的元素"""
+
+        votes, count = 0, 0
+
+        for num in numbers:
+            # 假设x为众数
+            if votes == 0: x = num
+            # 进行投票表决
+            votes += 1 if num == x else -1
+        # 验证环节，是否x为超过一半的数字
+        for num in numbers:
+            if x == num: count += 1
+
+        return x if count > len(numbers) >> 1 else 0
+
 
 if __name__ == "__main__":
     obj = Solution()

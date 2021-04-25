@@ -19,7 +19,7 @@ class Solution:
         first_match = bool(s and p[0] in {s[0], "."})
 
         # 如果第二个字符为"*"，则分为“*”字符前字符出现零次或一次以上两种情况
-        if len(p)>=2 and p[1] == "*":
+        if len(p) >= 2 and p[1] == "*":
             return self.isMathch(s, p[2:]) \
                    or first_match and self.isMathch(s[1:], p)
         else:

@@ -24,18 +24,54 @@ import heapq  # 默认构建最小堆，即父节点的值大于其任意子节�
 
 class Solution:
 
-    def getLeastNumbers(self, arr, k):
+    def getLeastNumbersfForHeap(self, arr, k):
+        """"获取最小k个数字"""
 
         if k == 0:
             return list()
-        # 默认最大堆
+
+        # 构建最大堆
         hp = [-x for x in arr[:k]]
         heapq.heapify(hp)
+
         for i in range(k, len(arr)):
-            if -hp[0] > arr[i]:
+            if hp[0] <= -arr[i]:
                 heapq.heappop(hp)
                 heapq.heappush(hp, -arr[i])
-        ans = [-x for x in hp]
-        return ans
+        res = [-x for x in hp]
 
-print(Solution().getLeastNumbers([3, 2, 1], 2))
+        return res
+
+    def getLeastNumbersForSort(self, numbs, k):
+
+        def quickSort(nums, start, end):
+            """"快速排序法"""
+
+            if start >= end:
+                return list()
+
+            low = start
+            high = end
+            mid = nums[start]
+
+            while low < high:
+                while low < high and nums[high] >= mid:
+                    high -= 1
+                nums[low] = nums[high]
+                while low < high and nums[low] < mid:
+                    low += 1
+                nums[high] = nums[low]
+            # 交换基准
+            nums[low] = mid
+            quickSort(nums, start, low - 1)
+            quickSort(nums, low + 1, end)
+        quickSort(numbs, 0, len(numbs) - 1)
+
+        return numbs[:k]
+
+
+if __name__ == "__main__":
+    numbers = [1, 5, 2, 4, 9, 7, 3]
+    obj = Solution()
+    print(obj.getLeastNumbersfForHeap(arr=numbers, k=3))
+    print(obj.getLeastNumbersForSort(numbs=numbers, k=3))

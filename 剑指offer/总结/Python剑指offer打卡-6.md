@@ -68,32 +68,36 @@
   
   ```python
   class Solution:
-      def verifyPostorder(self, postorder: List[int]) -> bool:
-  
-          if not  postorder:
-              return True
-  
-          def isTree(postorder):
-              """"递归循环"""
-              root = postorder[-1]
-              length = len(postorder)
-              # 是否满足条件：左小有大对于根
+      def VerifySquenceOfBST(self, sequence):
+          # write code here
+          if not sequence:
+              return False
+          
+          def isTree(sequence):
+              """判断是否为搜索树"""
+              
+              root = sequence[-1]
+              length = len(sequence)
+              # 左小右大原则
+              # 左子树
               for i in range(length):
-                  if postorder[i] > root:
+                  if sequence[i] > root:
                       break
-  	  left = True
-      
-              for j in range(i, length-1):
-                  if postorder[j]<root:
+              left = True
+              # 右子树
+              for j in range(i, length - 1):
+                  if sequence[j] < root:
                       return False
               right = True
+              # 递归遍历
               if i > 0:
-                  left = isTree(postorder[:i])
-              right = True
+                  left = isTree(sequence[:i])
               if i < length - 1:
-                  right = isTree(postorder[i:length-1])
+                  right = isTree(sequence[i: length - 1])
+              
               return left and right
-          return isTree(postorder)
+          
+          return isTree(sequence)
   ```
 
 ## 从上往下打印二叉树
@@ -120,6 +124,7 @@
               """"层序遍历"""
               
                   if not root: return []
+                  
                   res, queue = [], collections.deque()
                   queue.append(root)
                   
@@ -184,33 +189,62 @@
   ![](./imgs/最大堆.gif)
 
   ```python
-  import heapq  # 最大堆构建
+  import heapq  # 默认构建最小堆，即父节点的值大于其任意子节点的值
+  
   
   class Solution:
-      def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
-          
+  
+      def getLeastNumbersfForHeap(self, arr, k):
+          """"获取最小k个数字"""
+  
           if k == 0:
               return list()
   
-          hp = [-x for x in arr[:k]]
-          
           # 构建最大堆
+          hp = [-x for x in arr[:k]]
           heapq.heapify(hp)
-          
-          # 遍历
+  
           for i in range(k, len(arr)):
-              # hp[0] 最小元素
               if hp[0] <= -arr[i]:
                   heapq.heappop(hp)
                   heapq.heappush(hp, -arr[i])
+          res = [-x for x in hp]
   
-          ans = [-x for x in hp]
+          return res
   
-          return ans
-      # 方法二
-      def def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
-          arr.sort()
-          return arr[:k]
+      def getLeastNumbersForSort(self, numbs, k):
+  
+          def quickSort(nums, start, end):
+              """"快速排序法"""
+  
+              if start >= end:
+                  return list()
+  
+              low = start
+              high = end
+              mid = nums[start]
+  
+              while low < high:
+                  while low < high and nums[high] >= mid:
+                      high -= 1
+                  nums[low] = nums[high]
+                  while low < high and nums[low] < mid:
+                      low += 1
+                  nums[high] = nums[low]
+              # 交换基准
+              nums[low] = mid
+              quickSort(nums, start, low - 1)
+              quickSort(nums, low + 1, end)
+          quickSort(numbs, 0, len(numbs) - 1)
+  
+          return numbs[:k]
+  
+  
+  if __name__ == "__main__":
+      numbers = [1, 5, 2, 4, 9, 7, 3]
+      obj = Solution()
+      print(obj.getLeastNumbersfForHeap(arr=numbers, k=3))
+      print(obj.getLeastNumbersForSort(numbs=numbers, k=3))
   ```
 
 ## 数据流中的中位数
@@ -262,6 +296,6 @@
 
 ## 参考
 
-[heapq库的简单使用](https://blog.csdn.net/jamfiy/article/details/88185512)
+[最大最小堆整理 & heapq最小最大堆](https://blog.csdn.net/weixin_36372879/article/details/84573144)
 
 [数据结构与算法(4)——优先队列和堆](https://zhuanlan.zhihu.com/p/39615266)

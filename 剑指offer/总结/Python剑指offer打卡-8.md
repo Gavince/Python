@@ -209,9 +209,14 @@
 - 问题描述
 
   ```
+  问题描述：
   我们可以用2*1的小矩形横着或者竖着去覆盖更大的矩形。
   请问用n个2*1的小矩形无重叠地覆盖一个2*n的大矩形，
   总共有多少种方法？
+  
+  解题方法：
+  1.递归（时间复杂度大）
+  2. 双指针（合理）
   ```
 
 - 代码（[解题思路](https://blog.csdn.net/zgljl2012/article/details/48481343)）
@@ -227,4 +232,15 @@
           if n == 0 or n == 1 or n == 2:
               return n
           return self.rectCover(n - 1) + self.rectCover(n - 2)
+      
+          def rectCover(self, number):
+              # write code here
+              if number == 0:
+                  return number
+  
+              a, b = 1, 1
+              for _ in range(number):
+                  a, b = b, a + b
+  
+              return a
   ```

@@ -48,7 +48,7 @@
   			return None
   ```
 
-## 对称二叉树
+## 判断二叉树是否对称
 
 - 问题描述
 
@@ -85,7 +85,7 @@
   ```
   请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右至左的顺序打印，第三行按照从左到右的顺序打印，其他行以此类推。
   解题：
-  构造奇偶条件，遍历不同顺序
+  构造奇偶条件，遍历不同顺序(偶头奇尾法)
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/solution/mian-shi-ti-32-iii-cong-shang-dao-xia-da-yin-er--3/)）
@@ -188,8 +188,8 @@
           self.k = k
           dfs(root)
           return self.res
-```
-  
+  ```
+
   ## 参考
 
 [python collections 模块中的 deque](https://blog.csdn.net/HappyRocking/article/details/80058623?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control)

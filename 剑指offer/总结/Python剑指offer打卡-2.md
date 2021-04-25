@@ -20,6 +20,9 @@
   当numbers[mid] == numbers[high]时,我们不知道最小值的范围,但是可以肯定的是去除numbers[high]是没有影响的,缩小范围high -= 1
   当numbers[mid] < numbers[high]时,我们知道最小值的不是numbers[mid]就是在mid的左边,缩小范围high = mid
   # 51234, 34512, 22222
+  
+  注意：
+  最后return numbers[low]
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/solution/pythonti-jie-er-fen-fa-shuang-100he-zhi-jie-cha-zh/)）

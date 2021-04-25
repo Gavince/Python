@@ -126,7 +126,7 @@
   
       def jump_floor3(self, n: int):
    
-          if n == 0 or n == 1:
+          if n == 0 or n == 1 or  n == 2:
               return n
   
           return 2 * self.jump_floor3(n - 1)
@@ -168,7 +168,7 @@
           """在二维数组中找到指定数字"""
   
           i, j = len(matrix)-1, 0
-          while i > 0 and j < len(matrix[0]):
+          while i >= 0 and j < len(matrix[0]):
               if matrix[i][j] > target: i -= 1
               elif matrix[i][j] < target: j += 1
               else: return True

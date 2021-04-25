@@ -16,7 +16,8 @@
   max - min < 5
   
   注意：
-  不是一副扑克牌，大小王不止一张，即也有可能抽到五张大小，组成任意的顺子牌。
+  1. 不是一副扑克牌，大小王不止一张，即也有可能抽到五张大小，组成任意的顺子牌。
+  2. 当num 输入为[]时需要考虑输出结果为False, 加上abs(0 - 14) < 5 False
   ```
 
 - 代码
@@ -30,7 +31,7 @@
       def isSraight(self, nums: List[int]) -> bool:
   
           repeat = set()
-          mi, ma = 0, 14
+          mi, ma = 14, 0
           for num in nums:
               if num == 0: continue  # 遇见大小王则跳过
               mi = min(mi, num)
@@ -38,7 +39,7 @@
               if num in repeat: return False  # 有重复数值,直接返回
               repeat.add(num)
   
-          return ma - mi < 5
+          return abs(ma - mi) < 5
   
       def isStraight(self, nums: List[int]) -> bool:
   
@@ -67,7 +68,7 @@
   递归，并使用逻辑运算
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/problems/qiu-12n-lcof/solution/mian-shi-ti-64-qiu-1-2-nluo-ji-fu-duan-lu-qing-xi-/)）
 
   ```python
   class Solution:
@@ -179,9 +180,10 @@
               # 下上右左进行访问
               res = dfs(i + 1, j, k+1) or dfs(i - 1, j, k+1) or dfs(i, j + 1, k+1) or dfs(i, j - 1, k+1)
               board[i][j] = word[k]
+              
               return res
   
-          # 　寻找入口
+          # 寻找入口
           for i in range(len(board)):
               for j in range(len(board[0])):
                   if dfs(i, j, 0): return True
@@ -206,7 +208,7 @@
   
   注意条件：
   1.不能越界
-  2.满足行列坐标位数和要求
+  2.满足行列坐标位数和要求(不能大于的格子里面)
   3.机器人起始点为[0, 0]（区别与上一题中的任意入口）
   ```
 
@@ -225,6 +227,7 @@
               # 先下后右
               return 1 + dfs(i + 1, j, si + 1 if (i + 1) % 10 else si - 8, sj) \
                      + dfs(i, j + 1, si, sj + 1 if (j + 1) % 10 else sj - 8)
+              
           # 设置已访问标记
          visited = set()
           return dfs(0, 0, 0, 0)

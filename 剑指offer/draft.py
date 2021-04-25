@@ -824,9 +824,54 @@ class SolutionString:
 
         return 2*self.numWays2(n - 1)
 
+    def quickSort(self, nums, start, end):
+        """"快速排序法"""
+
+        if start >= end:
+            return
+        # 参数设定
+        low = start
+        high = end
+        mid = nums[low]
+
+        while low < high:
+            while low < high and nums[high] >= mid:
+                high -= 1
+            nums[low] = nums[high]
+
+            while low < high and nums[low] < mid:
+                low += 1
+            nums[high] = nums[low]
+        nums[low] = mid
+        self.quickSort(nums, start, low - 1)
+        self.quickSort(nums, low + 1, high)
+
+    def binarySearch(self, nums, target):
+        """
+        二分查找法
+        :param nums: 有序列表
+        :param target: 查找目标
+        :return: 指定元素值，无则返回-1
+        """
+
+        low = 0
+        high = len(nums) - 1
+        while low <= high:
+            mid = (low + high) >> 1
+            if nums[mid] > target:
+                high = mid - 1
+            elif nums[mid] < target:
+                low = mid + 1
+            else:
+                return nums[mid]
+
+        return -1
+
 
 
 
 if __name__ == "__main__":
     obj = Solution()
     print(obj.lastRemaining(3, 1))
+
+
