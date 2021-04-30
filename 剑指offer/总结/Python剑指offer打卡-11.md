@@ -6,7 +6,7 @@
 
 - 问题描述
 
-  ```
+  ```python
   问题描述：
   输入一个非负整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。
   
@@ -24,12 +24,11 @@
   解题方法：
   快速排序法
   时间复杂度：O(nlogn)
-  
   ```
-
+  
 - 知识点
 
-  快速排序
+  快速排序图解
 
   ![](./imgs/快速排序法.jpeg)
 
@@ -101,7 +100,7 @@
 
 - 问题描述
 
-  ```
+  ```python
   问题描述：
   统计一个数字在排序数组中出现的次数
   
@@ -110,8 +109,8 @@
   输出: 2
   
   解题方法：
-  因为题目中出现了有序，所以应该首先想到二分查找
-  二分法排序
+  因为题目中出现了"排序"，所以应该首先想到二分查找
+  二分法查找
   时间复杂度：O(logn)
   ```
 
@@ -124,6 +123,10 @@
   ![](./imgs/二分查找.png)
   
   二分查找演示代码
+  
+  注意:二分查找边界值为:==low <= high==
+  
+  ![](./imgs/二分查找边界.png)
   
   ```python
   class Solution:
@@ -177,7 +180,7 @@
 
 - 问题描述
 
-  ```
+  ```python
   问题描述：
   输入一个正整数 target ，输出所有和为 target 的连续正整数序列（至少含有两个数）。
   序列内的数字由小到大排列，不同序列按照首个数字从小到大排列。
@@ -193,6 +196,11 @@
       当 s < targets 时： 向右移动右边界 j = j + 1，并更新元素和 s ；
       当 s = targets 时： 记录连续整数序列，并向右移动左边界 i = i + 1 ；
   3. 返回值： 返回结果列表 res ；
+  
+  注意：
+  １．至少含有两个数
+  ２．连续数组
+  ３．由小到大
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/solution/jian-zhi-offer-57-ii-he-wei-s-de-lian-xu-t85z/)）
@@ -206,6 +214,7 @@
   
           # 初始化连续区间
           i, j, s, res = 1, 2, 3, []
+          
           while i < j:
               if s == target:
                   res.append(list(range(i, j+1)))
@@ -213,7 +222,7 @@
                   s -= i  # 先减后加
                   i += 1
               else:
-                  j += 1  # 先加后减
+                  j += 1  # 先加后加
                   s += j
   
         return res
@@ -224,23 +233,26 @@
 
 - 问题描述
 
-  ```
+  ```python
   问题描述：
-  字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。比如，输入字符串"abcdefg"和数字2，
-  该函数将返回左旋转两位得到的结果"cdefgab"
+  字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符
+  串左旋转操作的功能。比如，输入字符串"abcdefg"和数字2，该函数将返回左旋转两位得到的结果
+  "cdefgab".
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/solution/mian-shi-ti-58-ii-zuo-xuan-zhuan-zi-fu-chuan-qie-p/)）
 
+  ![](./imgs/左旋转字符串.png)
+  
   ```python
   class Solution:
   
-      def reverseselectWords_fun1(self, s: str, n: int) -> str:
+      def reverseSelectWords_fun1(self, s: str, n: int) -> str:
           """切片方法"""
   
           return s[n:] + s[:n]
   
-      def reverseselectWords_fun2(self, s: str, n: int) -> str:
+      def reverseSelectWords_fun2(self, s: str, n: int) -> str:
           """遍历算法"""
   
           res = []
@@ -249,7 +261,8 @@
   
           return "".join(res)
   
-      def recverseselectWords_fun3(self, s: str, n: int) -> str:
+      def recverseSelectWords_fun3(self, s: str, n: int) -> str:
+          """先尾后头法"""
   
           res = []
           # 尾部
@@ -267,13 +280,18 @@
 
 - 问题描述
 
-  ```
+  ```python
   问题描述：
   输入一个英文句子，翻转句子中单词的顺序，但单词内字符的顺序不变。为简单起见，标点符号和普通字母一样处理。
   例如输入字符串"I am a student. "，则输出"student. a am I"。
   
   解题方法：
   1. 倒置排序
+  
+  注意：
+  while 表示：
+  i = 0 时，字符为“I”还需要进行遍历
+  下一步：i = -1，退出while循环，返回倒转结果
   ```
 
 - 代码

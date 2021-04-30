@@ -56,7 +56,7 @@
   递归
   
   注意：
-  # 即：空列表也空树的结果
+  即：空列表也空树的结果
   if []: return True
   ```
 
@@ -238,13 +238,6 @@
           quickSort(numbs, 0, len(numbs) - 1)
   
           return numbs[:k]
-  
-  
-  if __name__ == "__main__":
-      numbers = [1, 5, 2, 4, 9, 7, 3]
-      obj = Solution()
-      print(obj.getLeastNumbersfForHeap(arr=numbers, k=3))
-      print(obj.getLeastNumbersForSort(numbs=numbers, k=3))
   ```
 
 ## 数据流中的中位数

@@ -19,7 +19,10 @@
   解题方法：
   1.哈希表
   字典
-  2.有序哈希表
+  2.有序哈希表（python3独有特性）
+  
+  注意：
+  第一个只出现一次的字符，即有序
   ```
 
 - 代码
@@ -40,6 +43,36 @@
   
           return " "
   ```
+  
+- 变体（牛客网）：
+
+  ```
+  问题描述：
+  在一个字符串(0<=字符串长度<=10000，全部由字母组成)中找到第一个只出现一次的字符,并返回它的位置, 
+  如果没有则返回 -1（需要区分大小写）.（从0开始计数）
+  
+  解题方法：
+  与上一题不同，此题要求输出字符流中，第一个不重复字符的“位置”
+  ```
+
+- 代码
+
+  ```python
+  class Solution:
+      def FirstNotRepeatingChar(self, s):
+          
+          dic = {}
+          
+          for c in s:
+              dic[c] = not c in dic
+              
+         # python2.7(牛客) 
+          for c in s:
+              if dic[c]:
+                  return list(s).index(c)
+              
+          return -1
+  ```
 
 ## 滑动窗口最大值
 
@@ -47,14 +80,15 @@
 
   ```
   问题描述：
-  给你一个整数数组 nums，有一个大小为k的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的k个数字。滑动窗口每次只向右移动一位。返回滑动窗口中的最大值。
+  给你一个整数数组 nums，有一个大小为k的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到
+  在滑动窗口内的k个数字。滑动窗口每次只向右移动一位。返回滑动窗口中的最大值。
   
   如：
   输入：nums = [1,3,-1,-3,5,3,6,7], k = 3
   输出：[3,3,5,5,6,7]
   解释：
-  滑动窗口的位置                最大值
-  ---------------               -----
+  滑动窗口的位置        最大值
+  　---------------        　　-----
   [1  3  -1] -3  5  3  6  7       3
    1 [3  -1  -3] 5  3  6  7       3
    1  3 [-1  -3  5] 3  6  7       5
@@ -63,7 +97,8 @@
    1  3  -1  -3  5 [3  6  7]      7
    
    解题方法：
-  单调队列：只需要维护有可能成为窗口里最大值的元素就可以了，同时保证队里里的元素数值是由大到小的。(左删除，右添加原则)
+  单调队列：只需要维护有可能成为窗口里最大值的元素就可以了，同时保证队里里的元素数值是由大到小的。
+  (左删除，右添加原则)
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/solution/mian-shi-ti-59-i-hua-dong-chuang-kou-de-zui-da-1-6/)）
@@ -92,11 +127,6 @@
                   res.append(deque[0])
                   
           return res 
-      
-      
-  if __name__ == "__main__":
-      obj = Solution()
-      print(obj.maxSlidingWindow(nums=[3, 3, 5, 6, 7], k=3))
   ```
   
 - 代码运行
@@ -108,12 +138,13 @@
 
 - 问题描述
 
-  ```
+  ```python
   问题描述：
   实现函数double Power(double base, int exponent)，求base的exponent次方。不得使用库函数，同时不需要考虑大数问题。
   
   解题方法：
   快速幂解析
+  2^5 = (2^2)^2*2
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/solution/mian-shi-ti-16-shu-zhi-de-zheng-shu-ci-fang-kuai-s/)）
@@ -128,6 +159,7 @@
   
           # 负数变为正数计算
           if n < 0: x,  n = 1/x,  -n
+              
           while n:
               if n&1: res *= x  # 等价n%2
               x *= x
@@ -221,7 +253,7 @@
 
 - 问题描述
 
-  ```
+  ```python
   问题描述：
   输入一个字符串，打印出该字符串中字符的所有排列。
   你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
@@ -233,6 +265,8 @@
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/solution/mian-shi-ti-38-zi-fu-chuan-de-pai-lie-hui-su-fa-by/)）
 
+  ![](./imgs/字符串的排列.png)
+  
   ```python
   class Solution:
       
@@ -258,15 +292,41 @@
   
   ![](./imgs/49.递归过程.png)
   
+- 变体（牛客网）
+
+  ```
+  问题描述：
+  输入一个字符串,按字典序打印出该字符串中字符的所有排列。例如输入字符串abc,则按字典序打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。
   
+  注意：
+  此时不是任意的序列，要求有序，因此，在最后的返回中加入了sorted()，从首字母开始比较，如果首字母相同则比较第二个字母，以此类推。
+  ```
 
+- 代码
 
+  ```python
+  
+  class Solution:
+      def Permutation(self, ss):
+          # write code here
+          c, res = list(ss), []
+          def dfs(x):
+              if x == len(c) - 1:
+                  res.append("".join(c))
+                  return
+              dic = set()
+              for i in range(x,len(c)):
+                  if c[i] in dic:
+                      continue
+                  dic.add(c[i])
+                  
+                  c[i], c[x] = c[x], c[i]
+                  dfs(x + 1)
+                  c[i], c[x] = c[x], c[i]
+                  
+          dfs(0)
+          return sorted(res)  # sorted()能对可迭代对象进行排序,结果返回一个新的list
+             
+  ```
 
-
-
-
-
-
-
-
-
+  

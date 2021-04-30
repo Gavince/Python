@@ -14,12 +14,12 @@
 
 class Solution:
 
-    def reverseselectWords_fun1(self, s: str, n: int) -> str:
+    def reverseSelectWords_fun1(self, s: str, n: int) -> str:
         """切片方法"""
 
         return s[n:] + s[:n]
 
-    def reverseselectWords_fun2(self, s: str, n: int) -> str:
+    def reverseSelectWords_fun2(self, s: str, n: int) -> str:
         """遍历算法"""
 
         res = []
@@ -28,7 +28,8 @@ class Solution:
 
         return "".join(res)
 
-    def recverseselectWords_fun3(self, s: str, n: int) -> str:
+    def recverseSelectWords_fun3(self, s: str, n: int) -> str:
+        """先尾后头法"""
 
         res = []
         # 尾部
