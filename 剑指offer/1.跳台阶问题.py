@@ -9,7 +9,7 @@
 问题描述1：一只青蛙一次可以跳上1级台阶，也可以跳上2级。
 求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果)
 解决方案：
-当n=0 0
+当n=0 1
 n=1 1
 n=2 2
 n=3 3
@@ -20,7 +20,7 @@ n=4 5
 问题描述2：一只青蛙一次可以跳上1级台阶，也可以跳上2级,更可以一次跳上n级台阶
 求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果
 解决方案：
-n = 0 0
+n = 0 1
 n = 1 1
 n = 2 2
 n = 3 4
@@ -45,6 +45,14 @@ class Solution:
                 result.append(result[i-1] + result[i-2])
 
             return result[-1]
+
+    def numWays1(self, n: int) -> int:
+
+        a, b = 1, 1
+        for _ in range(n):
+            a, b = b, a + b
+
+        return a % 1000000007
 
     def jump_floor1(self, n: int):
 
@@ -89,6 +97,7 @@ class Solution:
             return n
 
         return 2 * self.jump_floor3(n - 1)
+
 
 
 if __name__ == "__main__":
