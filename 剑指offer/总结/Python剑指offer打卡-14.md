@@ -1,4 +1,4 @@
-# Python剑指offer打卡14
+# Python剑指offer打卡-14
 
 [toc]
 
@@ -23,8 +23,12 @@
   最长不含重复子串的长度
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/leetbook/read/illustration-of-algorithm/5dz9di/)）
 
+  转态转移图示：
+  
+  ![](./imgs/65.png)
+  
   ```python
   class Solution:
       def lengthOfLongestSubstring(self, s: str) -> int:
@@ -37,7 +41,6 @@
               res = max(res, tmp) 
           return res
   ```
-  
 
 ### 牛客网（最长无重复子串）
 
@@ -73,7 +76,49 @@
           return res
   ```
 
+
+## n个骰子的点数
+
+- 问题描述
+
+  ```
+  问题描述:
+      把n个骰子扔在地上，所有骰子朝上一面的点数之和为s。输入n，打印出s的所有可能的值出现的概率。
+  你需要用一个浮点数数组返回答案，其中第 i 个元素代表这 n 个骰子所能掷出的点数集合中第 i小的那个
+  的概率。
   
+  实例：
+  输入: 1
+  输出: [0.16667,0.16667,0.16667,0.16667,0.16667,0.16667]
+  
+  解题方法：
+  动态规划
+  dp[i - 1]的骰子对d[i + K]的的贡献度
+  
+  注意：
+  输出结果（概率值）从小到大排序
+  ```
+
+- 代码
+
+  ```python
+  class Solution:
+      
+      def dicesProbability(self, n: int) -> List[float]:
+          
+          # 初始化骰子
+          dp = [1.0 / 6.0] * 6
+          for i in range(2, n + 1):
+              # 骰子和个数
+              tmp = [0] * (5 * i + 1)
+              for j in range(len(dp)):
+                  for k in range(6):
+                      tmp[j + k] += dp[j]/6
+  
+              dp = tmp
+  
+          return dp
+  ```
 
   
 
