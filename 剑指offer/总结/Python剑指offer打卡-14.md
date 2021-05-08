@@ -99,7 +99,7 @@
   输出结果（概率值）从小到大排序
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/problems/nge-tou-zi-de-dian-shu-lcof/solution/jian-zhi-offer-60-n-ge-tou-zi-de-dian-sh-z36d/)）
 
   ```python
   class Solution:
@@ -120,5 +120,136 @@
           return dp
   ```
 
+
+## 打印从1到最大的n位数
+
+- 问题描述
+
+  ```
+  问题描述：
+  输入数字 n，按顺序打印出从 1 到最大的 n 位十进制数。比如输入 3，则打印出 1、2、3
+  一直到最大的 3 位数 999。
+  
+  实例:
+  输入: n = 1
+  输出: [1,2,3,4,5,6,7,8,9
+  
+  解题方法：
+  1.遍历：end = 10**n - 1
+  2.大数定理
+  9的个数：
+  n 表示位数, n - i表示起始位
+  n - (n - 1) = 1, n - (n - 2) = 2.....
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/da-yin-cong-1dao-zui-da-de-nwei-shu-lcof/solution/mian-shi-ti-17-da-yin-cong-1-dao-zui-da-de-n-wei-2/)）
+
+  ```python
+  class Solution:
+      
+      # 方法一:遍历
+      def printNumbers(self, n: int):
+          
+          return list(range(1, 10 ** n))
+      #　大数定理
+      def printNumbers(self, n: int) -> List[int]:
+  
+          def dfs(x):
+              
+              # 出口
+              if x == n:
+                  # 去除高位非零
+                  s = "".join(nums[self.start:])
+                  # 从０开始
+                  if s != "0": res.append(int(s))
+                  # 逢九进位
+                  if n - self.start == self.nine:
+                      self.start -= 1
+                  return
+  
+              # 访问下一个位置
+              for i in range(10):
+                  if i == 9: self.nine += 1
+                  nums[x] = str(i)
+                  dfs(x + 1)  # 固定下一位置
+              # 归置,只统计每一位9的数量
+              self.nine -= 1
+  
+          res, nums = [], ["0"]*n
+          self.start = n - 1
+          self.nine = 0
+          dfs(0)
+  
+          return res
+  ```
   
 
+## 0~n-1中缺失的数字
+
+==注意==：leetcode和牛客网题目条件中数组长度不一致，leetcode:[0, n-1], 牛客网：[0, n]
+
+### leetcode
+
+- 问题描述
+
+  ```python
+  问题描述：
+  一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0～n-1之内。在范围0～n-1内的n
+  个数字中有且只有一个数字不在该数组中，请找出这个数字。
+  
+  解题方法：
+  递增排序数组－＞二分法
+  
+  注意：
+  有且只有一个数字不在数组中
+  ```
+
+- 代码
+
+  ```python
+  class Solution:
+      def missingNumber(self, nums: List[int]) -> int:
+          """二分法"""
+  
+          i, j = 0, len(nums) - 1
+          while i <= j:
+              m = (i + j) // 2
+              if nums[m] == m:
+                  i = m + 1
+              else:
+                  j = m - 1
+  
+          return i
+  ```
+
+### 牛客网（缺失数字）
+
+- 问题描述
+
+  ```
+  问题描述：
+  从0,1,2,...,n这n+1个数中选择n个数，找出这n个数中缺失的那个数，要求O(n)尽可能小。
+  
+  实例：
+  n = 9
+  输入：[0,1,2,3,4,5,6,7,8]
+  输出：9
+  ```
+
+- 代码
+
+  ```python
+  class Solution:
+      def solve(self , a ):
+          # write code here
+          i, j = 0, len(a)
+          if a[-1] + 1 == j:
+              return j
+          while i <= j:
+              m = (i + j) // 2
+              if a[m] == m: i = m + 1
+              else: j = m - 1
+          return i
+  ```
+
+  

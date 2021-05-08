@@ -7,6 +7,7 @@
 - 问题描述
 
   ```
+  问题描述：
   把只包含质因子2、3和5的数称作丑数（Ugly Number）。例如6、8都是丑数，但14不是，因为它包含质因子7。
   习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。（1也是丑数）
   
@@ -18,42 +19,37 @@
   nums2 = {1*2, 2*2, 3*2, 4*2, 5*2, 6*2, 8*2...}
   nums3 = {1*3, 2*3, 3*3, 4*3, 5*3, 6*3, 8*3...}
   nums5 = {1*5, 2*5, 3*5, 4*5, 5*5, 6*5, 8*5...}
+  
+  解题方法：
+  丑数 = 某较小丑数 × 某因子
+  
+  注意：
+  牛客网中index可能为0, 因此可在代码中添加 if index == 0: return 0 先行判断
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/leetbook/read/illustration-of-algorithm/9hq0r6/)）
 
   图解
 
-  ![](./imgs/丑数.png)
+  ![](./imgs/丑树.png)
 
   ```python
   class Solution:
       
-      def GetUglyNumber(self, index: int) -> int:
-          """动态调整位置"""
+      def nthUglyNumber(self, n: int) -> int:
+    
+  
+          dp, a, b, c = [1]*n, 0, 0, 0
           
-          # 初始化
+          for i in range(1, n):
+              n2, n3, n5 = dp[a]*2, dp[b]*3, dp[c]*5
+              # 更新dp
+              dp[i] = min(n2, n3, n5)
+              if dp[i] == n2: a += 1
+              if dp[i] == n3: b += 1
+              if dp[i] == n5: c += 1
           
-          if index == 0:
-              return 0
-          
-          # 有序丑数数组
-          res = [1]
-          n2, n3, n5 = 0, 0, 0
-          i = 0
-          while i < index:
-              min_val = min(res[n2] * 2, res[n3] * 3, res[n5] * 5)
-              res.append(min_val)
-              
-              if min_val == res[n2]*2:
-                  n2 += 1
-              if min_val == res[n3]*3:
-                  n3 += 1
-              if min_val == res[n5]*5:
-                  n5 += 1
-              i += 1
-              
-          return res[i - 1]
+          return dp[-1]
   ```
 
 ## 只出现一次的数字
