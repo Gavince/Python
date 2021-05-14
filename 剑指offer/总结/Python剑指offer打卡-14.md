@@ -182,7 +182,6 @@
   
           return res
   ```
-  
 
 ## 0~n-1中缺失的数字
 
@@ -194,11 +193,33 @@
 
   ```python
   问题描述：
-  一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0～n-1之内。在范围0～n-1内的n
-  个数字中有且只有一个数字不在该数组中，请找出这个数字。
+  一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0～n-1之内。在范围0～n-1内的n个数字中有且只有一个数字不在该数组中，请找出这个数字。
   
   解题方法：
   递增排序数组－＞二分法
+  step 1：
+  i = 0  j = 3  m = 1
+  index 0 1 2 3
+  array  0 1  3 4
+  
+  step 2：
+  num[m] = m, i = m + 1 
+  i = 2  j = 3  m = 2
+  index 0 1 2 3
+  array  0 1 | 3 4
+  
+  step 3：
+  num[m] != m, j = m  - 1
+  i = 2  j = 2  m = 2
+  index 0 1 2 3
+  array  0 1 | 3 | 4
+  
+  step 4：
+  num[m] != m, j = m  - 1
+  且 j > i 跳出，return i
+  i = 2  j = 1  m = 2
+  index 0 1 2 3
+  array  0 1 | 3 | 4
   
   注意：
   有且只有一个数字不在数组中
@@ -226,7 +247,7 @@
 
 - 问题描述
 
-  ```
+  ```python
   问题描述：
   从0,1,2,...,n这n+1个数中选择n个数，找出这n个数中缺失的那个数，要求O(n)尽可能小。
   
@@ -234,7 +255,35 @@
   n = 9
   输入：[0,1,2,3,4,5,6,7,8]
   输出：9
+  
+  step 1：
+  i = 0  j = 3  m = 1
+  index 0 1 2 3
+  array  0 1  2 3
+  
+  step 2：
+  num[m] = m, i = m + 1 
+  i = 2  j = 3  m = 2
+  index 0 1 2 3
+  array  0 1 | 2 3
+  
+  step 2：
+  num[m] = m, i = m + 1 
+  i = 3  j = 3  m = 3
+  index 0 1 2 3
+  array  0 1 | 2 | 3
+  
+  step 4：
+  num[m] = m, i = m + 1 
+  i =  4  j = 3  m = 3
+  且 j > i 跳出，return i
+  index 0 1 2 3
+  array  0 1 | 2 | 3
+  
+  二分法时间复杂度为:O(logn)<O(n)
   ```
+
+  
 
 - 代码
 
@@ -242,14 +291,48 @@
   class Solution:
       def solve(self , a ):
           # write code here
-          i, j = 0, len(a)
-          if a[-1] + 1 == j:
-              return j
+          i, j = 0, len(a) - 1
           while i <= j:
               m = (i + j) // 2
               if a[m] == m: i = m + 1
               else: j = m - 1
           return i
   ```
+  
+
+## 删除链表的节点
+
+- 问题描述
+
+  ```
+  问题描述：
+  给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。
+  返回删除后的链表的头节点。
+  
+  时间复杂度：o(N)
+  空间复杂度：O(1)
+  ```
+
+- 代码
+
+  ```python 
+  class Solution:
+      
+      def deleteNode(self, head: ListNode, val: int) -> ListNode:
+  
+          # 头结点满足
+          if head.val == val: return head.next
+  
+          # 遍历寻找指定结点
+          pre, cur = head, head.next
+          while cur and cur.val != val:
+              pre = cur
+              cur = cur.next
+          if cur:
+              pre.next = cur.next
+  
+          return head
+  ```
 
   
+
