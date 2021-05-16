@@ -42,7 +42,7 @@ class Solution:
         if n >= 3:
             result = [1, 2]
             for i in range(2, n):
-                result.append(result[i-1] + result[i-2])
+                result.append(result[i - 1] + result[i - 2])
 
             return result[-1]
 
@@ -67,7 +67,7 @@ class Solution:
         if n > 1:
             max_value = 1
             min_value = 0
-            for i in range(2, n+1):
+            for i in range(2, n + 1):
                 ret = max_value + min_value
                 min_value = max_value
                 max_value = ret
@@ -85,8 +85,8 @@ class Solution:
 
         if n > 1:
             max_val = 1
-            for i in range(2, n+1):
-                temp_val = max_val*2
+            for i in range(2, n + 1):
+                temp_val = max_val * 2
                 max_val = temp_val
 
             return max_val
@@ -97,7 +97,6 @@ class Solution:
             return n
 
         return 2 * self.jump_floor3(n - 1)
-
 
 
 if __name__ == "__main__":

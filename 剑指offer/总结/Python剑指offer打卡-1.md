@@ -2,13 +2,29 @@
 
 [toc]
 
-### 斐波那契数列
+## 斐波那契数列
 
-- 问题描述与方案
+- 问题描述
 
   ```python
-  1 1 2 3 5 8 13　... F(n) = F(n-1) + F(n-2) (n > 2)
+  问题描述：
+  写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项（即 F(N)）。斐
+  波那契数列的定义如下：1 1 2 3 5 8 13　... F(n) = F(n-1) + F(n-2) (n > 2)斐波那
+  契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。答案需
+  要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。
+  
+  解题方法：
+  （1）递归（有重复计算项, 时间复杂度O(2^n)）
+  （2）动态规划（时间复杂度O(n), 空间复杂度O(1)）
+          状态定义： 设 dp 为一维数组，其中dp[i] 的值代表斐波那契数列第 i 个数字 。
+          转移方程： dp[i+1]=dp[i]+dp[i−1] ，即对应数列定义 f(n+1)=f(n)+f(n−1) ；
+          初始状态： dp[0]=0, dp[1] = 1 ，即初始化前两个数字；
+          返回值： dp[n] ，即斐波那契数列的第 n 个数字。
   ```
+
+  递归时间复杂计算：
+
+  ![](./imgs/fi.png)
 
 - 代码
 
@@ -17,6 +33,7 @@
   
       def fibonacci(self, n):
           """递归算法(时间复杂度极高O(n)=２^n)"""
+          
           if n == 0:
               return 0
           if n == 1 or n == 2:
@@ -32,23 +49,11 @@
               a, b = b, a+b
               
           return a%1000000007
-  
-      def fibonacci2(self, n):
-          """列表写法O(n)=n(推荐)"""
-  
-          if n == 0 or n == 1:
-              return n
-          
-          result = [0, 1]
-          for i in range(2, n + 1):
-              result.append(result[i - 1] + result[i - 2])
-  
-          return result[-1]%100000000
   ```
 
-### 跳台阶问题
+## 跳台阶问题
 
-- 问题描述与方案
+- 问题描述
 
   ```python
   问题描述1：一只青蛙一次可以跳上1级台阶，也可以跳上2级。
@@ -73,66 +78,29 @@
   所以，f(n) = 2f(n-1)
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/leetbook/read/illustration-of-algorithm/57xs06/)）
 
   ```python
   class Solution:
   
   # 问题一
-      def jump_floor(self, n: int):
-          """
-          :param n: 台阶
-          :return: 多少种跳法
-          """
-  
-          if n == 0 or n == 1 or n == 2:
-              return n
-          if n >= 3:
-              result = [1, 2]
-              for i in range(2, n):
-                  result.append(result[i-1] + result[i-2])
-  
-              return result[-1]
-  
-      def jump_floor1(self, n: int):
-  
-          if n == 0 or n == 1 or n == 2:
-              return n
-  
-          if n > 2:
-              a = 2
-              b = 1
-              ret = 0
-              for i in range(3, n + 1):
-                  ret = a + b
-                  b = a
-                  a = ret
-  
-          return ret
+      def numWays(self, n: int) -> int:
+          a, b = 1, 1
+          for _ in range(n):
+              a, b = b, a + b
+          
+          return a%1000000007
+      
   # 问题二
-      def jump_floor2(self, n: int):
-  
-          if n == 0 or n == 1:
-              return n
-  
-          if n > 2:
-              max_val = 1
-              temp = 1
-              for i in range(2, n + 1):
-                  temp = 2 * max_val
-                  max_val = temp
-  
-          return temp
-  
-      def jump_floor3(self, n: int):
+      def jump_floor(self, n: int):
    
           if n == 0 or n == 1 or  n == 2:
               return n
   
-          return 2 * self.jump_floor3(n - 1)
+          return 2 * self.jump_floor(n - 1)
   ```
 
-### 二维数据查找
+## 二维数据查找
 
 - 问题描述与方案
 
@@ -176,7 +144,7 @@
           return False
   ```
 
-### 使用两个栈实现一个队列
+## 使用两个栈实现一个队列
 
 - 问题描述
 
@@ -222,7 +190,7 @@
               return None  # 输入、输出栈同时为空
   ```
 
-### 替换空格
+## 替换空格
 
 - 问题描述
 
@@ -294,7 +262,9 @@
           return "".join(new_str)
   ```
 
-### 参考
+## 参考
+
+[斐波那契数的时间复杂度、空间复杂度详解](https://blog.csdn.net/lxf_style/article/details/80458519)
 
 [数据结构与算法题目](https://blog.csdn.net/storyfull/category_9475477_2.html)
 
