@@ -31,14 +31,21 @@
   
   ```python
   class Solution:
-      def lengthOfLongestSubstring(self, s: str) -> int:
+      def maxLength(self , arr ):
+          # write code here
+          if not arr: return 0
+          res, tmp = 0, 0
           dic = {}
-          res = tmp = 0
-          for j in range(len(s)):
-              i = dic.get(s[j], -1) # 获取索引 i
-              dic[s[j]] = j # 更新哈希表
-              tmp = tmp + 1 if tmp < j - i else j - i # dp[j - 1] -> dp[j]
-              res = max(res, tmp) 
+          for j in range(len(arr)):
+              # 获取重复值的索引
+              i = dic.get(arr[j], -1)
+              # 更新索引
+              dic[arr[j]] = j
+              # 转态转移
+              tmp = tmp + 1 if j - i > tmp else j - i
+              # 记录长度值
+              res = max(tmp, res)
+              
           return res
   ```
 
@@ -298,7 +305,6 @@
               else: j = m - 1
           return i
   ```
-  
 
 ## 删除链表的节点
 

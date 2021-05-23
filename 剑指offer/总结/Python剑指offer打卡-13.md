@@ -125,55 +125,58 @@
 
   ```
   问题描述：
-  	在一个 m*n 的棋盘的每一格都放有一个礼物，每个礼物都有一定的价值（价值大于 
-  0）。你可以从棋盘的左上角开始拿格子里的礼物，并每次向右或者向下移动一格、
-  直到到达棋盘的右下角。给定一个棋盘及其上面的礼物的价值，请计算你最多能拿
-  到多少价值的礼物？
+  	在一个 m*n 的棋盘的每一格都放有一个礼物，每个礼物都有一定的价值（价值
+  大于 0）。你可以从棋盘的左上角开始拿格子里的礼物，并每次向右或者向下移动一
+  格、直到到达棋盘的右下角。给定一个棋盘及其上面的礼物的价值，请计算你最多能
+  拿到多少价值的礼物？
   
   实例：
-  [
-    [1,3,1],
+  [[1,3,1],
     [1,5,1],
-    [4,2,1]
-  ]
+    [4,2,1]]
   输出: 12
   解释: 路径 1→3→5→2→1 可以拿到最多价值的礼物
+  
+  解题方法：
+  动态规划
+  
+  复杂度:
+  时间复杂度O(M*N)
+  空间复杂度O(1)
   
   注意：
   (1)入口为左上角,出口为右下角
   (2)每次向下或向右移动一格
-  
-  解题方法：
-  动态规划
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/leetbook/read/illustration-of-algorithm/5vr32s/)）
 
+  ![](./imgs/63.png)
+  
   ```python
   class Solution:
+      def maxValue(self, grid: List[List[int]]) -> int:
   
-      def maxValue(self, grid) -> int:
-          """礼物的最大值"""
           m, n = len(grid), len(grid[0])
-          # 初始化第一行
+  
+          # 起始转态(第一行)
           for j in range(1, n):
               grid[0][j] += grid[0][j - 1]
-          # 初始化第一列
+          
+          # 起始状态（第一列）
           for i in range(1, m):
-              grid[i][0] += grid[i - 1][0]
-  
-          # 遍历i,j结点
+              grid[i][0] += grid[i-1][0]
+          
+          # 转移方程(向左 向上)
           for i in range(1, m):
               for j in range(1, n):
                   grid[i][j] += max(grid[i - 1][j], grid[i][j - 1])
-  
-          # 右下角的值
+                  
+          # 返回值
           return grid[-1][-1]
   ```
 
 ### 最小值：牛妹的的礼物（牛客网）
-
-
 
 - 问题描述
 
@@ -192,6 +195,10 @@
   	dp[i][j] = min(dp[i-1][j-1],，dp[i][j-1]，dp[i-1][j])) + presentVolumn[i][j]
   3、返回值是dp最右下角的值。
   
+  复杂度:
+  时间复杂度O(M*N)
+  空间复杂度O(1)
+  
   注意：
   (1)入口为左上角,出口为右下角
   (2)每次向下或向右或向右下角移动一格
@@ -202,16 +209,15 @@
   ```python
   class Solution:
       def selectPresent(self , presentVolumn ):
-          # write code here
-          
-          m, n = len(presentVolumn), len(presentVolumn[0])
-          
+   
+          m, n = len(presentVolumn), len(presentVolumn[0])       
           # 初始化第一行
           for j in range(1, n):
               presentVolumn[0][j] += presentVolumn[0][j - 1]
           # 初始化第一列
           for i in range(1, m):
               presentVolumn[i][0] += presentVolumn[i - 1][0]
+              
           # 遍历所有节点(上，左，左上)
           for i in range(1, m):
               for j in range(1, n):
@@ -219,10 +225,6 @@
           
           return presentVolumn[-1][-1]
   ```
-
-
-
-  
 
 ## 把数字翻译成字符串
 
@@ -262,6 +264,7 @@
           
           # 初始化
           strs = str(num)
+          # dp[i-1], dp[i-2]
           a, b = 1, 1
           for i in range(2, len(strs) + 1):
               a, b = (a + b if "10" <= strs[i - 2:i] <= "25" else a), a
@@ -286,10 +289,13 @@
   输出: 0
   
   输入："100"
-  输出："0"
+  输出：0
+  
+  输入："1001"
+  输出：0
   
   输入："10"
-  输出："0"
+  输出：0
   
   输入："12"
   输出：2
@@ -301,24 +307,16 @@
   class Solution:
       def solve(self , nums ):
           # write code here
-          n = len(nums)
-          
-          if nums[0] == "0" and n == 1:
+          if nums[0] == "0" and  len(nums) == 1:
               return 0
           
-          a, b = 1, 1
-          for i in range(1, n):
-              tmp = a
-              # 实例：100
-              if nums[i] == "0":
-                  if nums[i - 1] == "0":
+          a, b = 1, 1   
+          for i in range(2,  len(nums) + 1):
+              if nums[i - 1] == "0":
+                  if nums[i - 2] == "0":
                       return 0
               else:
-                  # 如果前一个为1，则当前值可为任意值有效
-                  if nums[i - 1] == "1" or (nums[i - 1] == "2" and nums[i] <= "6"):
-                       a += b
-              b = tmp
-              
+                  a, b = (a + b if "10" <= nums[i-2:i] <= "26" else a), a
           return a
   ```
 
@@ -348,7 +346,7 @@
   
           cost, profit = float("+inf"), 0
           for price in prices:
-              # 低谷
+              # 记录最低值
               cost = min(cost, price)
               # 利润最大化
               profit = max(profit, price - cost)

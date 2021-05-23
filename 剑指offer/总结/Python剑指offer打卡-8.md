@@ -81,17 +81,29 @@
 - 题目说明  
 
   ```
+  问题描述：
   输入一个整型数组，数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。
   要求时间复杂度为O(n)。
+  
+  解题方法：
+  动态规划
+  dp[i]的长度，时间复杂度O(n)
+  直接使用nums数组进行存储，空间复杂度O(1)
   ```
 
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/solution/cong-bao-li-po-jie-dao-dong-tai-gui-hua-yfvkp/)）
+  
+  状态转移方程：
   $$
   dp[j]={ dp[j−1]+nums[j],dp[j−1]>0 \\
     dp[j]=nums[j],   dp[j−1]≤0}\\
   $$
-
+  
+  情况描述：
+  
+  ![](./imgs/36.png)
+  
   ```python
   class Solution:
       def maxSubArray(self, nums: List[int]) -> int:
@@ -244,3 +256,8 @@
   
               return a
   ```
+
+## 参考
+
+[图解算法数据结构](https://leetcode-cn.com/leetbook/read/illustration-of-algorithm/55187i/)
+
