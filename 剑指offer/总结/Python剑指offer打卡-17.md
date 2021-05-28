@@ -37,27 +37,26 @@
   ```python
   class Solution:
       def longestPalindrome(self, s: str) -> str:
-  
+          
           n = len(s)
+          # 当s只有一个字符和无字符时
           if n < 2:
               return s
           
-          # 保证最长回文
-          max_len = 1
-          begin = 0
-          # 起始状态
-          dp = [[False] * n for _ in range(n)]
-          # 只有一个字符，本身为
+          # 转态定义
+          dp = [[False]*n for _ in range(n)]
+          # 初始状态
           for i in range(n):
               dp[i][i] = True
-          # 遍历可能的回文长度,起始长度为L = 2
+  
+          max_len, begin = 1, 0
+          # 遍历状态
           for L in range(2, n + 1):
-              # 枚举左边界
+              # 左右边界
               for i in range(n):
-                  j = L + i - 1
+                  j = i + L - 1
                   if j >= n:
                       break
-                  # 状态转移
                   if s[i] != s[j]:
                       dp[i][j] = False
                   else:
@@ -65,15 +64,13 @@
                           dp[i][j] = True
                       else:
                           dp[i][j] = dp[i + 1][j - 1]
-          
-                   # 最长回文子串
+                  # 更新最长回文子串长度起始值
                   if dp[i][j] and j - i + 1 > max_len:
                       max_len = j - i + 1
                       begin = i
           
           return s[begin: begin + max_len]
   ```
-
   
 
 ## Z字形变换
@@ -101,7 +98,7 @@
 
 - 代码
 
-  图解
+  图解（从上向下（flag = 1）从下向上（flag = -1），转变过程以指定行为标准）
 
   ![](./imgs/82.png)
 
@@ -130,15 +127,12 @@
 
   ```
   问题描述：
-  给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。
-  如果反转后整数超过 32 位的有符号整数的范围[−231, 231− 1] ，
-  就返回 0。假设环境不允许存储 64 位整数（有符号或无符号
-  
-  
-  解题方法：
+  	给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。如
+  果反转后整数超过 32 位的有符号整数的范围[−231, 231− 1] ，就返回 0。假设环
+  境不允许存储 64 位整数（有符号或无符号）。
   ```
-
-- 代码
+  
+- 代码（[解题思路](https://leetcode-cn.com/problems/reverse-integer/solution/zheng-shu-fan-zhuan-by-leetcode-solution-bccn/)）
 
   ```python
   class Solution:
@@ -164,4 +158,106 @@
           return rev
   ```
 
+
+## 二叉树的中序遍历
+
+- 问题描述
+
+  ```
+  问题描述：
+  给定二叉树的根节点root，返回它的中序遍历。
   
+  解题方法：
+  （1）递归
+  时间复杂度：O(n)，n为节点数，访问每个节点恰好一次。
+  空间复杂度：空间复杂度：O(h)，h为树的高度。最坏情况下需要
+  空间O(n)，平均情况为O(logn)。
+  
+  （2）使用栈进行模拟,迭代法
+  时间复杂度：O(N)
+  空间复杂度：O(h)
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/solution/python3-er-cha-shu-suo-you-bian-li-mo-ban-ji-zhi-s/)）
+
+  ```python
+  class Solution:
+      def inorderTraversal(self, root: TreeNode) -> List[int]:
+  	"""经典递归方式(通用模板)"""
+          # 定义返回值
+          res = []
+          # 定义dfs
+          def dfs(cur):
+              if cur is None:
+                  return 
+              ## 前序递归
+              # res.append(cur.val)
+              # dfs(cur.left)
+              # dfs(cur.right) 
+               # 中序递归
+              dfs(cur.left)
+              res.append(cur.val)
+              dfs(cur.right)
+              # # 后序递归
+              # dfs(cur.left)
+              # dfs(cur.right)
+              # res.append(cur.val)
+          dfs(root)
+          
+          return res
+      
+      def inorderTraversal(self, root: TreeNode) -> List[int]:
+          """模拟递归"""
+  
+          stack, res = [], []
+          while stack or root:
+              if root:
+                  stack.append(root)
+                  root = root.left
+              else:
+                  tmp = stack.pop()
+                  res.append(tmp.val)
+                  root = tmp.right
+                  
+          return res
+  ```
+
+## 不同的二叉搜索树
+
+- 问题描述
+
+  ```
+  问题描述
+  给你一个整数 n ，求恰由 n 个节点组成且节点值从 1 到 n 互不相同的 二叉搜索树 有多少种？
+  返回满足题意的二叉搜索树的种数。
+  
+  解题方法：
+  动态规划(四步走原则)
+  (1)定义转态：dp[i]表示连续的i个数，所有可能的BST组合个数；
+  (2)状态转移：dp[i] += dp[j]*dp[i - j - 1]  2 <= i <= n, 2 <=  j <=  i - 1；
+  eg: dp[2] = dp[1] * dp[0] + dp[0] * dp[1]
+  (3)初始状态：dp[0] = 1, dp[1] = 1 表示无节点和只有一个结点时, BST个数为1 ；
+  (4)返回值：dp[n]连续n个结点的BST组合个数。
+  时间复杂度：O(N^2)
+  空间复杂度：O(N)
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/unique-binary-search-trees/solution/shou-hua-tu-jie-san-chong-xie-fa-dp-di-gui-ji-yi-h/)）
+
+  ```python
+  class Solution:
+      def numTrees(self, n: int) -> int:
+  
+          dp  = [0] * (n + 1)
+           # 状态定义：有i个结点构建左或者右子树
+          dp[0], dp[1] = 1, 1
+           
+          for i in range(2, n + 1):
+              for j in range(1, i + 1):
+                  dp[i] += dp[j - 1] * dp[i - j]
+          
+          return dp[n]
+  ```
+
+  
+
