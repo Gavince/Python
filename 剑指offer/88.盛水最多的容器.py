@@ -36,8 +36,10 @@ class Solution:
         max_area = 0
         for i in range(len(height)):
             for j in range(i + 1, len(height)):
-                max_area = max(max_area, height[i] * (j - i))
-
+                if height[i] < height[j]:
+                    max_area = max(max_area, height[i] * (j - i))
+                else:
+                    max_area = max(max_area, height[j] * (j - i))
         return max_area
 
     def maxArea(self, height) -> int:

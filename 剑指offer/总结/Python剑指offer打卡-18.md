@@ -128,13 +128,14 @@
   (1)暴力法
   时间复杂度:O(N^2)
   空间复杂度:O(1)
+  
   (2)双指针法
   原则：容器的最大面积是由短板决定的，固定长板，移动短板
   时间复杂度:O(N)
   空间复杂度:O(1)
   
   双指针移动的合理性：
-      其实无论是移动短指针和长指针都是一种可行求解。 只是，一开始就已经把指针定
+          其实无论是移动短指针和长指针都是一种可行求解。 只是，一开始就已经把指针定
   义在两端，如果短指针不动，而把长指针向着另一端移动，两者的距离已经变小了，无论
   会不会遇到更高的指针，结果都只是以短的指针来进行计算。 故移动长指针是无意义的。
   ```
@@ -151,8 +152,11 @@
           max_area = 0
           for i in range(len(height)):
               for j in range(i + 1, len(height)):
-                  max_area = max(max_area, height[i] * (j - i))
-  
+                  # 短边决定
+                  if height[i] < height[j]:
+                  	max_area = max(max_area, height[i] * (j - i))
+  	       else:
+              	    max_area = max(max_area, height[j] * (j - i))	
           return max_area
   
       def maxArea(self, height) -> int:
@@ -169,6 +173,107 @@
                   j -= 1
           return res
   ```
+  
+
+## 子集
+
+- 问题描述
+
+  ```
+  问题描述：
+      给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有
+  可能的子集（幂集）。解集不能包含重复的子集。你可以按 任意顺序 返回解集。
+  
+  实例：
+  输入：nums = [1,2,3]
+  输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+  
+  解题方法：
+  （１）迭代法
+  （２）回朔法
+  
+  注意：
+  空集是任何形式的子集。
+  ```
+
+- 代码
+
+  迭代法:
+
+  ![](./imgs/89-Page-1.png)
 
   
 
+  ```python
+  class Solution:
+      def subsets(self, nums):
+          """迭代法"""
+  
+          res = [[]]
+          for i in range(len(nums) - 1, -1, -1):
+              # 在原有子集的基础上，增加新的元素构成新的子集
+              for subres in res[:]: res.append(subres + [nums[i]])
+  
+          return res
+  ```
+
+  回朔法：
+
+  ![](./imgs/89-Page-2.png)
+
+  ```python
+  class Solution:
+      def subsets(self, nums):
+          """回朔法"""
+          res = []
+          n = len(nums)
+  
+          def helper(i, tmp):
+              res.append(tmp)
+              # 横向遍历
+              for j in range(i, n):
+                  helper(j + 1, tmp + [nums[i]])
+  
+          helper(0, [])
+          return res
+  ```
+
+## 多数元素
+
+- 问题描述
+
+  ```python
+  问题描述：
+  	给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中
+  出现次数 大于 ⌊ n/2 ⌋ 的元素。你可以假设数组是非空的，并且给定的数组总是
+  存在多数元素。
+  
+  解题方法：
+  时间复杂度：
+  空间复杂度：
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/counting-bits/solution/bi-te-wei-ji-shu-by-leetcode-solution-0t1i/)）
+
+  图解：x = x & (x - 1) 消除二进制中的最后一个1
+
+  ![](./imgs/90.png)
+
+  ```python
+  class Solution:
+      def countBits(self, n: int) -> List[int]:
+  
+          def countOnes(x: int) -> int:
+  
+              ones = 0
+              while x > 0:
+                  x &=(x - 1)
+                  ones += 1
+              return ones
+          
+          res = [countOnes(i) for i in range(n + 1)]
+  
+          return res
+  ```
+
+  
