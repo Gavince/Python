@@ -14,7 +14,7 @@
 输出：["abc","acb","bac","bca","cab","cba"]
 
 解题方法：
-
+回朔法
 """
 
 from typing import List
