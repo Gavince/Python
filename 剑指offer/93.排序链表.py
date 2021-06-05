@@ -21,8 +21,8 @@
 """
 
 
+# 分治排序
 def mergeSort(arr):
-
     if len(arr) < 2:
         return arr
 
@@ -56,6 +56,7 @@ def merge(left, right):
     return result
 
 
+# 链表排序
 class ListNode:
 
     def __init__(self, val):
