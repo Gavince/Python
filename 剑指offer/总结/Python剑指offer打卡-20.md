@@ -27,10 +27,10 @@
   解释: 小偷一晚能够盗取的最高金额 = 3 + 3 + 1 = 7.
   
   解题方法：
-  树型动态规划(后序遍历)
+  树型动态规划(后序遍历基础)
   1. 转态定义： dp = [val1, val2] 下标0表示为不偷， 下标1表示为偷
   2. 状态转移： 如果当前节点能被偷，则有val2 = cur.val + left[0] + right[0]
-  否则如果当前节点不能偷，则有val1 = max(left[0], left[1]) + max(right[0], right[0])
+  否则如果当前节点不能偷，则有val1 = max(left[0], left[1]) + max(right[0], right[1])
   3. 初始状态： dp = [0, 0]
   4. 返回值: max(dp[0], dp[1])
   时时间复杂度：O(n)
@@ -49,6 +49,7 @@
   class Solution:
   
       def rob(self, cur: TreeNode) -> int:
+          
           def dfs(cur):
               if not cur:
                   return [0, 0]
@@ -58,15 +59,14 @@
   
               # 状态转移
               # 当前节点不可偷
-              val1 = max(left[0], left[1]) + max(right[0], right[1])
+              val2 = max(left[0], left[1]) + max(right[0], right[1])
               # 当前节点可偷
-              val2 = cur.val + left[0] + right[0]
-              return [val1, val2]
+              val1 = cur.val + left[0] + right[0]
+              return [val2, val1]
   
           res = dfs(cur)
           return max(res[0], res[1])
   ```
-  
 
 ## 回文链表
 
@@ -84,17 +84,16 @@
   时间复杂度：O(n)　遍历所有节点
   空间复杂度：O(n) 临时数组
   （2）快慢指针
-      使用快慢指针寻找链表的中心位置，将链表进行分割l1和l2,并且
-  l1链表的长度始终大于等于l1链表的长度，然后将l2链表进行翻转与l1
+      使用快慢指针寻找链表的中心位置，将链表进行分割l1和l2,并且证明
+  l1链表的长度始终大于等于l2链表的长度，然后将 l2 链表进行翻转与 l1
   链表进行比较。
-  
   时间复杂度：O(n)　遍历所有节点
   空间复杂度：O(1) 没有使用额外空间
   
   注意：
   此题与链表翻转和排序链表知识点相同。
   ```
-
+  
 - 图解快慢指针取中点
 
   ![](./imgs/97.png)
@@ -142,4 +141,186 @@
           return True
   ```
 
+
+## 环形链表
+
+- 问题描述
+
+  ```
+  给定一个链表，判断链表中是否有环。
   
+      如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在
+  环。 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位
+  置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参
+  数进行传递，仅仅是为了标识链表的实际情况。如果链表中存在环，则返回 true。 
+  否则，返回 false 。
+  进阶：
+  你能用 O(1)（即，常量）内存解决此问题吗？
+  变体：环形链表II
+  
+  解题方法：
+  (1)哈希表
+  时间复杂度：O(n)　
+  空间复杂度：O(n)
+  (2)快慢指针
+  时间复杂度：O(n)　
+  空间复杂度：O(1)
+  ```
+  
+- 代码
+
+  图解快慢指针相遇(存在环)
+
+  ![](./imgs/98.png)
+
+  ```python
+  class ListNode:
+      def __init__(self, x):
+          self.val = x
+          self.next = None
+  
+  
+  class Solution:
+  
+      def hasCycle1(self, head):
+  
+          seen = set()
+          while head:
+              if head in seen:
+                  return True
+              seen.add(head)
+              head = head.next
+  
+          return False
+  
+      def hasCycle2(self, head: ListNode) -> bool:
+  
+          if not head or not head.next:
+              return False
+  
+          slow, fast = head, head.next
+          while fast and fast.next:
+              fast = fast.next.next
+              slow = slow.next
+              if slow == fast:
+                  return True
+  
+          return False
+  
+  ```
+
+##  删除链表的倒数第N个结点
+
+- 问题描述
+
+  ```
+  问题描述：
+      给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+  进阶：你能尝试使用一趟扫描实现吗？
+  
+  示例：
+  输入：head = [1,2,3,4,5], n = 2
+  输出：[1,2,3,5]
+  
+  解题方法：
+  双指针
+  时间复杂度:O(N) former指针实现一趟扫描
+  空间复杂度:O(1)
+  ```
+
+  
+
+- 代码
+
+  图解快慢指针变化
+
+  ![](./imgs/99.png)
+
+  ```python
+  class ListNode:
+      def __init__(self, val=0, next=None):
+          self.val = val
+          self.next = next
+  
+  
+  class Solution:
+      def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+  
+          dummy = ListNode(0, head)
+          former, latter = head, dummy
+          # 寻找K
+          for i in range(n):
+              if not former: break
+              former = former.next
+          while former:
+              latter = latter.next
+              former = former.next
+  
+          # 删除结点
+          latter.next = latter.next.next
+  
+          return dummy.next
+  ```
+
+## 每日温度
+- 问题描述
+
+  ```
+  问题描述：
+      请根据每日 气温 列表，重新生成一个列表。对应位置的输出为：要想观测到更高的气温，
+  至少需要等待的天数。如果气温在这之后都不会升高，请在该位置用0 来代替。例如，给定一个
+  列表temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是[1, 1,
+   4, 2, 1, 1, 0, 0]。
+  
+  解题方法：
+  （1）暴力求解
+  时间复杂度:O(N^2)
+  空间复杂度:O(N)
+  
+  （2）栈(维持一个递减栈)
+  时间复杂度:O(N)
+  空间复杂度:O(N)
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/daily-temperatures/solution/mei-ri-wen-du-by-leetcode-solution/)）
+
+  ```python
+  from typing import List
+  
+  
+  class Solution:
+      
+      def dailyTemperatures1(self, temperatures: List[int]) -> List[int]:
+  
+          res = len(temperatures) * [0]
+  
+          for i in range(len(temperatures)):
+              for j in range(i + 1, len(temperatures)):
+                  if temperatures[i] < temperatures[j]:
+                      res[i] = j - i
+                      break
+          return res
+  
+      def dailyTemperatures2(self, temperatures: List[int]) -> List[int]:
+  
+          length = len(temperatures)
+          ans = [0] * length
+          # 递减栈
+          stack = []
+          # 遍历index进栈
+          for i in range(length):
+              temper = temperatures[i]
+              while stack and temper > temperatures[stack[-1]]:
+                  pre_index = stack.pop()
+                  ans[pre_index] = i - pre_index
+              stack.append(i)
+  
+          return ans
+  ```
+  
+  
+  
+  
+  
+  
+

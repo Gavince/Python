@@ -8,10 +8,21 @@
 
 """
 问题描述：
-给一个链表，若其中包含环，请找出该链表的环的入口结点，否则，输出null。
+	给定一个链表，返回链表开始入环的第一个节点。如果链表无环，则返回null。
+为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索
+引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意，pos 仅仅是用于标识
+环的情况，并不会作为参数传递到函数中。说明：不允许修改给定的链表。
 
-解决方案：
-栈~
+进阶：
+你是否可以使用 O(1) 空间解决此题？
+
+解题方法：
+（1）栈
+时间复杂度：O(N)
+空间复杂度：O(N)
+（2）快慢指针
+时间复杂度：O(N)
+空间复杂度：O(1)
 """
 
 
@@ -24,38 +35,19 @@ class ListNode:
 
 class Solution:
 
-    def EntryNodeOfLoopCollections(self, pHead):
-        """链表环中第一个入口结点"""
-        if pHead is None:
-            return
+    def detectCycle(self, head: ListNode) -> ListNode:
 
-        cur = pHead
-        stack = []
-        while cur:
-            if cur not in stack:
-                stack.append(cur)
-                cur = cur.next
-            else:
-                return cur
+        slow, fast = head, head
+        while True:
+            if not fast or not fast.next: return None
+            fast = fast.next.next
+            slow = slow.next
+            if slow == fast:
+                break
 
-        return None
+        fast = head
+        while fast != slow:
+            fast = fast.next
+            slow = slow.next
 
-
-if __name__ == "__main__":
-    a = ListNode(1)
-    b = ListNode(2)
-    c = ListNode(3)
-    d = ListNode(4)
-    e = ListNode(5)
-    f = ListNode(6)
-    g = ListNode(7)
-
-    a.next = b
-    b.next = c
-    c.next = d
-    d.next = e
-    e.next = f
-    f.next = c
-
-    obj = Solution()
-    print(obj.EntryNodeOfLoopCollections(a).val)
+        return fast
