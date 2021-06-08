@@ -28,12 +28,12 @@
   
   解题方法：
   树型动态规划(后序遍历基础)
-  1. 转态定义： dp = [val1, val2] 下标0表示为不偷， 下标1表示为偷
-  2. 状态转移： 如果当前节点能被偷，则有val2 = cur.val + left[0] + right[0]
-  否则如果当前节点不能偷，则有val1 = max(left[0], left[1]) + max(right[0], right[1])
+  1. 转态定义： dp = [val2, val1] 下标0表示为不偷， 下标1表示为偷
+  2. 状态转移： 如果当前节点能被偷，则有val1 = cur.val + left[0] + right[0]
+  否则如果当前节点不能偷，则有val2 = max(left[0], left[1]) + max(right[0], right[1])
   3. 初始状态： dp = [0, 0]
   4. 返回值: max(dp[0], dp[1])
-  时时间复杂度：O(n)
+  时间复杂度：O(n)
   空间复杂度：O()
   ```
 
@@ -47,24 +47,24 @@
 
   ```python
   class Solution:
+      def rob(self, root: TreeNode) -> int:
   
-      def rob(self, cur: TreeNode) -> int:
-          
           def dfs(cur):
-              if not cur:
+              if cur is None:
+                  # 初始状态
                   return [0, 0]
-  
+              # 后序遍历
               left = dfs(cur.left)
               right = dfs(cur.right)
-  
               # 状态转移
-              # 当前节点不可偷
+              # 不偷
               val2 = max(left[0], left[1]) + max(right[0], right[1])
-              # 当前节点可偷
+              # 偷
               val1 = cur.val + left[0] + right[0]
+              # 返回值
               return [val2, val1]
-  
-          res = dfs(cur)
+          
+          res = dfs(root)
           return max(res[0], res[1])
   ```
 
@@ -74,29 +74,33 @@
 
   ```
   问题描述：
-      请判断一个链表是否为回文链表。
+  请判断一个链表是否为回文链表。
   进阶：
   你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
   
   解题方法：
-  （1）遍历
+  （1）遍历（判断正向和反向结果是否一致）
   使用有个临时数组对遍历节点数值进行存储，并比较
-  时间复杂度：O(n)　遍历所有节点
-  空间复杂度：O(n) 临时数组
+  时间复杂度：O(n)  遍历所有节点
+  空间复杂度：O(n)  临时数组
   （2）快慢指针
-      使用快慢指针寻找链表的中心位置，将链表进行分割l1和l2,并且证明
-  l1链表的长度始终大于等于l2链表的长度，然后将 l2 链表进行翻转与 l1
+  使用快慢指针寻找链表的中心位置，将链表进行分割l1和l2,并且已证明
+  l1链表的长度始终大于等于l2链表的长度，因此将 l2 链表进行翻转与 l1
   链表进行比较。
-  时间复杂度：O(n)　遍历所有节点
+  时间复杂度：O(n)  遍历所有节点
   空间复杂度：O(1) 没有使用额外空间
   
   注意：
-  此题与链表翻转和排序链表知识点相同。
+  此题与链表翻转和排序链表知识点相同, 此外，只有一个节点时，链表是回文的。
   ```
   
 - 图解快慢指针取中点
 
   ![](./imgs/97.png)
+
+- 链表翻转之后比较图解
+
+  ![](./imgs/97-Page-2.png)
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/palindrome-linked-list/solution/kuai-man-zhi-zhen-lian-biao-ni-xu-by-airesearcherj/)）
 
@@ -113,8 +117,9 @@
   
           return vars == vars[::-1]
   
-      def isPalindrom2(self, head):
-  
+      def isPalindrom2(self, head):class Solution:
+      
+          
           if not head or not head.next:
               return True
           # 快慢指针
@@ -141,8 +146,9 @@
           return True
   ```
 
-
 ## 环形链表
+
+### 存在环
 
 - 问题描述
 
@@ -162,6 +168,7 @@
   (1)哈希表
   时间复杂度：O(n)　
   空间复杂度：O(n)
+  
   (2)快慢指针
   时间复杂度：O(n)　
   空间复杂度：O(1)
@@ -206,7 +213,53 @@
                   return True
   
           return False
+  ```
+
+### 环的入口结点
+
+- 问题描述
+
+  ```
+  问题描述：
+  	给定一个链表，返回链表开始入环的第一个节点。如果链表无环，则返回null。
+  为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索
+  引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意，pos 仅仅是用于标识
+  环的情况，并不会作为参数传递到函数中。说明：不允许修改给定的链表。
+  进阶：
+  你是否可以使用 O(1) 空间解决此题？
   
+  描述：我先找到你，然后我们步调一致，最终在入口处相遇。
+  
+  解题方法：
+  （1）栈
+  时间复杂度：O(N)
+  空间复杂度：O(N)
+  （2）快慢指针
+  时间复杂度：O(N)
+  空间复杂度：O(1)
+  ```
+
+- 代码
+
+  ```python
+  class Solution:
+  
+      def detectCycle(self, head: ListNode) -> ListNode:
+  
+          slow, fast = head, head
+          while True:
+              if not fast or not fast.next: return None
+              fast = fast.next.next
+              slow = slow.next
+              if slow == fast:
+                  break
+  
+          fast = head
+          while fast != slow:
+              fast = fast.next
+              slow = slow.next
+  
+          return fast
   ```
 
 ##  删除链表的倒数第N个结点
@@ -223,12 +276,10 @@
   输出：[1,2,3,5]
   
   解题方法：
-  双指针
+  双指针（K + M = M + K）
   时间复杂度:O(N) former指针实现一趟扫描
   空间复杂度:O(1)
   ```
-
-  
 
 - 代码
 
@@ -277,7 +328,7 @@
   时间复杂度:O(N^2)
   空间复杂度:O(N)
   
-  （2）栈(维持一个递减栈)
+  （2）栈(维持一个递减栈，存储index)
   时间复杂度:O(N)
   空间复杂度:O(N)
   ```
@@ -305,17 +356,19 @@
   
           length = len(temperatures)
           ans = [0] * length
-          # 递减栈
+          # 最小栈
           stack = []
-          # 遍历index进栈
-          for i in range(length):
-              temper = temperatures[i]
-              while stack and temper > temperatures[stack[-1]]:
-                  pre_index = stack.pop()
-                  ans[pre_index] = i - pre_index
-              stack.append(i)
+          # 遍历
+          for cur_index in range(length):
+              # 当前温度
+              cur_temper = temperatures[cur_index]
+              # 维护最小栈
+              while stack and cur_temper > temperatures[stack[-1]]:
+                  hist_index = stack.pop()
+                  ans[hist_index] = cur_index - hist_index
+              stack.append(cur_index)
   
-          return ans
+          return ans 
   ```
   
   
