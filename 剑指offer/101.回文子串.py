@@ -18,7 +18,7 @@
 
 
 class Solution:
-    def countSubstrings(self, s: str) -> int:
+    def countSubstrings1(self, s: str) -> int:
 
         def speard(l, r):
             """中心扩散"""
@@ -38,3 +38,16 @@ class Solution:
             res += speard(i, i + 1)
 
         return res
+
+    def countSubstrings2(self, s: str) -> int:
+
+        n = len(s)
+        ans = 0
+
+        for i in range(2*n - 1):
+            l, r = i//2, i//2 + i%2
+            while l >= 0 and r < n and s[l] == s[r]:
+                l -= 1
+                r += 1
+                ans += 1
+        return ans
