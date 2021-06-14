@@ -1,14 +1,32 @@
 class Solution:
 
-    def reconstructQueue(self, pepole):
+    def isPalindrom(self, head) -> bool:
+        """翻转链表法"""
+        if not head or not head.next:
+            return True
+        # 寻找链表的中间节点进行翻转
+        slow, fast = head, head.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        cur = slow.next
+        slow.next = None
+        pre = None
+        # 翻转后半段
+        while cur:
+            tmp = cur.next
+            cur.next = pre
+            pre = cur
+            cur = tmp
+        while pre:
+            if pre.val != head.val:
+                return False
+            pre = pre.next
+            head = head.next
 
-        pepole = sorted(pepole, key = lambda x: (-x[0], x[1]))
+        return True
 
-        i = 0
-        while i < len(pepole):
-            if i > pepole[i][1]:
-                # 插入后删除
-                pepole.insert(pepole[i][1], pepole[i])
-                pepole.pop(i + 1)
-            i += 1
 
+if __name__ == "__main__":
+    obj = Solution()
+    print(obj.countSubStrings("abba"))

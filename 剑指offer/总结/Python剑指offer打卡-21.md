@@ -18,6 +18,7 @@
   偶数和奇数进行分别处理，高阶奇偶变化可以由低阶奇偶有限次扩展得到。
   时间复杂度:O(N^2)
   空间复杂度：O(1)
+  
   （2）中心扩散法（消除奇偶，单层循环处理）
   枚举所有可能的中心点，有2*n - 1个中心点（共有n 个奇数中心点和n - 1个偶数中心点）
   时间复杂度:O(N^2)
@@ -115,6 +116,8 @@
 
 ##  找到所有数组中消失的数字
 
+题目类型：原地哈希  :star:
+
 - 问题描述
 
   ```
@@ -134,6 +137,10 @@
 
 - 代码
 
+  图解
+  
+  ![](./imgs/103.png)
+  
   ```python
   class Solution:
       
@@ -162,8 +169,127 @@
           return ret
   ```
 
+## 和为k的子数组
+
+- 问题描述
+
+  ```
+  问题描述：
+      给定一个整数数组和一个整数 k，你需要找到该数组中和为 k 的连续的子数组
+  的个数。
   
+  示例：
+  输入:nums = [1,1,1], k = 2
+  输出: 2 , [1,1] 与 [1,1] 为两种不同的情况。
+  
+  解题方法：
+  (1)暴力法
+  时间复杂度：O(N^2)
+  空间复杂度：O(1)
+  (2)前缀表达式
+  pre_A + k = pre_B
+  时间复杂度：O(N)
+  空间复杂度：O(N)
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/subarray-sum-equals-k/solution/xiong-mao-shua-ti-python3-qian-zhui-he-zi-dian-yi-/)）
+
+  ```python
+  class Solution:
+  
+      def subarraySum1(self, nums, k):
+          """暴力法"""
+          count = 0
+          for start in range(len(nums)):
+              sum = 0
+              for end in range(start, -1, -1):
+                  sum += nums[end]
+                  if sum == k:
+                      count += 1
+  
+          return count
+  
+      def subarraySum2(self, nums, k):
+          """前缀和表达"""
+  
+          # 统计当前前缀和
+          nums_times = defaultdict(int)
+          nums_times[0] = 1
+          cur_sums = 0
+          count = 0
+  
+          for i in range(len(nums)):
+              cur_sums += nums[i]
+              if cur_sums - k in nums_times:
+                  count += nums_times[cur_sums - k]
+              nums_times[cur_sums] += 1
+  
+          return count
+  ```
+
+## 二叉树的直径
+
+题目类型：DFS :star:
+
+- 问题描述
+
+  ```
+  问题描述：
+      给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点
+  路径长度中的最大值。这条路径可能穿过也可能不穿过根结点。
+  
+  实例：
+  给定二叉树
+  
+            1
+           / \
+          2   3
+         / \
+        4   5
+  返回 3, 它的长度是路径 [4,2,1,3] 或者 [5,2,1,3]
+  
+  解题方法：
+  深度优先遍历
+  时间复杂度：O(N)
+  空间复杂度：O(height)
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/diameter-of-binary-tree/solution/er-cha-shu-de-zhi-jing-by-leetcode-solution/)）
+
+  图解
+
+  ![](./imgs/105.png)
+
+  ```python
+  class TreeNode:
+      def __init__(self, val=0, left=None, right=None):
+          self.val = val
+          self.left = left
+          self.right = right
+  
+  
+  class Solution:
+      def diameterOfBinaryTree(self, root: TreeNode) -> int:
+          # 标识路径
+          self.ans = 1
+  
+          def dfs(root):
+              if root is None:
+                  return 0
+  
+              left = dfs(root.left)
+              right = dfs(root.right)
+              # 当前节点，左右结点的最长路径长度
+              self.ans = max(self.ans, left + right + 1)
+  
+              return max(left, right) + 1
+  
+          dfs(root)
+  
+          return self.ans - 1
+  ```
 
   
 
   
+
