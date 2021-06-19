@@ -24,6 +24,7 @@
   解题方法：
   快速排序法
   时间复杂度：O(nlogn)
+  空间复杂度：O(n)
   ```
   
 - 知识点
@@ -32,19 +33,23 @@
 
   ![](./imgs/快速排序法.jpeg)
 
+  实例图解：
+
+  ![](./imgs/50.png)
+
   动图演示：
 
   ![](./imgs/快速排序动图.gif)
-
+  
   快速排序演示代码（[排序算法：快速排序【图解+代码】](https://www.bilibili.com/video/BV1bz411e7vY?from=search&seid=17579587592323875466)）：
-
+  
   ```python
       def quick_sort(self, nums, start, end):
           """实现快速排序法"""
   
           if start >= end:
               return
-          # 基准数据
+          # 基准数据(哨兵结点)
           mid = nums[start]
           low = start
           high = end
@@ -175,7 +180,6 @@
           
           return helper(target) - helper(target - 1)
   ```
-  
 ## 和为S的连续正数序列
 
 - 问题描述
@@ -227,7 +231,6 @@
   
         return res
   ```
-  
 
 ## 左旋转字符串
 

@@ -8,10 +8,27 @@
 
   ```
   问题描述：
-      给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。
-  你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点重叠，那么将他们的值相加作为节
-  点合并后的新值，否则不为NULL的节点将直接作为新二叉树的节点。
+     　 给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一
+  些节点便会重叠。你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点
+  重叠，那么将他们的值相加作为节点合并后的新值，否则不为NULL的节点将直接作
+  为新二叉树的节点。
   
+  示例：
+  输入: 
+  	Tree 1                     Tree 2                  
+            1                         2                             
+           / \                       / \                            
+          3   2                     1   3                        
+         /                           \   \                      
+        5                             4   7                  
+  输出: 
+  合并后的树:
+  	     3
+  	    / \
+  	   4   5
+  	  / \   \ 
+  	 5   4   7
+  	 
   解题方法：
   两棵二叉树同时先序遍历
   时间复杂度：O(min(m, n))
@@ -27,7 +44,7 @@
   class Solution:
   
       def mergeTrees(self, t1, t2):
-          """合并两个二叉树"""
+          """合并两个二叉树，需要创建新树"""
   
           def dfs(t1, t2):
               if not (t1 and t2):
@@ -40,6 +57,23 @@
               return merge
   
           return dfs(t1, t2)
+      
+      def mergeTrees(self, root1: TreeNode, root2: TreeNode) -> TreeNode:
+          """不需要创建一个新树"""
+  
+          def dfs(root1, root2):
+  
+              if not (root1 and root2):
+                  return  root1 if root1 else root2
+           
+              # root1做主，root2做辅
+              root1.val = root1.val + root2.val
+              root1.left = dfs(root1.left, root2.left)
+              root1.right = dfs(root1.right, root2.right)
+  
+              return root1
+  
+          return dfs(root1, root2)
   ```
 
 
@@ -55,6 +89,13 @@
   
   解题方法：
   (1) 暴力解法
+  变换规则
+  行 列
+  1   n 
+  2   n - 1
+  3   n - 2
+  ......
+  n   1
   时间复杂度：O(N^2)
   空间复杂度：O(N^2)
   (2)旋转法
@@ -67,7 +108,7 @@
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/rotate-image/solution/0048xuan-zhuan-tu-xiang-by-jasonchiucc-a-2dfs/)）
 
-  暴力法图解：
+  暴力法图解（有助于理解题意）
 
   ![](./imgs/87-Page-1.png)
 
@@ -87,7 +128,7 @@
           matrix[:] = matrix_new
   ```
 
-  旋转变换法图解：
+  旋转变换法图解
 
   ![](./imgs/87-Page-2.png)
 

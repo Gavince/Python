@@ -179,10 +179,30 @@
 
   ```
   问题描述：
-  输入整数数组 arr ，找出其中最小的 k 个数。例如，输入4、5、1、6、2、7、3、8这8个数字，则最小的4个数字是1、2、3、4。
+         输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这
+  8个数字，则最小的4个数字是1,2,3,4,。
+  
+  解决方案：
+  (1) heapq
+      构建堆，heapq构造的是小顶堆，即堆顶元素最小，因此为了构造大顶堆
+  ，需要将元素都加负号，来颠倒他们的大小关系，相反数的小顶堆，就相当于
+  原来数的大顶堆。求前K个最大的数，用小顶堆，K个小的数，用大顶堆。
+  
+  (2) quick sort
+  未优化：所有数字先有序化，后截取指定区间内的数字
+  时间复杂度：O(nlogn)
+  空间复杂度：O(n)
+  优化：旨在k区间内进行寻找
+  若 k = l，我们就找到了最小的 k 个数，就是左侧的数组；
+  若 k<l，则最小的 k 个数一定都在左侧数组中，我们只需要对左侧数组递归
+  地 parition 即可；
+  若 k>l，则左侧数组中的 l 个数都属于最小的 k 个数，我们还需要在右侧
+  数组中寻找最小的 k-l 个数，对右侧数组递归地 partition 即可。
+  时间复杂度：O(n)
+  空间复杂度：o(logn)
   ```
 
-- 代码（[解题思路](https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/solution/zui-xiao-de-kge-shu-by-leetcode-solution/)）
+- 代码（[解题思路](https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/solution/jian-zhi-offer-40-zui-xiao-de-k-ge-shu-j-9yze/)）
 
   图解最大堆
 
@@ -212,7 +232,7 @@
   
           return res
   
-      def getLeastNumbersForSort(self, numbs, k):
+      def getLeastNumbersForSort1(self, numbs, k):
   
           def quickSort(nums, start, end):
               """"快速排序法"""
@@ -238,6 +258,33 @@
           quickSort(numbs, 0, len(numbs) - 1)
   
           return numbs[:k]
+      
+      def getLeastNumbers2(self, arr: List[int], k: int) -> List[int]:
+  	"""优化，旨在寻找最小的k个数"""
+          def quickSort(start, end):
+              
+              # 递归的重点
+              if end <=  start:
+                  return arr[:k]
+  
+              # 设置哨兵结点
+              mid = arr[start]
+              low = start
+              high = end
+              while low < high:
+                  while low < high and arr[high] >= mid:
+                      high -= 1
+                  arr[low] = arr[high]
+                  while low < high and arr[low] < mid:
+                      low += 1
+                  arr[high] = arr[low]
+              arr[low] = mid
+              # 左右有序递归
+              if k < low : return quickSort(start, low - 1)
+              if k > high: return quickSort(low + 1, end)
+              return arr[:k]
+  
+          return quickSort(0, len(arr) - 1)
   ```
 
 ## 数据流中的中位数
