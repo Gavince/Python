@@ -121,4 +121,54 @@
       print(obj.topKFrequent1(nums=[1, 2, 2, 5, 4, 4, 4, 4, 6], k=2))
   ```
 
+
+## 把二叉树搜索树装换为累加树
+
+- 问题描述
+
+  ```
+  问题描述：
+      给出二叉 搜索 树的根节点，该树的节点值各不相同，请你将其转换为累加树（
+  Greater Sum Tree），使每个节点 node的新值等于原树中大于或等于node.val
+  的值之和。
+  
+  解题方法：
+  二叉搜索树中序遍历
+  时间复杂度：O(n)
+  空间复杂度：O(n)
+  ```
+
+- 代码
+
+  算法图解
+
+  ![](./imgs/108.png)
+
+  ```python
+  class TreeNode:
+      def __init__(self, val):
+          self.val = val
+          self.left = None
+          self.right = None
+  
+  
+  class Solution:
+  
+      def __init__(self):
+          self.num = 0
+  
+      def convertBST(self, root):
+          def dfs(root):
+              if root is None:
+                  return None
+  
+              dfs(root.left)
+              root.val += self.num
+              self.num = root.val
+              dfs(root.right)
+              return root
+  
+          return dfs(root)
+  ```
+
   

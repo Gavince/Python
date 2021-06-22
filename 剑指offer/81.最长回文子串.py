@@ -14,6 +14,12 @@
 已经知道“bab” 是回文串，那么 “ababa” 一定是回文串，这是因为它的首
 尾两个字母都是a”。
 
+示例：
+遍历不同长度下的不同起始位置
+"eabcbaf"
+最长回文子串: "abcba"
+长度： 5
+
 解题方法：
 动态规划
 (1)状态定义：d[i][j]表示s[i:j]为回文子串；
@@ -34,14 +40,16 @@ class Solution:
             return s
         max_len, begin = 1, 0
         # 定义状态
-        dp = [[False] * n for _ in range]
+        dp = [[False] * n for _ in range(n)]
         for i in range(n):
             dp[i][i] = True
         # 遍历不同长度的回文子串
         for L in range(2, n + 1):
             # 指定左边界，并根据长度确定右边界
             for i in range(n):
+                # i 为左起始点， j 为右起始点
                 j = i + L - 1
+                # 超出右边界
                 if j >= n:
                     break
                 if s[i] != s[j]:
