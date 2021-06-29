@@ -31,7 +31,9 @@ class Solution:
         dp[0], dp[1] = 1, 1
         # 状态转移
         for i in range(2, n + 1):
-            for j in range(1, i + 1):
-                dp[i] += dp[j - 1] * dp[i - j]
-
+            # 将 i - 1 个数左右对分
+            # 左：j 右：i - j - 1
+            for j in range(i):
+                dp[i] += dp[j] * dp[i - j - 1]
+        # 返回值
         return dp[n]

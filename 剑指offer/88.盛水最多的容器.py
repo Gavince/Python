@@ -25,11 +25,12 @@
 义在两端，如果短指针不动，而把长指针向着另一端移动，两者的距离已经变小了，无论
 会不会遇到更高的指针，结果都只是以短的指针来进行计算。 故移动长指针是无意义的。
 """
+from typing import List
 
 
 class Solution:
 
-    def maxArea(self, height) -> int:
+    def maxArea1(self, height) -> int:
         """暴力法"""
 
         # 双重遍历
@@ -42,16 +43,18 @@ class Solution:
                     max_area = max(max_area, height[j] * (j - i))
         return max_area
 
-    def maxArea(self, height) -> int:
-        """双指针"""
+    def maxArea2(self, height: List[int]) -> int:
 
-        i, j, res = 0, len(height) - 1, 0
+        i, j, max_area = 0, len(height) - 1, 0
 
+        # i < j 表示坐标轴无重叠
         while i < j:
+            # 移动短边无意义
             if height[i] < height[j]:
-                res = max(res, height[i] * (j - i))
+                max_area = max(max_area, height[i] * (j - i))
                 i += 1
             else:
-                res = max(res, height * (j - i))
-                j += 1
-        return res
+                max_area = max(max_area, height[j] * (j - i))
+                j -= 1
+
+        return max_area
