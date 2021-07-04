@@ -56,7 +56,7 @@ class Sulution:
         max_left, max_right = height[0], height[n - 1]
 
         while left <= right:
-            max_left = max(max_right, height[left])
+            max_left = max(max_left, height[left])
             max_right = max(max_right, height[right])
             if max_left < max_right:
                 ans += max_left - height[left]

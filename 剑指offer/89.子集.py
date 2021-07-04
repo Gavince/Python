@@ -44,7 +44,7 @@ class Solution:
             res.append(tmp)
             # 横向遍历
             for j in range(i, n):
-                helper(j + 1, tmp + [nums[i]])
+                helper(j + 1, tmp + [nums[j]])
 
         helper(0, [])
         return res

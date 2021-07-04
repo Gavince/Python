@@ -1,13 +1,13 @@
 class Solution:
 
-    def countBits(self, n: int):
-        def countOnes(x):
-            ones = 0
-            while x > 0:
-                x &= (x - 1)
-                ones += 1
-            return ones
+    def twoSum(self, nums, target):
+        """暴力求解"""
 
-        res = [countOnes(x) for x in range(n + 1)]
+        hashtable = dict()
 
-        return res
+        for i, num in enumerate(nums):
+            if target - num in hashtable:
+                return [hashtable[target - num], i]
+            # 整数对应value
+            hashtable[num] = i
+        return []

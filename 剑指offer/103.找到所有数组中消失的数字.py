@@ -36,7 +36,7 @@ class Solution:
         """原地置换"""
         n = len(nums)
         for num in nums:
-            # index
+            # 是否存在已创建的索引
             x = (num - 1) % n
             nums[x] += n
         print(nums)

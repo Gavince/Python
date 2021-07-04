@@ -4,6 +4,10 @@
 
 ## 回文子串
 
+题目类型：字符串
+
+题目难度：:star2::star2::star2::star2:
+
 - 问题描述
 
   ```
@@ -35,7 +39,7 @@
   class Solution:
       def countSubstrings1(self, s: str) -> int:
   
-          def speard(l, r):
+          def spread(l, r):
               """中心扩散"""
               count = 0
               while l >= 0 and r <= len(s) - 1 and s[l] == s[r]:
@@ -47,10 +51,10 @@
           res = 0
           # 奇数中心扩散
           for i in range(len(s)):
-              res += speard(i, i)
+              res += spread(i, i)
           # 偶数中心扩散
           for i in range(len(s) - 1):
-              res += speard(i, i + 1)
+              res += spread(i, i + 1)
   
           return res
   
@@ -71,11 +75,15 @@
 
 ##  根据身高重建队列
 
+题目类型：数组
+
+题目难度：:star2::star2:
+
 - 问题描述
 
   ```
   问题描述：
-        假设有打乱顺序的一群人站成一个队列，数组 people 表示队列中一些人的属性（不
+          假设有打乱顺序的一群人站成一个队列，数组 people 表示队列中一些人的属性（不
   一定按顺序）。每个 people[i] = [hi, ki] 表示第 i 个人的身高为 hi ，前面正好有 ki 个
   身高大于或等于 hi 的人。请你重新构造并返回输入数组people 所表示的队列。返回的
   队列应该格式化为数组 queue ，其中 queue[j] = [hj, kj] 是队列中第 j个人的属性（qu
@@ -87,7 +95,7 @@
   ```python
   class Solution:
   
-      def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
+      def reconstructQueue1(self, people: List[List[int]]) -> List[List[int]]:
           res = []
           # h_i: decrease
           # k_i: increase
@@ -116,15 +124,24 @@
 
 ##  找到所有数组中消失的数字
 
-题目类型：原地哈希  :star:
+题目类型：原地哈希
+
+题目难度：  :star2::star2:
 
 - 问题描述
 
   ```
   问题描述：
-      给你一个含 n 个整数的数组 nums ，其中 nums[i] 在区间 [1, n] 内。请你找出所有在
-   [1, n] 范围内但没有出现在 nums 中的数字，并以数组的形式返回结果。进阶：你能在不使用额
-   外空间且时间复杂度为 O(n) 的情况下解决这个问题吗? 你可以假定返回的数组不算在额外空间内。
+  	给你一个含 n 个整数的数组 nums ，其中 nums[i] 在区间 [1, n] 内。请你找出所有在
+   [1, n] 范围内但没有出现在 nums 中的数字，并以数组的形式返回结果。进阶：你能在不使
+   用额外空间且时间复杂度为 O(n) 的情况下解决这个问题吗? 你可以假定返回的数组不算在额
+   外空间内。
+  示例：
+  输入：nums = [4,3,2,7,8,2,3,1]
+  输出：[5,6]
+  
+  输入：nums = [1,1]
+  输出：[2]
   
   解题方法：
   (1)暴力法
@@ -137,9 +154,9 @@
 
 - 代码
 
-  图解
+  图解索引对齐原则
   
-  ![](./imgs/103.png)
+  ![](./imgs/103-A.png)
   
   ```python
   class Solution:
@@ -157,19 +174,26 @@
   
       def findDisappearedNumbers2(self, nums):
           """原地置换"""
+          # 索引对其原则
           
           n = len(nums)
           for num in nums:
-              # index
-              x = (num - 1) % n
+              # index 存在与0～n-1之间
+              x = (num - 1)%n
               nums[x] += n
-          print(nums)
-          ret = [i + 1 for i, num in enumerate(nums) if num <= n]
-  
-          return ret
+          # 找出缺失数字
+          # num是可以等于8，因此，此处小于等于n
+          res = [i + 1 for i, num in enumerate(nums) if num <= n]
+          return res
   ```
+  
+  
 
 ## 和为k的子数组
+
+题目类型：字符串
+
+题目难度： :star2::star2::star2::star2::star2:
 
 - 问题描述
 
@@ -177,6 +201,7 @@
   问题描述：
       给定一个整数数组和一个整数 k，你需要找到该数组中和为 k 的连续的子数组
   的个数。
+  注意：题目要求连续的的子数组
   
   示例：
   输入:nums = [1,1,1], k = 2
@@ -194,6 +219,10 @@
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/subarray-sum-equals-k/solution/xiong-mao-shua-ti-python3-qian-zhui-he-zi-dian-yi-/)）
 
+  图解暴力法：
+  
+  ![](./imgs/104.png)
+  
   ```python
   class Solution:
   
@@ -229,7 +258,9 @@
 
 ## 二叉树的直径
 
-题目类型：DFS :star:
+题目类型：二叉树
+
+题目难度：:star2::star2:
 
 - 问题描述
 
@@ -249,6 +280,8 @@
   返回 3, 它的长度是路径 [4,2,1,3] 或者 [5,2,1,3]
   
   解题方法：
+  	题目相似与求解二叉树的深度，区别在于引入了直径的概念，深度的突破点在
+  于左右分开，而直径则要求左右相连，且最大。
   深度优先遍历
   时间复杂度：O(N)
   空间复杂度：O(height)

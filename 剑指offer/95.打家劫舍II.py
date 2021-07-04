@@ -38,7 +38,7 @@ class Solution:
         def robRange(start: int, end: int) -> int:
 
             first, second = nums[start], max(nums[start], nums[start + 1])
-            for i in range(start + 2, end + 1):
+            for i in range(start + 2, end):
                 first, second = second, max(nums[i] + first, second)
 
             return second
@@ -47,5 +47,7 @@ class Solution:
             return nums[0]
         if len(nums) == 2:
             return max(nums[0], nums[1])
-        # 0~n-2 1~n-1
-        return max(robRange(0, len(nums) - 2), robRange(1, len(nums) - 1))
+
+        # 头尾不能同时偷取
+        # index : --> 0~n-2 1~n-1
+        return max(robRange(0, len(nums) - 1), robRange(1, len(nums)))

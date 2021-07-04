@@ -6,6 +6,8 @@
 
 题目类型：字符串
 
+题目难度：:star2::star2:
+
 - 问题描述
 
   ```
@@ -24,6 +26,7 @@
   eg: -121(-121和121-不相等)
   
   情况２：当整数能够被10整除，且不为０时，不是回文数
+  即不存在02020这种情况的整数
   eg: 120、112020
   
   情况3：数字长度奇偶情况下，退出原则
@@ -42,6 +45,10 @@
 
 - 代码
 
+  图解代码思路
+  
+  ![](./imgs/106.png)
+  
   ```python
   class Solution:
       def isPalindrome1(self, x: int) -> bool:
@@ -66,6 +73,8 @@
 ## 前K个高频元素
 
 题目类型：排序
+
+题目难度：:star2:
 
 - 问题描述
 
@@ -125,12 +134,14 @@
 
 题目类型：二叉树
 
+题目难度：:star2:
+
 - 问题描述
 
   ```
   """
   问题描述：
-      给出二叉 搜索 树的根节点，该树的节点值各不相同，请你将其转换为累加树（
+         给出二叉搜索树的根节点，该树的节点值各不相同，请你将其转换为累加树（
   Greater Sum Tree），使每个节点 node的新值等于原树中大于或等于node.val
   的值之和。
   
@@ -172,11 +183,13 @@
 
 题目类型：双指针
 
+题目难度：:star2::star2::star2::star2::star2:
+
 - 问题描述
 
   ```
   问题描述：
-      给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，
+      　给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，
   下雨之后能接多少雨水。
   示例：
   输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]
@@ -197,6 +210,10 @@
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/trapping-rain-water/solution/dong-tai-gui-hua-shuang-zhi-zhen-tu-jie-by-ml-zimi/)）
 
+  图解算法
+  
+  ![](./imgs/109.png)
+  
   ```python
   from typing import List
   
@@ -230,7 +247,7 @@
           max_left, max_right = height[0], height[n - 1]
   
           while left <= right:
-              max_left = max(max_right, height[left])
+              max_left = max(max_left, height[left])
               max_right = max(max_right, height[right])
               if max_left < max_right:
                   ans += max_left - height[left]
@@ -247,11 +264,13 @@
 
 题目类型：双指针
 
+题目难度：:star2:
+
 - 问题描述
 
   ```
   问题描述：
-      给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持
+      　给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持
   非零元素的相对顺序。
   
   要求：
@@ -268,6 +287,9 @@
   空间复杂度：O(N)
   
   ２．双指针
+  首次快慢指针分离之后：
+  slow 始终指向第一个为零的数组的位置
+  fast 始终指向不为零的数组位置
   时间复杂度：O(N)
   空间复杂度：O(1)
   ```
@@ -295,15 +317,15 @@
   
           return tmp_array
   
-      def moveZeros2(self, nums):
-          """双指针"""
-  
-          if not nums: return 0
-          fast = slow = 0
+      def moveZeroes2(self, nums: List[int]) -> None:
+          """
+          Do not return anything, modify nums in-place instead.
+          """
+          slow = fast = 0
           while fast < len(nums):
-              # slow 指向第一个不为零的位置
               if nums[fast] != 0:
-                  if slow != fast:
+                  # 保证快慢的前提条件
+                  if fast != slow:
                       nums[slow], nums[fast] = nums[fast], nums[slow]
                   slow += 1
               fast += 1

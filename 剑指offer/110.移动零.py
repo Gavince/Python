@@ -6,8 +6,6 @@
 # @Blog    ：https://blog.csdn.net/weixin_35154281
 """
 问题描述：
-
-解题方法：
     给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持
 非零元素的相对顺序。
 
@@ -25,6 +23,9 @@
 空间复杂度：O(N)
 
 ２．双指针
+首次快慢指针分离之后：
+slow 始终指向第一个为零的数组的位置
+fast 始终指向不为零的数组位置
 时间复杂度：O(N)
 空间复杂度：O(1)
 """
@@ -35,8 +36,6 @@ class Solution:
     def moveZeros1(self, nums):
         """暴力法"""
 
-        if not nums:
-            return
         j = 0
         tmp_array = [0] * len(nums)
         for i in range(len(nums)):
@@ -44,12 +43,11 @@ class Solution:
                 tmp_array[j] = nums[i]
                 j += 1
 
-        return tmp_array
+        nums = tmp_array[:]
 
     def moveZeros2(self, nums):
         """双指针"""
 
-        if not nums: return 0
         fast = slow = 0
         while fast < len(nums):
             # slow 指向第一个不为零的位置
