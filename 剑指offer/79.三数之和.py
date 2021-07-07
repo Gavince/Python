@@ -44,6 +44,7 @@ class Solution:
         res = []
 
         for i in range(len(nums) - 2):
+            # nums已经完成排序
             if nums[i] > 0: break
             if i > 0 and nums[i] == nums[i - 1]: continue
             # 固定当前值

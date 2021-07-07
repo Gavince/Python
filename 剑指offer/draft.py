@@ -1,13 +1,9 @@
 class Solution:
+    def hammingweight(self, n: int) -> int:
 
-    def twoSum(self, nums, target):
-        """暴力求解"""
-
-        hashtable = dict()
-
-        for i, num in enumerate(nums):
-            if target - num in hashtable:
-                return [hashtable[target - num], i]
-            # 整数对应value
-            hashtable[num] = i
-        return []
+        cnt = 0
+        while n:
+            n = n&(n-1)
+            cnt += 1
+            
+        return cnt
