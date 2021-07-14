@@ -46,7 +46,7 @@
   ```
 
 
-## 全排列
+## 全排列（<font color = red>重点</font>）
 
 题目类型：回朔法
 
@@ -62,7 +62,7 @@
   输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
   
   注意:
-  1. 不能有重复排列:[1, 2, 2] [1, 2, 2]
+  1. 不存在有重复排列:[1, 2, 2] [1, 2, 2]， 因此不用考虑消除重复数组
   2. 数组的拷贝和引用：res.append(nums[:]), res.append(nums)
   ```
 
@@ -81,11 +81,7 @@
               if x == len(nums) - 1:
                   res.append(nums[:])
                   return
-  
-              dic = set()
               for i in range(x, len(nums)):
-                  if nums[i] in dic: continue
-                  dic.add(nums[i])
                   # 交换位置
                   nums[i], nums[x] = nums[x], nums[i]
                   dfs(x + 1)

@@ -4,11 +4,16 @@
 
 ## 字符流中第一个不重复的字符
 
+题目类型：字符串
+
+题目难度：:star2:
+
 - 问题描述
 
   ```python
   问题描述：
-  在字符串 s 中找出第一个只出现一次的字符。如果没有，返回一个单空格。 s 只包含小写字母。
+  	在字符串 s 中找出第一个只出现一次的字符。如果没有，返
+  回一个单空格。 s 只包含小写字母。
   如：
   s = "abaccdeff"
   返回 "b"
@@ -74,14 +79,19 @@
           return -1
   ```
 
-## 滑动窗口最大值
+## 滑动窗口最大值（<font color = red>重点</font>）
+
+题目类型：字符串
+
+题目难度：:star2::star2::star2::star2:
 
 - 问题描述
 
   ```
   问题描述：
-  给你一个整数数组 nums，有一个大小为k的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到
-  在滑动窗口内的k个数字。滑动窗口每次只向右移动一位。返回滑动窗口中的最大值。
+  	给你一个整数数组 nums，有一个大小为k的滑动窗口从数组的最左侧移动到
+  数组的最右侧。你只可以看到在滑动窗口内的k个数字。滑动窗口每次只向右移动一
+  位。返回滑动窗口中的最大值。
   
   如：
   输入：nums = [1,3,-1,-3,5,3,6,7], k = 3
@@ -97,8 +107,11 @@
    1  3  -1  -3  5 [3  6  7]      7
    
    解题方法：
-  单调队列：只需要维护有可能成为窗口里最大值的元素就可以了，同时保证队里里的元素数值是由大到小的。
+  单调队列：只需要维护有可能成为窗口里最大值的元素就可以了，同时保证队里里
+  的元素数值是由大到小的。
   (左删除，右添加原则)
+  时间复杂度：O(N)  # 总共遍历N次
+  空间复杂度：O(K)  # 队列需要存储k个值
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/solution/mian-shi-ti-59-i-hua-dong-chuang-kou-de-zui-da-1-6/)）
@@ -106,45 +119,66 @@
   ```python
   import collections
   
+  
   class Solution:
-      
       def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
   
+          # 申请队列保持当前队列最大值
           deque = collections.deque()
           res, n = [], len(nums)
   
-          # 遍历窗口
-          for i, j in zip(range(1-k, n-k+1), range(n)):
-  
+          # 遍历窗口值
+          for i, j in zip(range(1-k, n - k + 1), range(n)):
+              # [-2, 0]包括边界值
               # 左删除
-              if i > 0 and deque[0] == nums[i - 1]: deque.popleft()
-              # 右添加,单调递减
-              while deque and deque[-1] < nums[j]: deque.pop()
-  	  # 队列头部元素最大
+              if i > 0 and deque[0] == nums[i - 1]:
+                  deque.popleft()
+              # 保证队列当前最大
+              while deque and deque[-1] < nums[j]:
+                  deque.pop()
+              # 添加
               deque.append(nums[j])
-  
-              if i >= 0:
+              # 边界最大值
+              if i>= 0:
                   res.append(deque[0])
-                  
-          return res 
+  
+          return res
   ```
   
 - 代码运行
 
   ![](./imgs/46.代码运行.png)
 
-
 ## 数值的整数次方
+
+题目类型：数字
+
+题目难度：:star2:
 
 - 问题描述
 
   ```python
   问题描述：
-  实现函数double Power(double base, int exponent)，求base的exponent次方。不得使用库函数，同时不需要考虑大数问题。
+  	实现函数double Power(double base, int exponent)，求base的exponent次方。
+  不得使用库函数，同时不需要考虑大数问题。
   
   解题方法：
   快速幂解析
+  注意：需要将负数转换为正数进行处理
   2^5 = (2^2)^2*2
+  n == 5
+  res = 2 * 1
+  x = 2 * 2
+  
+  n == 2
+  res = 2 * 2
+  x = (2 * 2)**2
+  
+  n == 1
+  res = 2 ** 5
+  
+  n == 0
+  退出
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/solution/mian-shi-ti-16-shu-zhi-de-zheng-shu-ci-fang-kuai-s/)）
@@ -168,16 +202,24 @@
           return res
   ```
 
-## 顺时针打印矩阵
+## 顺时针打印矩阵（<font color = red>重点</font>）
+
+题目类型：数组
+
+题目难度：:star2::star2::star2:
 
 - 问题描述
 
   ```
   问题描述：
-  输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。
-  实例：
+  	输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。
+  
+  实例1：
   输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
   输出：[1,2,3,4,8,12,11,10,9,5,6,7]
+  实例2：
+  输入：matrix = [[]]
+  输出：[ ]
   
   
   解题方法：
@@ -194,13 +236,14 @@
   
   方法2:
   边界条件
+  需要考虑矩阵为空的情况
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/solution/mian-shi-ti-29-shun-shi-zhen-da-yin-ju-zhen-she-di/)）
 
   边界条件描述：
   
-  ![](./imgs/打印矩阵.png)
+  <img src="./imgs/打印矩阵.png" style="zoom:67%;" />
   
   ```python
   class Solution:
@@ -249,13 +292,17 @@
   
   ```
 
-## 字符串的排列
+## 字符串的排列（<font color = red>重点</font>）
+
+题目类型：字符串、回朔法
+
+题目难度：:star2::star2::star2:
 
 - 问题描述
 
   ```python
   问题描述：
-  输入一个字符串，打印出该字符串中字符的所有排列。
+  		输入一个字符串，打印出该字符串中字符的所有排列。
   你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
   
   实例：

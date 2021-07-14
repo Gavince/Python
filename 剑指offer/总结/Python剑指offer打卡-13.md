@@ -2,19 +2,29 @@
 
 [toc]
 
-## 二叉树的最近公共祖先
+## 二叉树的最近公共祖先（<font color = red>重点</font>）
 
-==注意==:leetcode和牛客网对于本题的输入输出参数的要求。
+题目类型：二叉树
+
+题目难度：:star2::star2::star2:
+
+==注意==：leetcode和牛客网对于本题的输入输出参数的要求。
 
 - 问题描述
 
   ```python
   问题描述：
-  给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
-  最近公共祖先的定义： 设节点 root为节点p,q 的某公共祖先，若其左子节点 root.left和右子节点root.right 都不是p,q 的公共祖先，则称 root 是 “最近的公共祖先” 。
+  	给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+  
+  知识点：
+          最近公共祖先的定义： 设节点 root为节点p,q 的某公共祖先，若其左子节点
+  root.left和右子节点root.right 都不是p,q 的公共祖先，则称 root 是 “最近的公
+  共祖先” 。
   
   解题方法：
   回朔法（后序遍历）
+  时间复杂度：O(N)
+  空间复杂度：O(N)
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/solution/mian-shi-ti-68-ii-er-cha-shu-de-zui-jin-gong-gon-7/)）
@@ -24,7 +34,7 @@
   ```python
   class Solution:
       def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
-  
+          
           # 回朔终点
           if not root or root == p or root == q:
               return root
@@ -43,8 +53,8 @@
   
   ```python
   问题描述：
-  给定一棵二叉树以及这棵树上的两个节点 o1 和 o2，请找到 o1 和 o2 的最近公共祖先节点。 
-  
+  	给定一棵二叉树以及这棵树上的两个节点 o1 和 o2，请找到 o1 和 o2 的最近公共祖先节点。 
+  主要区别在于结点的输入值从TreeNode类型变为int型
   参数说明：
   # @param root TreeNode类 
   # @param o1 int整型 
@@ -53,7 +63,7 @@
   ```
   
   ```python
-      def lowestCommonAncestor(self , root , o1 , o2 ):
+  def lowestCommonAncestor(self , root , o1 , o2 ):
           # write code here
           def dfs(root, o1, o2):
               
@@ -76,6 +86,10 @@
 
 ## 二叉搜索树的最近公共祖先
 
+题目类型：二叉树
+
+题目难度：:star2:
+
 ==注意==：区别与上一题，此处为二叉搜索树，遵循<font color ="blue">"左小右大"</font>。
 
 - 问题描述
@@ -90,10 +104,16 @@
   (1)两个指定节点在左右子数中
   (2)两个节点在左子树中
   (3)两个节点在右子树中
+  时间复杂度：O(N)
+  空间复杂度：O(1)
   ```
 
-- 代码
+- 代码（[解题思路](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/solution/mian-shi-ti-68-i-er-cha-sou-suo-shu-de-zui-jin-g-7/)）
 
+  图解
+  
+  ![](./imgs/62.png)
+  
   ```python
   class Solution:
       def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
@@ -112,10 +132,14 @@
                   break
   
           return root
+      
   ```
 
+## 礼物的最大值（<font color = red>重点</font>）
 
-## 礼物的最大值
+题目类型：二叉树
+
+题目难度：:star2::star2:
 
 此题有最大值和最小值两种类型，并且要注意==每种题型每次所走的路径方向==。
 
@@ -139,6 +163,10 @@
   
   解题方法：
   动态规划
+  转态定义：dp[i]][j]表示当前位置礼物的最大值。
+  转态转移：dp[i][j] += max(dp[i - 1][j], dp[i][j - 1])
+  初始值：dp[0][j] += dp[0][j - 1], dp[i][0] += dp[i - 1][0]
+  返回值：dp[-1][-1]
   
   复杂度:
   时间复杂度O(M*N)
@@ -189,11 +217,10 @@
   的礼物。牛妹想知道，她能走到最后拿起的所有礼物体积最小和是多少？
   
   解题方法：
-  1、dp第0行和第0列的初始化；
-  2、dp的更新，注意题目中要求只能想右、下、右下角走。所以dp[i][j]是它的左上角、上、左，
-  三个值中最小的一个，再加上当前格子的礼物体积：
-  	dp[i][j] = min(dp[i-1][j-1],，dp[i][j-1]，dp[i-1][j])) + presentVolumn[i][j]
-  3、返回值是dp最右下角的值。
+  转态定义：dp[i]][j]表示当前位置礼物的最小值。
+  转态转移：dp[i][j] = min(dp[i-1][j-1],，dp[i][j-1]，dp[i-1][j])) + presentVolumn[i][j]
+  初始值：dp[0][j] += dp[0][j - 1], dp[i][0] += dp[i - 1][0]
+  返回值：dp[-1][-1]
   
   复杂度:
   时间复杂度O(M*N)
@@ -228,6 +255,10 @@
 
 ## 把数字翻译成字符串
 
+题目类型：字符串、动态规划
+
+题目难度：:star2::star2:
+
 ### leetcode
 
 ==说明==：0 -> "a", 并且输入为数字。
@@ -236,8 +267,10 @@
 
   ```
   问题描述：
-  给定一个数字，我们按照如下规则把它翻译为字符串：0 翻译成 “a” ，1 翻译成 “b”，……，11 翻译成 “l”，……，25
-  翻译成 “z”。一个数字可能有多个翻译。请编程实现一个函数，用来计算一个数字有多少种不同的翻译方法。
+  	给定一个数字，我们按照如下规则把它翻译为字符串：0 翻译成 “a” ，
+  1 翻译成 “b”，……，11 翻译成 “l”，……，25翻译成 “z”。一个数字
+  可能有多个翻译。请编程实现一个函数，用来计算一个数字有多少种不同的
+  翻译方法。
   
   实例：
   输入: 12258
@@ -322,16 +355,22 @@
 
 ## 股票的最大利润
 
+题目类型：数组、动态规划
+
+题目难度：:star2:
+
 - 问题描述
 
   ```
   问题描述：
-  假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？
+  	假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次
+  可能获得的最大利润是多少？
   
   示例：
   输入: [7,1,5,3,6,4]
   输出: 5
-  解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
+  解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候
+  卖出，最大利润 = 6-1 = 5 。
   注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格。
   
   解题方法：
