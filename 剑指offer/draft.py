@@ -1,25 +1,27 @@
-class TreeLinkNode:
+import collections
 
-    def __init__(self, val):
-        self.val = val
+
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
         self.left = None
         self.right = None
-        self.parent = None
+
 
 class Solution:
 
-    def getNextNode(self, pHead):
+    def levelOrder(self, root):
 
-        if pHead.right:
-            tmp_node = pHead.right
-            while tmp_node:
-                tmp_node = tmp_node.left
-            return tmp_node
-        else:
-            tmp_node = pHead
-            while tmp_node.parent:
-                if tmp_node.parent.left == tmp_node:
-                    return tmp_node.parent
-                tmp_node = tmp_node.parent
+        deque = collections.deque(root)
+        res = []
+        while deque:
+            tmp = []
+            for _ in range(len(deque)):
+                node = deque.popleft()
+                tmp.append(node.val)
+                if node.left: deque.append(node.left)
+                if node.right: deque.append(node.right)
 
-        return None
+            res.append(tmp)
+
+        return res

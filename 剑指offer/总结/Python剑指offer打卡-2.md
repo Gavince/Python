@@ -2,27 +2,32 @@
 
 [toc]
 
-### 旋转数组中的最小数字
+## 旋转数组中的最小数字
 
 - 问题描述
 
   ```python
   问题描述：
-  把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。
-  例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0
+  	把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输
+  入一个非减排序的数组的一个旋转，输旋转数组的最小元素。例如数组{3,4,5,1,2}为
+  {1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若
+  数组大小为0，请返回0
   
   解决方案:
   1. 暴力搜索
   2. 分治法
-  分治法是不断的缩小范围,从而找到符合条件的解
-  二分法的分析我们知道,数组可以分为前后两个递增数组,下面的分析也都利用递增的特性
-  当numbers[mid] > numbers[high]时,说明最小值在mid的右边,缩小范围low = mid + 1
-  当numbers[mid] == numbers[high]时,我们不知道最小值的范围,但是可以肯定的是去除numbers[high]是没有影响的,缩小范围high -= 1
-  当numbers[mid] < numbers[high]时,我们知道最小值的不是numbers[mid]就是在mid的左边,缩小范围high = mid
-  # 51234, 34512, 22222
+         分治法是不断的缩小范围,从而找到符合条件的解
+         二分法的分析我们知道,数组可以分为前后两个递增数组,下面的分析也都利用递增的特性
+  (1) 当numbers[mid] > numbers[high]时,说明最小值在mid的右边,缩小范围low = mid + 1；
+  (2) 当numbers[mid] == numbers[high]时,我们不知道最小值的范围,但是可以肯定的是去除
+  numbers[high]是没有影响的,缩小范围high -= 1；
+  (3) 当numbers[mid] < numbers[high]时,我们知道最小值的不是numbers[mid]就是在mid
+  的左边,缩小范围high = mid。
   
-  注意：
-  最后return numbers[low]
+  时间复杂度：O(logN)
+  空间复杂度：O(1)
+  
+  测试用例： 51234, 34512, 22222
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/solution/pythonti-jie-er-fen-fa-shuang-100he-zhi-jie-cha-zh/)）
@@ -51,46 +56,61 @@
                   return numbers[low]
   ```
 
-  ###  调整顺序使得奇数位于前面
+## 调整顺序使得奇数位于前面
+
+题目类型：数组、双指针
+
+题目难度：:star2:
 
 - 问题描述：
 
     ```python
-   输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，
-   所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
+           输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇
+   数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶
+   数和偶数之间的相对位置不变。
     
    解决方案：
    快慢指针
+   fast：快指针实现遍历，标志奇数位置
+   slow：慢指针实现对偶数位置进行表示
+   时间复杂度：O(N)
+   空间复杂度：O(1)
    ```
    
 - 代码（[解题思路](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/solution/jian-zhi-offer-21-diao-zheng-shu-zu-shun-77jc/)）
 
-  ![](./imgs/指针.gif)
+  图解算法：
+  
+  <img src="./imgs/指针.gif" style="zoom:80%;" />
   
   ```python
   class Solution:
-  
       def exchange(self, nums: List[int]) -> List[int]:
-          """双指针"""
-          
-          fast, slow  = 0, 0
-          
+  
+          slow, fast = 0, 0
           while fast < len(nums):
               if nums[fast] % 2 == 1:
-                  nums[fast], nums[slow] = nums[slow], nums[fast]
+                  nums[slow], nums[fast] = nums[fast], nums[slow]
+                  # 标志偶数位值
                   slow += 1
+              # 标志奇数位置，并实现遍历
               fast += 1
           
           return nums
   ```
 
-### 包含min函数的栈
+## 包含min函数的栈
+
+题目类型：栈和队列
+
+题目难度：:star2:
 
 - 问题描述
 
   ```python
   问题描述：
-  定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O(1))
+  	定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min
+  函数（时间复杂度应为O(1) )
   解决方案：
   1.构建一个和原栈相同的大小的保存最小值的序列
   2.合理利用存储
@@ -145,7 +165,11 @@
               return self.min_value[-1]
   ```
 
-###　判断一个序列是否为该栈的弹出序列
+## 判断一个序列是否为该栈的弹出序列
+
+题目类型：栈和队列
+
+题目难度：:star2:
 
 - 问题描述
 
@@ -189,7 +213,11 @@
           return True if stack == [] else False
   ```
 
-### 从尾到头打印链表
+## 从尾到头打印链表
+
+题目类型：链表
+
+题目难度：:star2:
 
 - 问题描述
 
@@ -199,16 +227,18 @@
   
   解决方案：
   1. 使用列表存储结点，并翻转
-  2. 栈
-  3. 递归
+  2. 栈（先进后出）
+  3. 递归（递归本身就是一种栈：先进后出）
   fun(node.next) + [node.val]
   [] + [8] + [7] + [5]
   [8, 7, 5]
+  时间复杂度 O(N)： 遍历链表，递归 NN 次。
+  空间复杂度 O(N)： 系统递归需要使用 O(N)O(N) 的栈空间。
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/solution/mian-shi-ti-06-cong-wei-dao-tou-da-yin-lian-biao-d/)）
 
-  ![](./imgs/tailtohead.png)
+  <img src="./imgs/tailtohead.png" style="zoom: 67%;" />
   
   ```python
   # 版本一
@@ -253,15 +283,16 @@
   # 版本三(递归:递归就是一栈，先进后出)
   class Sulution2:
   
-      def PrintListFromTailToHead(self, listNode):
-          
-          if not listNode:
-              return []
+      def reversePrint(self, head: ListNode) -> List[int]:
   
-          return self.PrintListFromTailToHead(listNode.next) + [listNode.val]
+          if not head:
+              return []
+          
+          return self.reversePrint(head.next) + [head.val]
   ```
+  
 
-### 参考
+## 参考
 
 [数据结构与算法题目](https://blog.csdn.net/storyfull/category_9475477_2.html)
 

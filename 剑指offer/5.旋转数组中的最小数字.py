@@ -8,68 +8,47 @@
 
 """
 问题描述：
-把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。
-例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0
+	把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输
+入一个非减排序的数组的一个旋转，输旋转数组的最小元素。例如数组{3,4,5,1,2}为
+{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若
+数组大小为0，请返回0
 
 解决方案:
 1. 暴力搜索
-2. 二分法
-https://zhuanlan.zhihu.com/p/136849860
+2. 分治法
+分治法是不断的缩小范围,从而找到符合条件的解
+二分法的分析我们知道,数组可以分为前后两个递增数组,下面的分析也都利用递增的特性
+(1) 当numbers[mid] > numbers[high]时,说明最小值在mid的右边,缩小范围low = mid + 1
+(2) 当numbers[mid] == numbers[high]时,我们不知道最小值的范围,但是可以肯定的是去除
+numbers[high]是没有影响的,缩小范围high -= 1
+(3) 当numbers[mid] < numbers[high]时,我们知道最小值的不是numbers[mid]就是在mid
+的左边,缩小范围high = mid
+
+时间复杂度：O(logN)
+空间复杂度：O(1)
+
+测试用例： 51234, 34512, 22222
 """
 
 
 class Solution:
 
-    def seek(self, array):
+    def minArray(self, numbers):
+        """旋转数组最小值"""
 
-        min_num = 0
-
-        for i in range(len(array)):
-            if min_num < array[i] and min_num != 0:
-                min_num = min_num
-
-            else:
-                return array[i]
-
-    def find_min_insert(self, number):
-        """"使用内置函数"""
-
-        if not number:
+        # 二分法
+        # 三种情况
+        # 51234, 34512, 22222
+        if not numbers:
             return None
-
-        return min(number)
-
-    def find_min(self, RotateArray):
-
-        if not RotateArray:
-            return None
-
-        left = 0
-        right = len(RotateArray) - 1
-
-        while left < right:
-            mid = (left + right) // 2
-            if RotateArray[mid] > RotateArray[right]:  # 存在循环有序数列
-                left = mid + 1
-            elif RotateArray[mid] == RotateArray[right]:
-                right = right - 1
+        low = 0
+        high = len(numbers) - 1
+        while low < high:
+            mid = (low + high) >> 1
+            if numbers[mid] > numbers[high]:
+                low = mid + 1
+            elif numbers[mid] == numbers[high]:
+                high -= 1
             else:
-                right = mid
-
-        return RotateArray[left]
-
-
-if __name__ == "__main__":
-    obj = Solution()
-    Rl1 = [2, 3, 4, 5, 1]
-    Rl2 = [3, 4, 5, 1, 2]
-    Rl3 = [4, 5, 1, 2, 3]
-    Rl4 = [5, 1, 2, 3, 4]
-    print(obj.find_min(Rl1), end=" ")
-    print(obj.find_min(Rl2), end=" ")
-    print(obj.find_min(Rl3), end=" ")
-    print(obj.find_min(Rl4), end=" ")
-    print(obj.find_min([5, 2, 4]), end=" ")
-    print(obj.find_min([5, 5]), end=" ")
-    print(obj.find_min([5]), end=" ")
-    print(obj.find_min([4, 5, 5, 1, 1, 2, 3]), end=" ")
+                high = mid
+        return numbers[low]

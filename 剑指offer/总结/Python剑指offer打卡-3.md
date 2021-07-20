@@ -2,7 +2,11 @@
 
 [toc]
 
-### 链表中倒数第k个结点
+## 链表中倒数第k个结点（<font color = red>重点</font>）
+
+题目类型：链表、双指针
+
+题目难度：:star2::star2:
 
 - 问题描述
 
@@ -15,11 +19,15 @@
   方法2：双指针(双指针相差k，先前指针走完时，正好后指针到指定结点)
    former + after = after + former
    K + M = Ｍ + K
+  时间复杂度：O(N)
+  空间复杂度：O(1)
   ```
 
 - 代码（[解题思路](![Picture0.png](https://pic.leetcode-cn.com/ab52aeb21d3ea0c2b2aaca94241413db5d060b88e950461953db64e36a89a435-Picture0.png))）
 
-- ![](./imgs/双指针.png)
+  算法图解：
+
+  <img src="./imgs/双指针.png" style="zoom: 33%;" />
 
   ```python
   class Solution:
@@ -29,6 +37,7 @@
   
           former, latter = head, head
           for _ in range(k):
+              # 提前判断K是否满足要求
               if not former: return None
               former = former.next
   
@@ -37,25 +46,32 @@
               latter = latter.next
   
           return latter
-  
   ```
 
-### 链表的翻转（==重点==）
+## 链表的翻转（<font color = red>重点</font>）
+
+题目类型：链表
+
+题目难度：:star2::star2:
 
 - 问题描述
 
   ```python
   问题描述：
-  输入一个链表，反转链表后，输出新链表的表头
+  输入一个链表，反转链表后，输出新链表的表头。
   
   解决方案：
-  1. 递归
-  2. 循环
+  链表的遍历插入
+  
+  时间复杂度：O(N)
+  空间复杂度：O(1)
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/jian-zhi-offer-24-fan-zhuan-lian-biao-die-dai-di-2/)）
 
-- ![](./imgs/链表翻转.gif)
+  算法图解：
+
+  <img src="./imgs/链表翻转.gif" style="zoom: 67%;" />
 
   ```python
   class Solution:
@@ -73,54 +89,76 @@
           return pre
   ```
 
-### 合并两个排序的链表（==重点==）
+## 合并两个排序的链表（<font color = red>重点</font>）
+
+题目类型：链表
+
+题目难度：:star2::star2:
 
 - 问题描述
 
   ```python
   问题描述：
-  输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。
+  	输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合
+   成后的链表满足单调不减规则。
   
   解决方案：
   1. 构建一个新的链表用于添加合并后的有序链表
   2. 递归
+  
+  时间复杂度：min(O(len(l1), len(l2)))
+  空间复杂度：O(1)
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof/solution/mian-shi-ti-25-he-bing-liang-ge-pai-xu-de-lian-b-2/)）
 
+  算法图解：
+  
+  <img src="./imgs/12.png"  />
+  
   ```python
+  class ListNode:
+       def __init__(self, x):
+           self.val = x
+           self.next = None
+  
+  
   class Solution:
       
-      def mergeTwoList(self, l1, l2):
-          """合并两个有序链表"""
+      def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
   
-          # 申请新的结点
-          cur = dum = TreeNode(0)
+          cur = dummy = ListNode(0)
+  
           while l1 and l2:
               if l1.val < l2.val:
                   cur.next, l1 = l1, l1.next
               else:
                   cur.next, l2 = l2, l2.next
               cur = cur.next
-  
+          
           cur.next = l1 if l1 else l2
   
-          return dum.next
+          return dummy.next
   ```
 
-### 复杂链表的复制
+## 复杂链表的复制
+
+题目类型：链表
+
+题目难度：:star2::star2:
 
 - 问题描述
 
   ```python
   问题描述：
-  输入一个复杂链表（每个节点中有节点值，以及两个指针，**一个指向下一个节点，另一个特殊指针指向任意一个节点**），
-  返回结果为复制后复杂链表的head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空。
+  	输入一个复杂链表（每个节点中有节点值，以及两个指针，**一个指向下一
+  个节点，另一个特殊指针指向任意一个节点**），返回结果为复制后复杂链表的h
+  ead。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返
+  回空。
   
   解决方案：
   A---  a***  --->B  ***>b
   A.next.random = a.random.next问题描述：
-  
   ```
 
   实例：
@@ -169,7 +207,11 @@
           return res
   ```
 
-### 两个链表的第一个公共结点（浪漫相遇）:heart:
+## 两个链表的第一个公共结点（浪漫相遇）:heart:
+
+题目类型：链表、双指针
+
+题目难度：:star2::star2:
 
 <img src="./imgs/14.png" style="zoom: 67%;" />
 
@@ -196,6 +238,9 @@
   b:(0 7 8 9 6 5 2)  10 10 10
   c(公共部分): 10 10 10
   a + c + b = b + c + a
+  
+  时间复杂度：O(a + b)
+  空间复杂度：O(1)
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/solution/shuang-zhi-zhen-fa-lang-man-xiang-yu-by-ml-zimingm/)）
@@ -215,7 +260,7 @@
           return node1
   ```
 
-### 参考
+## 参考
 
 [数据结构与算法题目](https://blog.csdn.net/storyfull/category_9475477_2.html)
 

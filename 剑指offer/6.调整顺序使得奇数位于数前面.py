@@ -4,73 +4,32 @@
 # @FileName: 6.调整顺序使得奇数位于数前面.py
 # @Software: PyCharm
 # @Blog    ：https://blog.csdn.net/weixin_35154281
-
-
 """
-问题描述：
-输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，
-所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
+    输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇
+数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶
+数和偶数之间的相对位置不变。
 
 解决方案：
-1. 暴力遍历
-2. sorted
-3.冒泡排序分类
-知识点：
-a & 1 = 1 奇数 a、1二进制与运算结果 *0000001
+快慢指针
+fast：快指针实现遍历，标志奇数位置
+slow：慢指针实现对偶数位置进行表示
+时间复杂度：O(N)
+空间复杂度：O(1)
 """
+from typing import List
 
 
 class Solution:
+    def exchange(self, nums: List[int]) -> List[int]:
 
-    def sort1(self, li):
+        slow, fast = 0, 0
 
-        new_li = []
+        while fast < len(nums):
+            if nums[fast] % 2 == 1:
+                nums[slow], nums[fast] = nums[fast], nums[slow]
+                # 标志偶数位值
+                slow += 1
+            # 标志奇数位置，并实现遍历
+            fast += 1
 
-        for i in range(len(li)):
-            if li[i] & 1 == 1:  # 奇数
-                new_li.append(li[i])
-
-        for j in range(len(li)):
-            if li[j] & 1 == 0:  # 偶数
-                new_li.append(li[j])
-
-        return new_li
-
-    def sort2(self, li):
-
-        return sorted(li, key=lambda x: x % 2, reverse=True)  # reverse 奇偶翻转位置
-
-    def reorder(self, li):
-
-        for i in range(len(li) - 1):  # n-1次比较
-            flag = False
-            for j in range(len(li) - 1, i, -1):
-                if li[j] % 2 == 1 and li[j - 1] % 2 == 0:  # 后奇前偶，做交换,前面的位置存储信息
-                    li[j], li[j - 1] = li[j - 1], li[j]
-                    flag = True
-            if flag is False:
-                break
-        return li
-
-    def reorder1(self, li):
-
-        for i in range(len(array) - 1):
-            flag = False
-            for j in range(len(array) - 1 - i):
-                if array[j] % 2 == 0 and array[j+1] % 2 == 1:
-                    # change position
-                    array[j], array[j+1] = array[j+1], array[j]
-                    flag = True
-            if flag is False:
-                break
-        return array
-
-
-if __name__ == "__main__":
-    obj = Solution()
-    array = [1, 2, 9, 5, 6, 8, 7, 3, 12]
-    print("原数据：", array)
-    # print("排序： ", obj.sort1(array))
-    # print("排序： ", obj.sort2(array))
-    # print("排序： ", obj.reorder(array))
-    print("排序： ", obj.reorder1(array))
+        return nums

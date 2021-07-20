@@ -2,11 +2,11 @@
 
 [toc]
 
-## 二叉树的下一个节点
+## 二叉树的下一个节点（<font color = red>重点</font>）
 
 题目类型：树
 
-题目难度：:star2::star2:
+题目难度：:star2::star2::star2:
 
 - 问题描述
 
@@ -20,7 +20,7 @@
 
   图解
 
-  ![](./imgs/中序遍历.png)
+  <img src="./imgs/中序遍历.png" style="zoom:80%;" />
 
 - ```python
   class TreeLinkNode:
@@ -55,11 +55,16 @@
 
 ## 判断二叉树是否对称
 
+题目类型：树
+
+题目难度：:star2::star2:
+
 - 问题描述
 
   ```
   问题描述：
-  请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的.
+  	请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树
+  同此二叉树的镜像是同样的，定义其为对称的.
   示例：
       1
     2   2
@@ -68,6 +73,10 @@
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/solution/mian-shi-ti-28-dui-cheng-de-er-cha-shu-di-gui-qing/)）
 
+  图解算法
+  
+  ![](./imgs/31.png)
+  
   ```python
   class Solution:
       
@@ -82,13 +91,19 @@
           return recur(root.left, root.right) if root else True
   ```
 
-
 ## 按之字形顺序打印二叉树
+
+题目类型：树
+
+题目难度：:star2::star2:
 
 - 问题描述
 
   ```
-  请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右至左的顺序打印，第三行按照从左到右的顺序打印，其他行以此类推。
+          请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印
+   ，第二层按照从右至左的顺序打印，第三行按照从左到右的顺序打印，其他行以
+   此类推。
+   
   解题：
   构造奇偶条件，遍历不同顺序(偶头奇尾法)
   ```
@@ -115,8 +130,8 @@
               tmp = collections.deque()
               for _ in range(len(deque)):
                   node = deque.popleft() # 从左向右遍历
-                  if len(res) % 2: tmp.appendleft(node.val) # 偶数层,队列首部,从右向左
-                  else: tmp.append(node.val) # 奇数层，队列尾部
+                  if len(res) % 2: tmp.appendleft(node.val) # 奇数层（1, 3., 5......）,队列首部,从右向左
+                  else: tmp.append(node.val) # 偶数层（0, 2, 4, 6......），队列尾部
                   if node.left: deque.append(node.left)
                   if node.right: deque.append(node.right)
               
@@ -124,14 +139,17 @@
           return res
   ```
 
-
 ## 把二叉树打印成多行
+
+题目类型：树
+
+题目难度：:star2::star2:
 
 - 问题描述
 
   ```
   问题描述：
-  从上到下按层打印二叉树，同一层结点从左至右输出。每一层输出一行。
+  	从上到下按层打印二叉树，同一层结点从左至右输出。每一层输出一行。
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/solution/mian-shi-ti-32-ii-cong-shang-dao-xia-da-yin-er-c-5/)）
@@ -165,14 +183,20 @@
 
 ## 二叉搜索树的第 k 大节点
 
+题目类型：树
+
+题目难度：:star2::star2:
+
 - 问题描述
 
   ```
   问题描述：
-  给定一棵二叉搜索树，请找出其中的第k大的结点。例如， （5，3，7，2，4，6，8） 中，按结点数值大小顺序第三个大结点的值为6。
+  	给定一棵二叉搜索树，请找出其中的第k大的结点。例如， （5，3，7，2，4，
+  6，8） 中，按结点数值大小顺序第三个大结点的值为6。
   
   解决方法：
-  二叉搜索树的中序遍历为有序序列（递增序列），将其转换为逆序列，可以求得最大kth数值，并实现提前返回，减少时间复杂度。
+  	二叉搜索树的中序遍历为有序序列（递增序列），将其转换为逆序列，可以求得
+  最大kth数值，并实现提前返回，减少时间复杂度。
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/solution/mian-shi-ti-54-er-cha-sou-suo-shu-de-di-k-da-jie-d/)）

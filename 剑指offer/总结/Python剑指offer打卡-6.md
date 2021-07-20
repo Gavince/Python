@@ -4,13 +4,32 @@
 
 ## 二叉树中和为某一值的路径
 
+题目类型：树
+
+题目难度：:star2::star2::star2:
+
 - 问题描述
 
   ```python
   问题描述：
-  输入一颗二叉树的根节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树
-  的根结点开始往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的list中，数组长度大的数
-  组靠前).
+          输入一颗二叉树的根节点和一个整数，打印出二叉树中结点值的和为输入整
+  数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形
+  成一条路径。(注意: 在返回值的list中，数组长度大的数组靠前).
+  
+  示例:
+  给定如下二叉树，以及目标和 target = 22，
+                [5]
+                 / \
+             [4]  [8]
+             /       / \
+          [11]  13[4]
+            /  \      / \
+          7  [2] [5] 1
+  输出值：
+  [
+     [5,4,11,2],
+     [5,8,4,5]
+  ]
   
   解决方案：
   递归
@@ -19,7 +38,7 @@
   路径表示为根结点到叶子结点的全路径
   ```
 
-- 代码（[解题思路](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/solution/pythonti-jie-yi-dong-de-di-gui-jie-fa-by-xiao-xue-/)）
+- 代码（[解题思路](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/solution/mian-shi-ti-34-er-cha-shu-zhong-he-wei-mou-yi-zh-5/))
 
   ```python
   class Solution:
@@ -31,7 +50,7 @@
   
           res = []
           if root.val == expectNumber and root.left is None and root.right is None:
-              res.append(root.val)
+              res.append([root.val])
   
           left = self.FindPath(root.left, expectNumber - root.val)
           right = self.FindPath(root.right, expectNumber - root.val)
@@ -44,12 +63,16 @@
 
 ## 判断是否是二叉搜索树的后序遍历序列结果
 
+题目类型：树
+
+题目难度：:star2::star2::star2:
+
 - 问题描述
 
   ```python
   问题描述：
-  输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,
-  否则输出No。假设输入的数组的任意两个数字都互不相同。
+          输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是
+  则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。
   
   解决方案：
   BST:整体上应该保证结点数值右大左小
@@ -100,7 +123,11 @@
           return isTree(sequence)
   ```
 
-## 从上往下打印二叉树
+## 从上往下打印二叉树（<font color = red>重点</font>）
+
+题目类型：树
+
+题目难度：:star2::star2::star2:
 
 - 问题描述
 
@@ -120,6 +147,7 @@
   
   ```python
   class Solution:
+      
           def levelOrder(self, root: TreeNode) -> List[int]:
               """"层序遍历"""
               
@@ -173,7 +201,11 @@
                   return res
   ```
 
-## 最小的k个数
+## 最小的k个数（<font color = red>重点</font>）
+
+题目类型：数组、排序
+
+题目难度：:star2::star2::star2:
 
 - 问题描述
 
@@ -185,8 +217,8 @@
   解决方案：
   (1) heapq
       构建堆，heapq构造的是小顶堆，即堆顶元素最小，因此为了构造大顶堆
-  ，需要将元素都加负号，来颠倒他们的大小关系，相反数的小顶堆，就相当于
-  原来数的大顶堆。求前K个最大的数，用小顶堆，K个小的数，用大顶堆。
+  ，需要将元素都加负号，来颠倒他们的大小关系，相反数的小顶堆，就相当
+  于原来数的大顶堆。求前K个最大的数，用小顶堆，K个小的数，用大顶堆。
   
   (2) quick sort
   未优化：所有数字先有序化，后截取指定区间内的数字
@@ -260,34 +292,37 @@
           return numbs[:k]
       
       def getLeastNumbers2(self, arr: List[int], k: int) -> List[int]:
-  	"""优化，旨在寻找最小的k个数"""
-          def quickSort(start, end):
+  
+          def quickSort(nums, start,  end):
+  
+              if start >= end:
+                  return nums[:k]
               
-              # 递归的重点
-              if end <=  start:
-                  return arr[:k]
-  
-              # 设置哨兵结点
-              mid = arr[start]
               low = start
-              high = end
-              while low < high:
-                  while low < high and arr[high] >= mid:
-                      high -= 1
-                  arr[low] = arr[high]
-                  while low < high and arr[low] < mid:
+              hight = end
+              pivot = nums[start]
+              while low < hight:
+                  while low < hight and pivot <= nums[hight]:
+                      hight -= 1
+                  nums[low] = nums[hight]
+                  while low < hight and pivot > nums[low]:
                       low += 1
-                  arr[high] = arr[low]
-              arr[low] = mid
-              # 左右有序递归
-              if k < low : return quickSort(start, low - 1)
-              if k > high: return quickSort(low + 1, end)
-              return arr[:k]
+                  nums[hight] = nums[low]
+              nums[low] = pivot
   
-          return quickSort(0, len(arr) - 1)
+              if k < low: quickSort(nums, start, low - 1)
+              if k > hight: quickSort(nums, low + 1, end)
+          
+          quickSort(arr, 0, len(arr) - 1)
+  
+          return arr[:k]
   ```
 
 ## 数据流中的中位数
+
+题目类型：数组
+
+题目难度：:star2::star2:
 
 - 问题描述
 

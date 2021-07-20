@@ -179,7 +179,7 @@
           return dummy.next
   ```
 
-## 三数之和<font color=red>（重点）</font>
+## 三数之和（<font color = red>重点</font>）
 
 题目类型：数组
 
@@ -256,10 +256,9 @@
                   else:
                       right -= 1
           return res
-  
   ```
 
-## 无重复字符的最长子串<font color=red>（重点）</font>
+## 无重复字符的最长子串（<font color = red>重点</font>）
 
 题目类型：字符串
 
