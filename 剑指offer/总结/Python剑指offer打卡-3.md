@@ -6,7 +6,7 @@
 
 题目类型：链表、双指针
 
-题目难度：:star2::star2:
+题目难度：:star2::star2::star2:
 
 - 问题描述
 
@@ -62,12 +62,13 @@
   
   解决方案：
   链表的遍历插入
-  
+  （1）迭代法
   时间复杂度：O(N)
   空间复杂度：O(1)
+  （2）递归法
   ```
 
-- 代码（[解题思路](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/jian-zhi-offer-24-fan-zhuan-lian-biao-die-dai-di-2/)）
+- 代码：迭代法（[解题思路](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/jian-zhi-offer-24-fan-zhuan-lian-biao-die-dai-di-2/)）
 
   算法图解：
 
@@ -87,6 +88,26 @@
               cur = tmp
   
           return pre
+  ```
+  
+- 代码：递归法（[解题思路](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-shi-duo-chong-jie-fa-206-fan-zhuan-li/)）
+
+  算法图解（**注意每次返回的都是同一个节点**）：
+
+  ![](./imgs/11_递归.png)
+
+  ```python
+  class Solution:
+      def reverseList(self, head: ListNode) -> ListNode:
+  
+          if head is None or head.next is None:
+              return head
+  
+          node = self.reverseList(head.next)
+          head.next.next = head
+          head.next = None
+  
+          return node
   ```
 
 ## 合并两个排序的链表（<font color = red>重点</font>）
@@ -145,7 +166,7 @@
 
 题目类型：链表
 
-题目难度：:star2::star2:
+题目难度：:star2::star2::star2::star2:
 
 - 问题描述
 

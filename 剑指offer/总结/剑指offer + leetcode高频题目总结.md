@@ -1025,4 +1025,129 @@
           return dfs(root, o1, o2).val
   ```
 
+## 最长递增子序列（<font color=red>重点</font>）
+
+题目类型：数组、动态规划
+
+题目难度：:star2::star2::star2:
+
+- 问题描述
+
+  ```
+  问题描述：
+      　给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。子序列是
+  由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。
+  例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。
+  
+  示例：
+  输入：nums = [10,9,2,5,3,7,101,18]
+  输出：4
+  解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。
+  
+  解题方法：
+  动态规划四步走原则
+  (1)转态定义：dp[i]表示到当前结点i所表示的子序列的长度
+  (2)转态转移：dp[i] = max(dp[i], dp[j] + 1)，表示为i之前最大的递增子序列
+  (3)初始值：dp = [1]*len(nums)
+  (4)返回值：max(dp)
+  
+  时间复杂度：O(N^2)  两层循环
+  空间复杂度：O(N)  dp状态的存储
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/zui-chang-shang-sheng-zi-xu-lie-dong-tai-gui-hua-2/)）
+
+  算法图解：
+
+  <img src="/home/gavin/Python/剑指offer/总结/imgs/76.png" style="zoom:80%;" />
+
+  ```python
+  class Solution:
+      def lengthOfLIS(self, nums: List[int]) -> int:
+          
+          if not nums: return 0
+          # 定义dp,并设置初始值
+          dp = [1]*len(nums)
+          # 遍历转态
+          for i in range(len(nums)):
+              for j in range(i):
+                  if nums[j] < nums[i]:
+                      # 更新状态(已有子序列的前提上进行更新)
+                      dp[i] = max(dp[i], dp[j] + 1)
+          # 返回值
+          return max(dp)
+  ```
+
+## 最长回文子串（<font color=red>重点</font>）
+
+题目类型：字符串
+
+回文的意思是正着念和倒着念一样，如：==上海自来水来自海上==
+
+- 问题描述
+
+  ```
+  问题描述：
+  给你一个字符串 s，找到 s 中最长的回文子串。
+  
+  字符串的回文：
+          对于一个子串而言，如果它是回文串，并且长度大于 2，那么将它首尾的
+  两个字母去除之后，它仍然是个回文串。例如对于字符串“ababa”，如果我
+  们已经知道“bab” 是回文串，那么 “ababa” 一定是回文串，这是因为它
+  的首尾两个字母都是a”。
+  
+  
+  解题方法：
+  动态规划
+  (1)状态定义：d[i][j]表示s[i:j]为回文子串；
+  (2)状态转移：d[i][j] = dp[i + 1][j - 1]，子问题是否为回文子串；
+  (3)初始状态：dp[i][i] = True，表示只有一个字符时为回文子串；
+  (4)返回值：最长的回文子串长度。
+  时间复杂度O(n^2)
+  空间复杂度O(n^2)
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zui-chang-hui-wen-zi-chuan-by-leetcode-solution/)）
+
+  图解：
+
+  ![](/home/gavin/Python/剑指offer/总结/imgs/81.png)
+
+  ```python
+  class Solution:
+      def longestPalindrome(self, s: str) -> str:
+          
+          n = len(s)
+          # 当s只有一个字符和无字符时
+          if n < 2:
+              return s
+          
+          # 转态定义
+          dp = [[False]*n for _ in range(n)]
+          # 初始状态
+          for i in range(n):
+              dp[i][i] = True
+          max_len, begin = 1, 0
+          # 遍历状态
+          for L in range(2, n + 1):
+              # 左右边界
+              for i in range(n):
+                  j = i + L - 1
+                  if j >= n:
+                      break
+                  if s[i] != s[j]:
+                      dp[i][j] = False
+                  else:
+                      if j - i < 3:
+                          dp[i][j] = True
+                      else:
+                          dp[i][j] = dp[i + 1][j - 1]
+                  # 更新最长回文子串长度起始值
+                  if dp[i][j] and j - i + 1 > max_len:
+                      max_len = j - i + 1
+                      begin = i
+          
+          return s[begin: begin + max_len]
+  ```
+
 ## 

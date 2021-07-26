@@ -34,9 +34,9 @@
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/zui-chang-shang-sheng-zi-xu-lie-dong-tai-gui-hua-2/)）
 
-  图解动态规划
+  算法图解：
   
-  ![](./imgs/76.png)
+  <img src="./imgs/76.png" style="zoom:80%;" />
   
   ```python
   class Solution:
@@ -141,7 +141,7 @@
 
 - 代码
 
-  图解
+  算法图解：
 
   ![](./imgs/78.png)
 
