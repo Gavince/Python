@@ -2,7 +2,7 @@
 
 [toc]
 
-## 无重复字符的最长子串<font color=red>（重点）</font>
+## 无重复字符的最长子串（<font color=red>重点</font>）
 
 题目类型：字符串
 
@@ -467,6 +467,60 @@
               latter = latter.next
   
           return latter
+  ```
+
+##  删除链表的倒数第N个结点（<font color=red>重点</font>）
+
+题目类型：链表、双指针
+
+题目难度：:star2::star2:
+
+- 问题描述
+
+  ```
+  问题描述：
+         给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+  进阶：你能尝试使用一趟扫描实现吗？
+  
+  示例：
+  输入：head = [1,2,3,4,5], n = 2
+  输出：[1,2,3,5]
+  
+  解题方法：
+  双指针（K + M = M + K）
+  时间复杂度:O(N) former指针实现一趟扫描
+  空间复杂度:O(1)
+  ```
+
+- 代码
+
+  图解快慢指针变化
+
+  ![](/home/gavin/Python/剑指offer/总结/imgs/99.png)
+
+  ```python
+  class ListNode:
+      def __init__(self, val=0, next=None):
+          self.val = val
+          self.next = next
+  
+  
+  class Solution:
+      def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+  
+          dummy = ListNode(0, head)
+          former, latter = head, dummy
+          # 寻找K
+          for i in range(n):
+              if not former: break
+              former = former.next
+          while former:
+              latter = latter.next
+              former = former.next
+  
+          # 删除结点
+          latter.next = latter.next.next
+          return dummy.next
   ```
 
 ## 链表的翻转（<font color = red>重点</font>）
@@ -1150,4 +1204,61 @@
           return s[begin: begin + max_len]
   ```
 
-## 
+## x的平方根（<font color = red>重点</font>）
+
+- 问题描述
+
+  ```
+  问题描述：
+          实现int sqrt(int x)函数。计算并返回x的平方根，其中x 是非负整数。
+  由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
+  
+  解题方法：
+  (1)袖珍计算器
+  时间复杂度：O(1)
+  空间复杂度：O(1)
+  
+  (2)二分法
+  时间复杂度：O(logN)
+  空间复杂度：O(1)
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/sqrtx/solution/x-de-ping-fang-gen-by-leetcode-solution/)）
+
+  袖珍计算器
+
+  ```python
+  import math
+  
+  
+  class Solution:
+      def mySqrt(self, x: int) -> int:
+          
+          if x == 0:
+              return 0
+          ans = int(math.exp(0.5*math.log(x)))
+  
+          return ans + 1 if (ans + 1)**2 <= x else ans
+  ```
+
+  二分法
+
+  ```python
+  class Solution:
+      
+      def mySqrt(self, x: int) -> int:
+          # 二分查找
+  
+          l, r, ans = 0, x, -1
+          while l <= r:
+              mid = (l + r) // 2
+              if mid * mid <= x:
+                  ans = mid
+                  l = mid + 1
+              else:
+                  r = mid - 1
+  
+          return ans
+  ```
+
+  

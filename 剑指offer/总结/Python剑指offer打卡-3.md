@@ -68,7 +68,7 @@
   （2）递归法
   ```
 
-- 代码：迭代法（[解题思路](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/jian-zhi-offer-24-fan-zhuan-lian-biao-die-dai-di-2/)）
+- 代码：迭代法（[解题思路](https://leetcode-cn.com/problems/reverse-linked-list/solution/shi-pin-jiang-jie-die-dai-he-di-gui-hen-hswxy/)）
 
   算法图解：
 

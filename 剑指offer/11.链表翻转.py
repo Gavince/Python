@@ -16,50 +16,28 @@
 """
 
 
-class ListNode:
-
-    def __init__(self, val):
-        self.val = val
-        self.next = None
-
-
 class Solution:
 
-    @staticmethod
-    def reverse_list(pHead):
+    def reverseList1(self, pHead):
+        """链表的翻转"""
 
-        if not pHead or pHead.next is None:
-            return pHead
-
-        newHead, cur = None, pHead
+        cur, pre = pHead, None
         while cur:
             tmp = cur.next
-            cur.next = newHead
-            newHead = cur
+            cur.next = pre
+            pre = cur
             cur = tmp
 
-        return newHead
+        return pre
 
+    def reverseList2(self, head: ListNode) -> ListNode:
+        """递归的方式"""
 
-if __name__ == "__main__":
-    n1 = ListNode(1)  # 依次实例5个结点
-    n2 = ListNode(2)
-    n3 = ListNode(3)
-    n4 = ListNode(4)
-    n5 = ListNode(5)
-    n1.next = n2  # 依次将结点链接起来，形成一个链表
-    n2.next = n3
-    n3.next = n4
-    n4.next = n5
-    head1, head2 = n1, n1
-    print("翻转前的链表：", end=" ")
-    while head1:
-        print(head1.val, end=" ")
-        head1 = head1.next
+        if head is None or head.next is None:
+            return head
 
-    obj = Solution()
-    p = obj.reverse_list(head2)
-    print("\n翻转后的链表：", end=" ")
-    while p:
-        print(p.val, end=" ")
-        p = p.next
+        node = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
+
+        return node

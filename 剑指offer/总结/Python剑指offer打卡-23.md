@@ -4,6 +4,10 @@
 
 ## 反转链表II（<font color = red>重点</font>）
 
+题目类型：链表
+
+题目难度：:star2::star2::star2::star2:
+
 - 问题描述
 
   ```
@@ -60,13 +64,24 @@
           return dummmy.next
   ```
 
-
 ## 数组中的第K个最大元素
+
+题目类型：数组
+
+题目难度：:star2::star2::star2:
 
 - 问题描述
 
   ```
+  题目描述：
+      给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。请注意，
+  你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
   
+  解题方法：
+  快速排序
+  
+  时间复杂度：O(NlogN)
+  空间复杂度：O(1)
   ```
 
 - 代码
@@ -139,8 +154,11 @@
           return i
   ```
 
-
 ## x的平方根（<font color = red>重点</font>）
+
+题目类型：数字
+
+题目难度：:star2::star2:
 
 - 问题描述
 
@@ -194,6 +212,115 @@
                   r = mid - 1
   
           return ans
+  ```
+
+
+## 合并两个有序数组
+
+题目类型：数组
+
+题目难度：:star2::star2::star2:
+
+- 问题描述
+
+  ```
+  问题描述：
+      给你两个有序整数数组nums1 和 nums2，请你将 nums2 合并到nums1中，使 nums1
+  成为一个有序数组。初始化nums1 和 nums2 的元素数量分别为m 和 n 。你可以假设nums1
+  的空间大小等于m + n，这样它就有足够的空间保存来自 nums2 的元素。
+  
+  解题方法：
+  逆向双指针
+  
+  时间复杂度：O(m + n)
+  空间复杂度:O(1)
+  ```
+
+- 代码
+
+  ```python
+  class Solution:
+      def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+          """
+          Do not return anything, modify nums1 in-place instead.
+          """
+          tail = m + n - 1
+  
+          while m > 0 and n > 0:
+              if nums1[m - 1] > nums2[n - 1]:
+                  nums1[tail] = nums1[m - 1]
+                  m -= 1
+              else:
+                  nums1[tail] = nums2[n - 1]
+                  n -= 1
+              tail -= 1
+          nums1[:n] = nums2[:n]
+  ```
+
+## 岛屿数量（<font color = red>重点</font>）
+
+题目类型：DFS、BFS
+
+题目难度：:star2::star2::star2::star2:
+
+- 问题描述
+
+  ```
+  问题描述:
+      给你一个由'1'（陆地）和 '0'（水）组成的的二维网格，请你计算网格中岛屿
+  的数量。岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆
+  地连接形成。此外，你可以假设该网格的四条边均被水包围。
+  
+  解题方法：
+  DFS 和　BFS
+  ```
+
+- 代码
+
+  ```python
+  class Solution:
+  
+      def numIslands_dfs(self, grid: List[List[str]]) -> int:
+  
+          def dfs(grid, i, j):
+  
+              if not 0 <= i < len(grid) or not 0 <= j < len(grid[0]) or grid[i][j] == "0":
+                  return
+              grid[i][j] = "0"
+              # 上下左右进入节点
+              dfs(grid, i + 1, j)
+              dfs(grid, i - 1, j)
+              dfs(grid, i, j + 1)
+              dfs(grid, i, j - 1)
+  
+          count = 0
+          # 寻找入口
+          for i in range(len(grid)):
+              for j in range(len(grid[0])):
+                  if grid[i][j] == "1":
+                      dfs(grid, i, j)
+                      count += 1
+  
+          return count
+  
+      def numIslands_bfs(self, grid: List[List[str]]) -> int:
+  
+          def bfs(grid, i, j):
+  
+              deque = [[i, j]]
+              while deque:
+                  [i, j] = deque.pop(0)
+                  if 0 <= i < len(grid) and 0 <= j < len(grid[0]) and grid[i][j] == "1":
+                      grid[i][j] = "0"
+                      deque += [[i + 1, j], [i - 1, j], [i, j + 1], [i, j - 1]]
+  
+          count = 0
+          for i in range(len(grid)):
+              for j in range(len(grid[0])):
+                  if grid[i][j] == "0": continue
+                  bfs(grid, i, j)
+                  count += 1
+          return count
   ```
 
   

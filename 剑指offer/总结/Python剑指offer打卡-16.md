@@ -2,7 +2,7 @@
 
 [toc]
 
-## 最长递增子序列<font color=red>（重点）</font>
+## 最长递增子序列（<font color=red>重点</font>）
 
 题目类型：数组、动态规划
 
@@ -55,7 +55,7 @@
           return max(dp)
   ```
 
-## 两数之和
+## 两数之和（<font color=red>重点</font>）
 
 题目类型：数组
 
@@ -113,7 +113,7 @@
           return []
   ```
 
-## 两数相加<font color=red>（重点）</font>
+## 两数相加（<font color=red>重点</font>）
 
 题目类型：链表
 

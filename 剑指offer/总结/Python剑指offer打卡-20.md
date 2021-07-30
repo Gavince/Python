@@ -74,6 +74,8 @@
 
 题目类型：链表、回文数
 
+题目难度：:star2::star2::star2::star2:
+
 - 问题描述
 
   ```
@@ -124,9 +126,8 @@
   
           return vars == vars[::-1]
   
-      def isPalindrom2(self, head):class Solution:
+      def isPalindrom2(self, head):
       
-          
           if not head or not head.next:
               return True
           # 快慢指针
@@ -156,6 +157,8 @@
 ## 环形链表
 
 题目类型：链表
+
+题目难度：:star2::star2:
 
 ### 存在环
 
@@ -271,9 +274,11 @@
           return None
   ```
 
-##  删除链表的倒数第N个结点
+##  删除链表的倒数第N个结点（<font color=red>重点</font>）
 
 题目类型：链表
+
+题目难度：:star2::star2:
 
 - 问题描述
 
@@ -324,6 +329,11 @@
   ```
 
 ## 每日温度
+
+题目类型：栈
+
+题目难度：:star2::star2:
+
 - 问题描述
 
   ```
