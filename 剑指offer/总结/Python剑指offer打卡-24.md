@@ -140,5 +140,150 @@
               l2 = l2_tmp
   ```
 
-  
 
+## 有效的括号
+
+题目类型：链表
+
+题目难度：:star2:
+
+- 问题描述
+
+  ```
+  问题描述：
+      给定一个只包括 '('，')'，'{'，'}'，'['，']'的字符串 s ，判断字符串是否有效。
+  有效字符串需满足：左括号必须用相同类型的右括号闭合。左括号必须以正确的顺序闭合。
+  
+  解题方法：
+  栈
+  
+  时间复杂度：O(N)
+  空间复杂度：O(N)
+  ```
+
+- 代码
+
+  ```python
+  class Solution:
+      def isValid(self, s: str) -> bool:
+          
+          # 构建括号对
+          dic = {"[":"]", "{": "}", "(": ")", "?": "?"}
+          # 配对
+          stack = ['?']
+  
+          for c in s:
+              # 左括号进入
+              if c in dic:
+                  stack.append(c)
+              elif dic[stack.pop()] != c:
+                  return False
+              
+          return len(stack) == 1
+  ```
+
+## K个一组翻转链表
+
+题目类型：链表
+
+题目难度：:star2::star2::star2::star2:
+
+- 问题描述
+
+  ```
+  问题描述：
+  	给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。k 是
+  一个正整数，它的值小于或等于链表的长度。如果节点总数不是 k 的整数倍，那
+  么请将最后剩余的节点保持原有顺序。
+  进阶：
+  你可以设计一个只使用常数额外空间的算法来解决此问题吗？
+  你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
+  
+  解题方法：
+  仿照单链表的翻转
+  ```
+
+- 代码
+
+  ```python
+  # Definition for singly-linked list.
+  # class ListNode:
+  #     def __init__(self, val=0, next=None):
+  #         self.val = val
+  #         self.next = next
+  class Solution:
+  
+      def reverse(self, head, tail):
+  
+          pre = tail.next
+          cur = head
+          while pre != tail:
+              tmp = cur.next
+              cur.next = pre
+              pre = cur
+              cur = tmp
+          return tail, head
+  
+      def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+  
+          hair = ListNode(0)
+          hair.next = head
+          pre = hair
+  
+          while head:
+              tail = pre 
+              for _ in range(k):
+                  tail = tail.next
+                  if not tail:
+                      return hair.next
+              nxt = tail.next
+              head, tail=self.reverse(head, tail)
+              pre.next = head
+              tail.next = nxt
+              pre = tail
+              head = tail.next
+  
+          return hair.next
+  ```
+
+## 最小路径和
+
+题目类型：动态规划
+
+题目难度：:star2::star2:
+
+- 问题描述
+
+  ```
+  问题描述:
+      给定一个包含非负整数的 m x n 网格 grid ，请找出一条从左上角到右下角的路径，使得
+  路径上的数字总和为最小。说明：每次只能向下或者向右移动一步。
+  
+  解题方法:
+  该题目与礼物的最大值相似,采用动态规划解决
+  ```
+
+- 代码
+
+  ```python
+  class Solution:
+      def minPathSum(self, grid: List[List[int]]) -> int:
+  
+          # grid[i][j]表示当前路径最小值
+          # 初始化
+          for i in range(1, len(grid)):
+              grid[i][0] += grid[i - 1][0]
+  
+          for j in range(1, len(grid[0])):
+              grid[0][j] += grid[0][j - 1]
+  
+          # 状态转移,求解最小路径
+          for i in range(1, len(grid)):
+              for j in range(1, len(grid[0])):
+                  grid[i][j] += min(grid[i - 1][j], grid[i][j - 1])
+  
+          # 返回状态
+          return grid[-1][-1]
+  ```
+
+  
