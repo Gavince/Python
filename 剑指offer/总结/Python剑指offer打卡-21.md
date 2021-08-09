@@ -187,7 +187,6 @@
           return res
   ```
   
-  
 
 ## 和为k的子数组
 
@@ -222,6 +221,10 @@
   图解暴力法：
   
   ![](./imgs/104.png)
+  
+  图解前缀法：
+  
+  ![](./imgs/104_B.png)
   
   ```python
   class Solution:

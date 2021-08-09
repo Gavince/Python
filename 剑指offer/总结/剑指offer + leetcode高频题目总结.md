@@ -209,6 +209,53 @@
           return res
   ```
 
+## 组合总和
+
+题目类型：DFS
+
+题目难度：:star2::star2:
+
+- 问题描述
+
+  ```
+  问题描述：
+  	给定一个无重复元素的正整数数组 candidates 和一个正整数 target ，找出 candidates 中所有可以使数字和为目标数 target 的唯一组合。candidates 中的数字可以无限制重复被选取。如果至少一个所选数字数量不同，则两种组合是唯一的。 对于给定的输入，保证和为 target 的唯一组合数少于 150 个。
+  	
+  解题方法：
+  DFS
+  ```
+
+- 代码
+
+  算法图解
+
+  ![](/home/gavin/Python/剑指offer/总结/imgs/127.png)
+
+  ```python
+  class Solution:
+      def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+  
+          def dfs(candidates, begin, size, res, path, target):
+  
+              if target < 0:
+                  return 
+    
+              if target == 0:
+                  res.append(path)
+              
+              for index in range(begin, size):
+                  dfs(candidates, index, size, res, path + [candidates[index]], target - candidates[index])
+          
+          size = len(candidates)
+          if size < 0:
+              return []
+          
+          res, path = [], []
+          dfs(candidates, 0, size, res, path, target)
+          
+          return res
+  ```
+
 ## 连续子数组的最大和（<font color = red>重点</font>）
 
 题目类型：数组、动态规划

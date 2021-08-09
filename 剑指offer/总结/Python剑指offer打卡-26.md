@@ -10,21 +10,20 @@
 
   ```
   问题描述：
-  
-      给定一个m x n 的矩阵，如果一个元素为 0 ，则将其所在行和列的所有元素都设为0。
+          给定一个m x n 的矩阵，如果一个元素为 0 ，则将其所在行和列的所有元素都设为0。
   请使用原地算法。
   进阶：
-      一个直观的解决方案是使用 O(mn)的额外空间，但这并不是一个好的解决方案。一个简
+          一个直观的解决方案是使用 O(mn)的额外空间，但这并不是一个好的解决方案。一个简
   单的改进方案是使用 O(m+n) 的额外空间，但这仍然不是最好的解决方案。你能想出一个仅
   使用常量空间的解决方案吗？
   
   解题方法：
   方法一：
   设置行列标记，行标记或者列标记为零时，元素置为零。
-  时间复杂度：O(mn)
+  时间复杂度：O(m*n)
   空间复杂度：O(m + n)
   ```
-
+  
 - 代码
 
   算法图解
@@ -85,7 +84,7 @@
   
               if target < 0:
                   return 
-              
+    
               if target == 0:
                   res.append(path)
               
@@ -108,14 +107,16 @@
 
 题目难度：:star2::star2:
 
+<font color =red>注意</font>：此题和二叉树的子结构有区别，最终回朔返回的条件不同。
+
 - 问题描述
 
   ```
   问题描述：
-  	给你两棵二叉树 root 和 subRoot 。检验 root 中是否包含和 subRoot 具有
-  相同结构和节点值的子树。如果存在，返回 true ；否则，返回 false 。二叉树 tr
-  ee 的一棵子树包括 tree 的某个节点和这个节点的所有后代节点。tree 也可以看
-  做它自身的一棵子树。
+  	 给你两棵二叉树 root 和 subRoot 。检验 root 中是否包含和 subRoot 具有相同
+  结构和节点值的子树。如果存在，返回 true ；否则，返回 false 。二叉树 tree 的一棵
+  子树包括 tree 的某个节点和这个节点的所有后代节点。tree 也可以看做它自身的一棵
+  子树。
   
   解题方法：
   DFS
@@ -146,6 +147,51 @@
   
           return root1.val == root2.val and self.isSameTree(root1.left,\
                    root2.left) and self.isSameTree(root1.right, root2.right)
+  ```
+
+
+## 零钱兑换
+
+题目类型：动态规划
+
+题目难度：:star2::star2::star2::star2:
+
+- 问题描述
+
+  ```
+  问题描述：
+          给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。计算并
+  返回可以凑成总金额所需的 最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回-1 。你
+  可以认为每种硬币的数量是无限的。
+  
+  解题方法：
+  动态规化
+  1.状态定义：dp[i]表示组成和为i的零钱个数
+  2.起始状态：dp[0]表示为零
+  3.状态转移：dp[i] = min(dp[i], dp[i - coin] + 1)
+  4.返回值: dp[-1]
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/coin-change/solution/322-ling-qian-dui-huan-by-leetcode-solution/)）
+
+  算法图解
+
+  ![](./imgs/129.png)
+
+  ```python
+  class Solution:
+      def coinChange(self, coins: List[int], amount: int) -> int:
+  
+          dp = [0] + [10001] * amount
+  
+          for i in range(1, amount + 1):
+              for coin in coins:
+                  diff = i - coin
+                  if diff >= 0:
+                      # dp[7] = min(dp[7 - 1], dp[7 - 5], dp[7 - 2]) + 1
+                      dp[i] = min(dp[i], dp[diff] + 1)
+  
+          return dp[-1] if dp[-1] != 10001 else -1
   ```
 
   
