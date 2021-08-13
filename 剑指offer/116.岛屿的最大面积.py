@@ -13,3 +13,49 @@
 解题方法：
 DFS和BFS
 """
+from typing import List
+
+
+class Solution:
+
+
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+
+        def dfs(grid, i, j):
+
+            if not 0 <= i < len(grid) or not 0 <= j < len(grid[0]) or grid[i][j] == 0:
+                return 0
+            # 已访问标记
+            grid[i][j] = 0
+            return 1 + dfs(grid, i + 1, j) + dfs(grid, i - 1, j) + dfs(grid, i, j - 1) + dfs(grid, i, j + 1)
+
+        ans = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j]:
+                    ans = max(ans, dfs(grid, i, j))
+
+        return ans
+
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+
+        def bfs(grid, i, j):
+
+            deque = [[i, j]]
+            count = 0
+            while deque:
+                [i, j] = deque.pop(0)
+                if 0 <= i < len(grid) and 0 <= j < len(grid[0]) and grid[i][j] == 1:
+                    # 已访问标记
+                    grid[i][j] = 0
+                    count += 1
+                    deque += [[i + 1, j], [i - 1, j], [i, j + 1], [i, j - 1]]
+
+            return count
+
+        ans = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j]:
+                    ans = max(ans, bfs(grid, i, j))
+        return ans

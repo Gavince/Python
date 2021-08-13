@@ -113,10 +113,10 @@
 
   ```
   问题描述：
-  	 给你两棵二叉树 root 和 subRoot 。检验 root 中是否包含和 subRoot 具有相同
-  结构和节点值的子树。如果存在，返回 true ；否则，返回 false 。二叉树 tree 的一棵
-  子树包括 tree 的某个节点和这个节点的所有后代节点。tree 也可以看做它自身的一棵
-  子树。
+  	 给你两棵二叉树 root 和 subRoot 。检验 root 中是否包含和 subRoot 
+  具有相同结构和节点值的子树。如果存在，返回 true ；否则，返回 false 。
+  二叉树 tree 的一棵子树包括 tree 的某个节点和这个节点的所有后代节点。
+  tree 也可以看做它自身的一棵。
   
   解题方法：
   DFS
@@ -137,7 +137,8 @@
           elif not root or not subRoot:
               return False
           
-          return self.isSameTree(root, subRoot) or self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
+          return self.isSameTree(root, subRoot) or self.isSubtree(root.left, subRoot) 
+     		or self.isSubtree(root.right, subRoot)
       
       def isSameTree(self, root1, root2):
           if not root1 and not root2:
@@ -160,9 +161,9 @@
 
   ```
   问题描述：
-          给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。计算并
-  返回可以凑成总金额所需的 最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回-1 。你
-  可以认为每种硬币的数量是无限的。
+          给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，
+  表示总金额。计算并返回可以凑成总金额所需的最少的硬币个数 。如果没有任
+  何一种硬币组合能组成总金额，返回-1 。你可以认为每种硬币的数量是无限的。
   
   解题方法：
   动态规化
@@ -194,4 +195,50 @@
           return dp[-1] if dp[-1] != 10001 else -1
   ```
 
+
+## 最长递增子序列（<font color=red>重点</font>）
+
+题目类型：数组、动态规划
+
+题目难度：:star2::star2::star2:
+
+- 问题描述
+
+  ```
+  问题描述：
+      给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原
+  数组中连续）的长度。请你设计并实现时间复杂度为O(n) 的算法解决此问题。
+  
+  解题方法：
+  主要思路在于寻找连续子序列的起始点x,而起始点的上一位x - 1必然不存在数组中
+  哈希表
+  时间复杂度：O(N)
+  空间复杂度：O(N)
+  ```
+
+- 代码
+
+  ```python
+  class Solution:
+      def longestConsecutive(self, nums: List[int]) -> int:
+          
+          if not nums: return 0
+          num_sets = set(nums)
+          longest_streak = 1
+  
+          for num in num_sets:
+              # 寻找前驱
+              if num - 1 not in num_sets:
+                  cur_num = num
+                  cur_streak = 1
+                  # 遍历后继
+                  while cur_num + 1 in num_sets:
+                      cur_num += 1
+                      cur_streak += 1
+                  # 标记最长长度
+                  longest_streak = max(longest_streak, cur_streak)
+              
+          return longest_streak
+  ```
+  
   

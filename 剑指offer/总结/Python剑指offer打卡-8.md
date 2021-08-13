@@ -162,14 +162,14 @@
   class Solution:
   
       def maxDepth(self, root: TreeNode) -> int:
-          """后序遍历"""
+          """D"""
   
           if not root: return 0
   
           return max(self.maxDepth(root.left), self.maxDepth(root.right) )+ 1
   
       def maxDepth1(self, root: TreeNode) -> int:
-          """递归遍历"""
+          """层序遍历"""
   
           if not root: return None
           queue, res = [root], 0

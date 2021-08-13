@@ -192,8 +192,8 @@
                       tmp = collections.deque()
                       for _ in range(len(deque)):
                           node = deque.popleft() # 从左向右遍历
-                          if len(res) % 2: tmp.appendleft(node.val) # 偶数层,队列首部
-                          else: tmp.append(node.val) # 奇数层，队列尾部
+                          if len(res) % 2: tmp.appendleft(node.val) # 奇数层,队列首部
+                          else: tmp.append(node.val) # 偶数层，队列尾部
                           if node.left: deque.append(node.left)
                           if node.right: deque.append(node.right)
   
