@@ -77,6 +77,8 @@
   
   ![](./imgs/31.png)
   
+  递归
+  
   ```python
   class Solution:
       
@@ -89,6 +91,36 @@
               return recur(L.left, R.right) and recur(L.right, R.left)
   
           return recur(root.left, root.right) if root else True
+  ```
+  
+  非递归(迭代法)
+  
+  ```python
+  class Solution:
+      def isSymmetric(self, root: TreeNode) -> bool: 
+  
+          if not root or not (root.left or root.right):
+              return True
+          
+          deque = [root.left, root.right]
+          while deque:
+              left, right =deque.pop(0), deque.pop(0)
+              # 同时为空，则继续遍历同层其它节点
+              if not (left or right):
+                  continue
+              # 只要有一个提前为空，则表示不对称
+              if not (left and right):
+                  return False
+              if left.val != right.val:
+                  return False
+              # 入栈
+              deque.append(left.left)
+              deque.append(right.right)
+  
+              deque.append(left.right)
+              deque.append(right.left)
+          
+          return True
   ```
 
 ## 按之字形顺序打印二叉树

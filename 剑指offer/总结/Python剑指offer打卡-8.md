@@ -91,7 +91,7 @@
   (1) 状态定义： 设动态规划列表 dp ，dp[i] 代表以元素 nums[i]结尾的连续子数组最大和。
   为何定义最大和 dp[i] 中必须包含元素 nums[i]：保证 dp[i]递推到dp[i+1] 的正确性；如
   果不包含 nums[i]，递推时则不满足题目的 连续子数组 要求。
-  (2) 转移方程： 若dp[i−1]≤0 ，说明 dp[i - 1]对 dp[i]产生负贡献，
+  (2) 转移方程：若dp[i−1]≤0 ，说明 dp[i - 1]对 dp[i]产生负贡献，
   即 dp[i-1] + nums[i]不如 nums[i]本身大。
   当 dp[i - 1] > 0时：执行 dp[i] = dp[i-1] + nums[i]；
   当 dp[i−1]≤0 时：执行 dp[i] = nums[i]；
@@ -107,9 +107,12 @@
   
   状态转移方程：
   $$
-  dp[j]={ dp[j−1]+nums[j],dp[j−1]>0 \\
-    dp[j]=nums[j],   dp[j−1]≤0}\\
+  dp[j]={ dp[j−1]+nums[j],dp[j−1]>0   \\
+  dp[j]=nums[j],   dp[j−1]≤0}\\
+    
   $$
+  
+  
   
   情况描述：
   
@@ -162,7 +165,7 @@
   class Solution:
   
       def maxDepth(self, root: TreeNode) -> int:
-          """D"""
+          """DFS"""
   
           if not root: return 0
   
