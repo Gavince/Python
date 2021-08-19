@@ -14,16 +14,19 @@
   问题描述：
   输入一个链表，输出该链表中倒数第k个结点
   
-  解决方案：
-  方法1：使用栈存储，先进后出。
-  方法2：双指针(双指针相差k，先前指针走完时，正好后指针到指定结点)
+  解决方法：
+  方法1：
+  使用栈存储，先进后出。
+  
+  方法2：
+  双指针(双指针相差k，先前指针走完时，正好后指针到指定结点)
    former + after = after + former
    K + M = Ｍ + K
   时间复杂度：O(N)
   空间复杂度：O(1)
   ```
 
-- 代码（[解题思路](![Picture0.png](https://pic.leetcode-cn.com/ab52aeb21d3ea0c2b2aaca94241413db5d060b88e950461953db64e36a89a435-Picture0.png))）
+- 代码（[解题思路](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/solution/mian-shi-ti-22-lian-biao-zhong-dao-shu-di-kge-j-11/))
 
   算法图解：
 

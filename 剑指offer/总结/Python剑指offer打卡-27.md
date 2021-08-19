@@ -102,6 +102,7 @@
               node = node_deque.popleft()
               num = val_deque.popleft()
               left, right = node.left, node.right
+              # 遍历到叶子节点
               if not left and not right:
                   total += num
               else:
@@ -314,7 +315,9 @@
   注意以下情况的返回值
   nums: [1, 1, 1, 1, 1, 1, 1, 1]
   target: 11
-  ans: 0
+  实际ans值：8
+  预计ans值：>= target
+  不满足直接退出
   时间复杂度：O(N)
   空间复杂度：O(1)
   ```

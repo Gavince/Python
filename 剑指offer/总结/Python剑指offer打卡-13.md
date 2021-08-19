@@ -357,7 +357,7 @@
 
 题目类型：数组、动态规划
 
-题目难度：:star2:
+题目难度：:star2::star2:
 
 - 问题描述
 
@@ -374,13 +374,57 @@
   注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格。
   
   解题方法：
-  动态规划
-  时间复杂度：O(N)
-  空间复杂度：O(1)
+  (1) 暴力法
+  时间复杂度:O(N^2)
+  空间复杂度:O(1)
+  (2) 动态规划
+  时间复杂度:O(N)
+  空间复杂度:O(N)
+  (3) 一次遍历
+  时间复杂度:O(N)
+  空间复杂度:O(1)
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/leetbook/read/illustration-of-algorithm/58vmds/)）
 
+  暴力法
+  
+  ```python
+  class Solution:
+      def maxProfit(self, prices: List[int]) -> int:
+          """暴力法"""
+  
+          profit = 0
+  
+          for i in range(len(prices)):
+              for j in range(i, len(prices)):
+                  profit = max(profit, prices[j] - prices[i])
+  
+          return profit
+  ```
+  
+  动态规划
+  
+  ```python
+  class Solution:
+      def maxProfit(self, prices: List[int]) -> int:
+  
+          n = len(prices)
+          if n == 0: return 0
+          # 定义状态，并赋初值
+          dp = [0]*n
+          min_cost = prices[0]
+          # 状态转移
+          for i in range(1, n):
+              min_cost = min(min_cost, prices[i])
+              dp[i] = max(dp[i - 1], prices[i] - min_cost)
+  
+          # 返回值
+          return dp[-1]
+  ```
+  
+  一次遍历
+  
   ```python
   class Solution:
       def maxProfit(self, prices: List[int]) -> int:
@@ -394,6 +438,6 @@
           
           return profit
   ```
-
+  
   
 

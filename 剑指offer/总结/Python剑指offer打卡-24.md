@@ -166,7 +166,8 @@
   ```python
   class Solution:
       def isValid(self, s: str) -> bool:
-          
+           #奇数直接返回False
+          if len(s) % 2: return False
           # 构建括号对
           dic = {"[":"]", "{": "}", "(": ")", "?": "?"}
           # 配对

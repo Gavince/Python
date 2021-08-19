@@ -64,7 +64,7 @@
           return dummmy.next
   ```
 
-## 数组中的第K个最大元素
+## 数组中的第K个最大元素（<font color = red>重点</font>）
 
 题目类型：数组
 
@@ -74,12 +74,17 @@
 
   ```
   题目描述：
-      给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。请注意，
+          给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。请注意，
   你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
   
   解题方法：
-  快速排序
-  
+  改进的快速排序
+  	思想：基本的快速排序选取第一个或者最后一个元素作为基准。这样在数组已
+  经有序的情况下，每次划分将得到最坏的结果。一种比较常见的优化方法是随机化
+  算法，即随机选取一个元素作为基准。这种情况下虽然最坏情况仍然是O(n2)，但最
+  坏情况不再依赖于输入数据，而是由于随机函数取值不佳。实际上，随机化快速排
+  序得到理论最坏情况的可能性仅为1/(2n)。所以随机化快速排序可以对于绝大多数
+  输入数据达到O(nlogn)的期望时间复杂度。
   时间复杂度：O(NlogN)
   空间复杂度：O(1)
   ```
@@ -119,39 +124,41 @@
   改进的快速排序
 
   ```python
+  import random
+  
+  
   class Solution:
-      def findKthLargest(self, nums, k):
-          # 快排
-          self._k = len(nums) - k
-          return self.quicksort(nums, 0, len(nums) - 1)
+      def findKthLargest(self, nums: List[int], k: int) -> int:
   
-      def quicksort(self, nums, left, right):
-          if left == right:
-              return nums[left]
-          pivot = self.partition(nums, left, right)
-          if pivot == self._k:
-              return nums[pivot]
-          elif pivot < self._k:
-              return self.quicksort(nums, pivot + 1, right)
-          else:
-              return self.quicksort(nums, left, pivot - 1)
+          def quickSort(nums, start, end):
   
-      def partition(self, nums, left, right):
-          pivot = nums[left]
-          i, j = left, right
-          while i < j:
-              while i < j and nums[j] >= pivot:
-                  j -= 1
-              if i < j:
-                  nums[i] = nums[j]
-                  i += 1
-              while i < j and nums[i] <= pivot:
-                  i += 1
-              if i < j:
-                  nums[j] = nums[i]
-                  j -= 1
-          nums[i] = pivot
-          return i
+              if start >= end:
+                  return 
+              
+              # 随机初始化基准
+              low, high = start, end
+              index = random.randint(low, high)
+              nums[low], nums[index] = nums[index], nums[low]
+              pivot = nums[low]
+  
+              while low < high:
+                  while low < high and nums[high] >= pivot:
+                      high -= 1
+                  nums[low] = nums[high]
+                  while low < high and nums[low] < pivot:
+                      low += 1
+                  nums[high] = nums[low]
+              # 置换
+              nums[low] = pivot
+              
+              # 节省不必要的分裂开支
+              if len(nums) - k < low: 
+                  quickSort(nums, start, low - 1)
+              else: 
+                  quickSort(nums, low + 1, end)
+          
+          quickSort(nums, 0, len(nums) - 1)
+          return nums[len(nums) - k]
   ```
 
 ## x的平方根（<font color = red>重点</font>）

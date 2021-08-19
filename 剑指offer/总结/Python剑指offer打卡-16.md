@@ -22,18 +22,22 @@
   解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。
   
   解题方法：
-  动态规划四步走原则
+  1. 动态规划四步走原则
   (1)转态定义：dp[i]表示到当前结点i所表示的子序列的长度
   (2)转态转移：dp[i] = max(dp[i], dp[j] + 1)，表示为i之前最大的递增子序列
   (3)初始值：dp = [1]*len(nums)
   (4)返回值：max(dp)
-  
   时间复杂度：O(N^2)  两层循环
   空间复杂度：O(N)  dp状态的存储
+  2. 二分法
+  时间复杂度：O(NlogN)
+  空间复杂度：O(1)
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/zui-chang-shang-sheng-zi-xu-lie-dong-tai-gui-hua-2/)）
 
+  动态规划
+  
   算法图解：
   
   <img src="./imgs/76.png" style="zoom:80%;" />
@@ -53,6 +57,78 @@
                       dp[i] = max(dp[i], dp[j] + 1)
           # 返回值
           return max(dp)
+  ```
+  
+  ==变形：输出最长递增子序列==
+  
+  ```python
+  class Solution:
+      def LIS(self , arr ):
+          # write code here
+          n = len(arr)
+          if n < 2:
+              return n
+          # 设定初始状态
+          dp = [1]*n
+          # 状态转移
+          for i in range(n):
+              for j in range(i):
+                  if arr[i] > arr[j]:
+                      dp[i] = max(dp[i], dp[j] + 1)
+           # 获取序列
+          m = max(dp)
+          index = dp.index(m)
+          res = [0]*m
+          m -= 1
+          res[m] = arr[index]
+          for i in range(index, -1, -1):
+              if arr[i] < arr[index] and dp[i] == dp[index] - 1:
+                  m -= 1
+                  res[m] = arr[i]
+                  index = i
+          return res
+  ```
+  
+  二分法优化
+  
+  原理：
+  
+  1.插入2，[2]
+  
+  2.插入3，[2,3]
+  
+  3.插入4,   [2,3,4] 
+  
+  4.插入5，[2,3,4,5]
+  
+  5.插入1，[1,3,4,5] 
+  
+  6,插入6， [1,3,4,5,6]
+  
+  7.插入2， [1,2, 4,5,6]
+  
+  ```python
+  class Solution:
+      def lengthOfLIS(self, nums: List[int]) -> int:
+          size = len(nums)
+          if size<2:
+              return size
+          
+          cell = [nums[0]]
+          for num in nums[1:]:
+              if num>cell[-1]:
+                  cell.append(num)
+                  continue
+              
+              l,r = 0,len(cell)-1
+              while l<r:
+                  mid = l + (r - l) // 2
+                  if cell[mid]<num:
+                      l = mid + 1
+                  else:
+                      r = mid
+              cell[l] = num
+          return len(cell)
   ```
 
 ## 两数之和（<font color=red>重点</font>）

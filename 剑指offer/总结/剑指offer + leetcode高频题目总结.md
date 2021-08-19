@@ -2,6 +2,103 @@
 
 [toc]
 
+## 数组中的第K个最大元素（<font color = red>重点</font>）
+
+题目类型：数组
+
+题目难度：:star2::star2::star2:
+
+- 问题描述
+
+  ```
+  题目描述：
+          给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。请注意，
+  你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
+  
+  解题方法：
+  改进的快速排序
+  	思想：基本的快速排序选取第一个或者最后一个元素作为基准。这样在数组已
+  经有序的情况下，每次划分将得到最坏的结果。一种比较常见的优化方法是随机化
+  算法，即随机选取一个元素作为基准。这种情况下虽然最坏情况仍然是O(n2)，但最
+  坏情况不再依赖于输入数据，而是由于随机函数取值不佳。实际上，随机化快速排
+  序得到理论最坏情况的可能性仅为1/(2n)。所以随机化快速排序可以对于绝大多数
+  输入数据达到O(nlogn)的期望时间复杂度。
+  时间复杂度：O(NlogN)
+  空间复杂度：O(1)
+  ```
+
+- 代码
+
+  快速排序
+
+  ```python
+  class Solution:
+      def findKthLargest(self, nums: List[int], k: int) -> int:
+  
+          def quickSort(low, high):
+              if low >= high:
+                  return 
+              
+              # 设置边界条件
+              i, j = low, high
+              pivot = nums[i]
+              while i < j:
+                  while i < j and nums[j] >= pivot:
+                      j -= 1
+                  nums[i] = nums[j]
+                  
+                  while i < j and nums[i] < pivot:
+                      i += 1
+                  nums[j] = nums[i]
+              nums[i] = pivot
+              quickSort(low, i - 1)
+              quickSort(i + 1, high)
+          
+          quickSort(0, len(nums) - 1)
+  
+          return nums[-k]
+  ```
+
+  改进的快速排序
+
+  ```python
+  import random
+  
+  
+  class Solution:
+      def findKthLargest(self, nums: List[int], k: int) -> int:
+  
+          def quickSort(nums, start, end):
+  
+              if start >= end:
+                  return 
+              
+              # 随机初始化基准
+              low, high = start, end
+              index = random.randint(low, high)
+              nums[low], nums[index] = nums[index], nums[low]
+              pivot = nums[low]
+  
+              while low < high:
+                  while low < high and nums[high] >= pivot:
+                      high -= 1
+                  nums[low] = nums[high]
+                  while low < high and nums[low] < pivot:
+                      low += 1
+                  nums[high] = nums[low]
+              # 置换
+              nums[low] = pivot
+              
+              # 节省不必要的分裂开支
+              if len(nums) - k < low: 
+                  quickSort(nums, start, low - 1)
+              else: 
+                  quickSort(nums, low + 1, end)
+          
+          quickSort(nums, 0, len(nums) - 1)
+          return nums[len(nums) - k]
+  ```
+
 ## 无重复字符的最长子串（<font color=red>重点</font>）
 
 题目类型：字符串
@@ -12,7 +109,7 @@
 
   ```
   问题描述：
-  	给定一个字符串，请你找出其中不含有重复字符的 最长子串的长度。
+  给定一个字符串，请你找出其中不含有重复字符的 最长子串的长度。
   
   解题方法：
   滑动窗口
@@ -833,8 +930,8 @@
                       tmp = collections.deque()
                       for _ in range(len(deque)):
                           node = deque.popleft() # 从左向右遍历
-                          if len(res) % 2: tmp.appendleft(node.val) # 偶数层,队列首部
-                          else: tmp.append(node.val) # 奇数层，队列尾部
+                          if len(res) % 2: tmp.appendleft(node.val) # 奇数层,队列首部
+                          else: tmp.append(node.val) # 偶数层，队列尾部
                           if node.left: deque.append(node.left)
                           if node.right: deque.append(node.right)
   
@@ -1349,6 +1446,422 @@
                   r = mid - 1
   
           return ans
+  ```
+
+
+## 把数组排成最小的数
+
+题目类型：数组、快速排序
+
+题目难度：:star2::star2:
+
+- 问题描述
+
+  ```
+  问题描述：
+  	输入一个非负整数数组，把数组里所有数字拼接起来排成一个数，打印能
+  拼接出的所有数字中最小的一个。
+  
+  实例：
+  输入: [3,30,34,5,9]
+  输出: "3033459
+  
+  说明：
+  输出结果可能非常大，所以你需要返回一个字符串而不是整数
+  拼接起来的数字可能会有前导 0，最后结果不需要去掉前导0
+  若拼接字符串 x + y > y + x，则 x “大于” y；
+  反之，若 x + y < y + x，则 x “小于” y；
+  
+  
+  解题方法：
+  快速排序法
+  时间复杂度：O(nlogn)
+  空间复杂度：O(n)
+  ```
+
+- 知识点（快速排序法）
+
+  快速排序图解
+
+  ![](/home/gavin/Python/剑指offer/总结/imgs/快速排序法.jpeg)
+
+  实例图解：
+
+  ![](/home/gavin/Python/剑指offer/总结/imgs/50.png)
+
+  动图演示：
+
+  ![](/home/gavin/Python/剑指offer/总结/imgs/快速排序动图.gif)
+
+  快速排序演示代码（[排序算法：快速排序【图解+代码】](https://www.bilibili.com/video/BV1bz411e7vY?from=search&seid=17579587592323875466)）：
+
+  ```python
+      def quick_sort(self, nums, start, end):
+          """实现快速排序法"""
+  
+          if start >= end:
+              return
+          # 基准数据(哨兵结点)
+          mid = nums[start]
+          low = start
+          high = end
+          while low < high:
+              # 右半部分大(注意边界条件，右半部分个大于等于)
+              while low < high and nums[high] >= mid:
+                  high -= 1
+              nums[low] = nums[high]
+              while low < high and nums[low] < mid:
+                  low += 1
+              nums[high] = nums[low]
+  
+          # 交换分界线
+          nums[low] = mid
+          # 左半部分(递归调用)
+          self.quick_sort(nums, start, low - 1)
+          self.quick_sort(nums, low + 1, end)
+  ```
+
+- 代码[解题思路](https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/solution/mian-shi-ti-45-ba-shu-zu-pai-cheng-zui-xiao-de-s-4/)
+
+  ```python
+  class Solution:
+  
+      def minNumber(self, nums):
+  
+          def quick(l, r):
+              if l >= r:
+                  return
+  
+              low, hight = l, r
+              while low < hight:
+                  while low < hight and strs[low] + strs[l] < strs[l] + strs[low]: low += 1
+                  while low < hight and strs[hight] + strs[l] >= strs[l] + strs[hight]: hight -= 1
+                  # change
+                  strs[low], strs[hight] = strs[hight], strs[low]
+              strs[low], strs[l] = strs[l], strs[low]
+              quick(l, low - 1)
+              quick(low + 1, r)
+  
+          strs = [str(c) for c in nums]
+          quick(0, len(strs) - 1)
+  
+          return "".join(strs)
+  
+  
+  if __name__ == "__main__":
+      obj = Solution()
+      print(obj.minNumber(nums=[3, 30, 34, 5, 9]))
+  ```
+
+## 数组在升序数组中出现的次数
+
+题目类型：数组、二分法
+
+题目难度：:star2::star2::star2:
+
+- 问题描述
+
+  ```python
+  问题描述：
+  统计一个数字在排序数组中出现的次数
+  
+  实例：
+  输入: nums = [5,7,7,8,8,10], target = 8
+  输出: 2
+  
+  解题方法：
+  因为题目中出现了"排序"，所以应该首先想到二分查找
+  二分法查找
+  时间复杂度：O(logn)
+  ```
+
+- 知识点
+
+  二分法（[二分法查找](https://www.cnblogs.com/johnhery/p/9936335.html)）
+
+  二分法查找适用于数据量较大时，但是数据需要<font color ="red">先排好顺序</font>。主要思想是：（设查找的数组区间为array[low, high]）
+
+  ![](/home/gavin/Python/剑指offer/总结/imgs/二分查找.png)
+
+  二分查找演示代码
+
+  注意:二分查找边界值为:==low <= high==
+
+  ![](/home/gavin/Python/剑指offer/总结/imgs/二分查找边界.png)
+
+  ```python
+  class Solution:
+  
+      def binarySearch(self, nums, target):
+          """
+          二分查找法
+          :param nums: 有序列表 
+          :param target: 查找目标
+          :return: 指定元素值，无则返回-1
+          """
+          
+          low = 0
+          high = len(nums) - 1
+          
+          while low <= high:
+              mid = (low + high) >> 1
+              if nums[mid] > target:
+                  high = mid - 1
+              elif nums[mid] < target:
+                  low = mid + 1
+              else:
+                  return nums[mid]
+  
+          return -1
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof/solution/)）
+
+  ```python
+  class Solution:
+      def search(self, nums: List[int], target: int) -> int:
+  
+          def helper(tar):
+              """寻找指定数值的右边界"""
+  
+              i, j = 0, len(nums) - 1
+  
+              while i<=j:
+                  mid = (i + j) // 2
+                  if nums[mid] <= tar:  # j == i
+                      i = mid + 1
+                  else:
+                      j = mid - 1  # j < i　越界
+              return i   # 返回右边界的索引
+          
+          return helper(target) - helper(target - 1)
+  ```
+
+## 排序链表
+
+题目类型：排序
+
+- 问题描述
+
+  ```
+  问题描述：
+          给你链表的头结点head，请将其按 升序 排列并返回 排序后的链表 。
+  进阶：你可以在O(nlogn) 时间复杂度和常数级空间复杂度下，对链表进
+  行排序吗？
+  
+  示例：
+  输入：head = [4,2,1,3]
+  输出：[1,2,3,4]
+  
+  解题方法：
+  归并排序
+  时间复杂度：O(nlogn)
+  空间复杂度：O(n)  # 合并时，需要通过临时结点节点存储合并数值
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/problems/sort-list/solution/148-gui-bing-pai-xu-lian-biao-jian-dan-d-0lyw/)）
+
+  快慢指针寻找中点图解：
+
+  ![](/home/gavin/Python/剑指offer/总结/imgs/93-fast.png)
+
+  
+
+  ```python
+  class Solution:
+      def sortList(self, head: ListNode) -> ListNode:
+          """合并排序"""
+          
+          # 只有一个节点时，各子部分有序
+          if not head or not head.next:
+              return head
+          # 查找二分有的右节点
+          slow, fast = head, head.next
+          while fast and fast.next:
+              slow = slow.next
+              fast = fast.next.next
+          head2 = slow.next
+          slow.next = None
+          
+          return self.merge(self.sortList(head), self.sortList(head2))
+  
+      def merge(self, head1, head2):
+          
+          # 创建临时借点
+          dummy = pre = ListNode(0)
+          while head1 and head2:
+              if head1.val <= head2.val:
+                  pre.next = head1
+                  head1 = head1.next
+              else:
+                  pre.next = head2
+                  head2 = head2.next
+              pre = pre.next
+          # 添加剩余节点
+          pre.next = head1 if head1 else head2
+  
+          return dummy.next
+  ```
+
+  ---
+
+- **知识点**（==归并排序==）
+
+  主要思想：
+
+  ​         归并排序方法就是把一组n个数的序列，折半分为两个序列，然后再将这两个序列再分，一直分下去，直到分为n个长度为1的序列。然后两两按大小归并。如此反复，直到最后形成包含n个数的一个数组。
+
+  时间复杂度计算：
+
+  **归并排序总时间=分解时间+子序列排好序时间+合并时间**
+
+  **无论每个序列有多少数都是折中分解，所以分解时间是个常数，可以忽略不计。**
+
+  **则：归并排序总时间=子序列排好序时间+合并时间**
+
+  ​		把这个规模为 n 的问题分成两个规模分别为 n/2 的子问题，每个子问题的时间复杂度就是 T(n/2)，那么两个子问题的复杂度就是 2×T(n/2)。 当两个子问题都得到了解决，即两个子数组都排好了序，需要将它们合并，一共有 n 个元素，每次都要进行最多 n-1 次的比较，所以合并的复杂度是 O(n)。由此我们得到了递归复杂度公式：T(n) = 2×T(n/2) + O(n)。 对于公式求解，不断地把一个规模为 n 的问题分解成规模为 n/2 的问题，一直分解到规模大小为 1。如果 n 等于 2，只需要分一次；如果 n 等于 4，需要分 2 次。这里的次数是按照规模大小的变化分类的。 以此类推，对于规模为 n 的问题，**一共要进行 log(n) 层的大小切分**。**在每一层里，我们都要进行合并，所涉及到的元素其实就是数组里的所有元素，因此，每一层的合并复杂度都是 O(n)，所以整体的复杂度就是 O(nlogn)**。
+
+  原理：
+
+  1. 将一个序列从中间位置分成两个序列；
+
+  2. 在将这两个子序列按照第一步继续二分下去；
+
+  3. 直到所有子序列的长度都为1，也就是不可以再二分截止。这时候再两两合并成一个有序序列即可。
+
+
+  静态图演示：
+
+  ![](/home/gavin/Python/剑指offer/总结/imgs/93.png)
+
+  动图演示：
+
+  ![](./imgs/93归并.gif)
+
+  
+
+  归并排序代码：
+
+  ```python
+  def mergeSort(arr):
+  
+      if len(arr)  <= 1:
+          return arr
+  
+      middle = (len(arr)) // 2
+      left, right = arr[:middle], arr[middle:]
+  
+      return merge(mergeSort(left), mergeSort(right))
+  
+  
+  def merge(left, right):
+      """
+      有序合并
+      :param left:左有序
+      :param right: 右有序
+      :return: 有序合并
+      """
+      result = []
+      while left and right:
+          # 比较插入
+          if left[0] < right[0]:
+              result.append(left.pop(0))
+          else:
+              result.append(right.pop(0))
+  
+      # 填补剩余部分
+      while left:
+          result.append(left.pop(0))
+      while right:
+          result.append(right.pop(0))
+  
+      return result
+  ```
+
+## 股票的最大利润
+
+题目类型：数组、动态规划
+
+题目难度：:star2::star2:
+
+- 问题描述
+
+  ```
+  问题描述：
+  	假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次
+  可能获得的最大利润是多少？
+  
+  示例：
+  输入: [7,1,5,3,6,4]
+  输出: 5
+  解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候
+  卖出，最大利润 = 6-1 = 5 。
+  注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格。
+  
+  解题方法：
+  (1) 暴力法
+  时间复杂度:O(N^2)
+  空间复杂度:O(1)
+  (2) 动态规划
+  时间复杂度:O(N)
+  空间复杂度:O(N)
+  (3) 一次遍历
+  时间复杂度:O(N)
+  空间复杂度:O(1)
+  ```
+
+- 代码（[解题思路](https://leetcode-cn.com/leetbook/read/illustration-of-algorithm/58vmds/)）
+
+  暴力法
+
+  ```python
+  class Solution:
+      def maxProfit(self, prices: List[int]) -> int:
+          """暴力法"""
+  
+          profit = 0
+  
+          for i in range(len(prices)):
+              for j in range(i, len(prices)):
+                  profit = max(profit, prices[j] - prices[i])
+  
+          return profit
+  ```
+
+  动态规划
+
+  ```python
+  class Solution:
+      def maxProfit(self, prices: List[int]) -> int:
+  
+          n = len(prices)
+          if n == 0: return 0
+          # 定义状态，并赋初值
+          dp = [0]*n
+          min_cost = prices[0]
+          # 状态转移
+          for i in range(1, n):
+              min_cost = min(min_cost, prices[i])
+              dp[i] = max(dp[i - 1], prices[i] - min_cost)
+  
+          # 返回值
+          return dp[-1]
+  ```
+
+  一次遍历
+
+  ```python
+  class Solution:
+      def maxProfit(self, prices: List[int]) -> int:
+  
+          cost, profit = float("+inf"), 0
+          for price in prices:
+              # 记录最低值
+              cost = min(cost, price)
+              # 利润最大化
+              profit = max(profit, price - cost)
+          
+          return profit
   ```
 
   

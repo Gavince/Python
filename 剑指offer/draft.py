@@ -1,27 +1,28 @@
-import collections
-
-
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
-
 class Solution:
 
-    def levelOrder(self, root):
+    def mergeSort(self, arr):
 
-        deque = collections.deque(root)
-        res = []
-        while deque:
-            tmp = []
-            for _ in range(len(deque)):
-                node = deque.popleft()
-                tmp.append(node.val)
-                if node.left: deque.append(node.left)
-                if node.right: deque.append(node.right)
+        if len(arr) <= 1:
+            return arr
 
-            res.append(tmp)
+        # 划分点
+        mid = len(arr) // 2
+        left, right = arr[:mid], arr[mid:]
+        return self.merge(self.mergeSort(left), self.mergeSort(right))
 
-        return res
+    def merge(self, left, right):
+
+        result = []
+        # 共同部分
+        while left and right:
+            if left[0] < right[0]:
+                result.append(left.pop(0))
+            else:
+                result.append(right.pop(0))
+        # 剩余部分
+        while left:
+            result.append(left.pop(0))
+        while right:
+            result.append(right.pop(0))
+
+        return result
