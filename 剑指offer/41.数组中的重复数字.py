@@ -39,7 +39,7 @@ class Solution:
                 i += 1
                 continue
 
-            if nums[nums[i]] == nums[i]: return nums[i]  # 索引与值(一对多)重复
+            if nums[nums[i]] == nums[i]: return nums[i], i  # 索引与值(一对多)重复
             nums[nums[i]], nums[i] = nums[i], nums[nums[i]]  # 交换
 
         return -1
@@ -47,4 +47,4 @@ class Solution:
 
 if __name__ == "__main__":
     obj = Solution()
-    print(obj.findRepeatNumber_1(nums=[1, 2, 3, 4, 4, 5, 3]))
+    print(obj.findRepeatNumber_1(nums=[1, 2, 2, 4]))

@@ -263,6 +263,75 @@
           return res
   ```
 
+## 子集
+
+题目类型：回朔法
+
+题目难度：:star2:
+
+- 问题描述
+
+  ```
+  问题描述：
+          给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有
+  可能的子集（幂集）。解集不能包含重复的子集。你可以按 任意顺序 返回
+  解集。
+  
+  实例：
+  输入：nums = [1,2,3]
+  输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+  
+  解题方法：
+  （１）迭代法(从尾到头)
+  （２）回朔法
+  
+  注意：
+  空集是任何形式的子集, 子集包含自身，真子集不包含自身。
+  ```
+
+- 代码
+
+  迭代法:
+
+  ![](/home/gavin/Python/剑指offer/总结/imgs/89-Page-1.png)
+
+  
+
+  ```python
+  class Solution:
+      def subsets(self, nums):
+          """迭代法"""
+  
+          res = [[]]
+          for i in range(len(nums) - 1, -1, -1):
+              # 在原有子集的基础上，增加新的元素构成新的子集
+              for subres in res[:]: 
+                  res.append(subres + [nums[i]])
+  
+          return res
+  ```
+
+  回朔法：
+
+  ![](/home/gavin/Python/剑指offer/总结/imgs/89-Page-2.png)
+
+  ```python
+  class Solution:
+      def subsets(self, nums):
+          """回朔法"""
+          res = []
+          n = len(nums)
+  
+          def helper(i, tmp):
+              res.append(tmp)
+              # 横向遍历
+              for j in range(i, n):
+                  helper(j + 1, tmp + [nums[j]])
+  
+          helper(0, [])
+          return res
+  ```
+
 ## 字符串的排列（<font color = red>重点</font>）
 
 题目类型：字符串

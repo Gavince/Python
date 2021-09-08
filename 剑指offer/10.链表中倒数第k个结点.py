@@ -20,25 +20,6 @@
 
 class Solution:
 
-    # @staticmethod
-    # def FindKthToTail(head, k):
-    #
-    #     if not head or not k:
-    #         return None
-    #
-    #     node = None
-    #     stack = []
-    #     temp = head
-    #     while temp:
-    #         stack.append(temp)
-    #         temp = temp.next
-    #     if len(stack) >= k:  # k值限制
-    #         for i in range(k):  # 倒数第k个结点
-    #             node = stack.pop()
-    #         return node
-    #     else:
-    #         return None
-
     def FindKthToTail(self, head, k):
         """双指针，两个指针之间相差k值"""
 

@@ -79,7 +79,7 @@
           return -1
   ```
 
-## 滑动窗口最大值（<font color = red>重点</font>）
+## 滑动窗口最大值（<font color = red>重点</font>） 
 
 题目类型：字符串
 

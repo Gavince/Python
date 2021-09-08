@@ -122,12 +122,6 @@
 - 代码（[解题思路](https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof/solution/mian-shi-ti-27-er-cha-shu-de-jing-xiang-di-gui-fu-/)）
 
   ```python
-   class TreeNode:
-       def __init__(self, x):
-           self.val = x
-           self.left = None
-           self.right = None
-  
   class Solution:
       def mirrorTree(self, root: TreeNode) -> TreeNode:
   
@@ -242,14 +236,6 @@
           # 递归寻找匹配
           return self.isInclude(A.left, B.left) and self.isInclude(A.right, B.right)
   ```
-
-## 参考
-
-[VISUALIZE CODE EXECUTION](http://www.pythontutor.com/)
-
-[数据结构与算法题目](https://blog.csdn.net/storyfull/category_9475477_2.html)
-
-[剑指offer（python）](https://blog.csdn.net/ggdhs/category_8914921.html)  
 
 
 

@@ -103,9 +103,46 @@
                   continue
   
             if nums[nums[i]] == nums[i]: return nums[i]  # 索引与值(一对多)重复
-              nums[nums[i]], nums[i] = nums[i], nums[nums[i]]  # 交换
+              nums[nums[i]], nums[i] = nums[i], nums[nums[i]]  #将值和索引交换到正确的索引位置上
   
           return -1
+  ```
+  
+- 变形（需要打印出重复出现的数字）
+
+- 问题描述
+
+  ```
+  	给定一个整数数组 a，其中1 ≤ a[i] ≤ n （n为数组长度）, 其中有些元素出现两次而其他元素出
+  现一次。找到所有出现两次的元素。
+  你可以不用到任何额外空间并在O(n)时间复杂度内解决这个问题吗？
+  实例：
+  输入:
+  [4,3,2,7,8,2,3,1]
+  输出:
+  [2,3]
+  ```
+
+- 代码
+
+  ```python
+  class Solution:
+      def findDuplicates(self, nums: List[int]) -> List[int]:
+  
+          if not nums:
+              return []
+          
+          res = []
+          n = len(nums)
+  
+          for i in range(n):
+              num = abs(nums[i])
+              if nums[num - 1] < 0:
+                  res.append(num)
+              else:
+                  nums[num - 1] = -nums[num - 1]
+          
+          return res
   ```
 ## 构建数组乘积
 

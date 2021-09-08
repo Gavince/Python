@@ -220,6 +220,23 @@
   
           return ans
   ```
+  
+  牛顿的迭代法(可求得精确解)
+  
+  ```python
+  class Solution:
+      def mySqrt(self, x: int) -> int:
+  
+          if x <= 1:
+              return x
+          x0, C = float(x), float(x)
+          while True:
+              xi = 0.5*(x0 + C/x0)
+              if abs(xi - x0) < 1e-7:
+                  break
+              x0 = xi
+          return int(x0)
+  ```
 
 
 ## 合并两个有序数组

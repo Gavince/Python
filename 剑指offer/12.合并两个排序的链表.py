@@ -75,4 +75,3 @@ class Solution:
 
         return phead.nex
 
-

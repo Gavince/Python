@@ -1,154 +1,6 @@
-# Python剑指offer打卡-12
+# 剑指Offer-回朔法题目总结
 
 [toc]
-
-## 扑克牌顺子
-
-题目类型：数组
-
-题目难度：:star2:
-
-- 问题描述
-
-  ```
-  问题描述：
-  	从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不是连续
-  的。2～10为数字本身，A为1，J为11，Q为12，K为13，而大、小王为 0 ，
-  可以看成任意数字。A 不能视为 14。
-  
-  解题方法：
-  # 条件（大小王除外, 且不重复）
-  max - min < 5
-  
-  注意：
-  1. 不是一副扑克牌，大小王不止一张，即也有可能抽到五张大小，组成任意的
-  顺子牌。
-  2. 当num 输入为[]时需要考虑输出结果为False, 加上abs(0 - 14) < 5 False
-  ```
-
-- 代码
-
-  图解：
-  
-  ![](./imgs/56.png)
-  
-  ```python
-  class Solution:
-  
-      def isSraight(self, nums: List[int]) -> bool:
-  
-          repeat = set()
-          mi, ma = 14, 0
-          for num in nums:
-              if num == 0: continue  # 遇见大小王则跳过
-              mi = min(mi, num)
-              ma = max(ma, num)
-              if num in repeat: return False  # 有重复数值,直接返回
-              repeat.add(num)
-  
-          return abs(ma - mi) < 5
-  
-      def isStraight(self, nums: List[int]) -> bool:
-  
-          # 先排序后计算
-          nums.sort()
-          joker = 0
-          for i in range(4):
-              if nums[i] == 0:
-                  joker += 1  # 遍历有零部分
-              elif nums[i] == nums[i + 1]:
-                  return False  # 非零部分存在重复，不满足条件
-              
-          return nums[4] - nums[joker] < 5
-  ```
-
-## 求1+2+3......+n
-
-题目类型：递归
-
-题目难度：:star2:
-
-- 问题描述
-
-  ```
-  问题描述：
-  	求 1+2+...+n ，要求不能使用乘除法、for、while、if、else、switch、
-  case等关键字及条件判断语句（A?B:C）。
-  
-  解题方法：
-  递归，并使用逻辑运算
-  ```
-
-- 代码（[解题思路](https://leetcode-cn.com/problems/qiu-12n-lcof/solution/mian-shi-ti-64-qiu-1-2-nluo-ji-fu-duan-lu-qing-xi-/)）
-
-  图解：
-  
-  ![](./imgs/57.png)
-  
-  ```python
-  class Solution:
-  
-      def __init__(self):
-          self.res = 0
-  
-      def sumNums(self, n: int) -> int:
-          """递归求和"""
-  
-          n > 1 and self.sumNums(n - 1)
-          self.res += n
-          return  self.res
-  ```
-
-##　把字符串装换成整数
-
-题目类型：字符串
-
-题目难度：:star2::star2::star2:
-
-- 问题描述
-
-  ```
-  问题描述：
-  	写一个函数 StrToInt，实现把字符串转换成整数这个功能。不能使用
-  atoi 或者其他类似的库函数。首先，该函数会根据需要丢弃无用的开头空格
-  字符，直到寻找到第一个非空格的字符为止。当我们寻找到的第一个非空字
-  符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作
-  为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的
-  数字字符组合起来，形成整数。该字符串除了有效的整数部分之后也可能会
-  存在多余的字符，这些字符可以被忽略，它们对于函数不应该造成影响。
-  
-  注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字符串为
-  空或字符串仅包含空白字符时，则你的函数不需要进行转换。在任何情况下，
-  若函数不能进行有效的转换时，请返回 0。
-  ```
-
-- 代码（[解题思路](https://leetcode-cn.com/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof/)）
-
-  ```python
-  class Solution:
-      def strToInt(self, str: str) -> int:
-  
-          str = str.strip()
-          if not str: return 0
-  
-          # 初始化
-          res, i, sign = 0, 1, 1
-          # 限制条件
-          int_max, int_min, bndry = 2**31-1, -2**31, 2**31//10
-          # 判断符号位，确定起始位置
-          if str[0] == "-": sign = -1
-          elif str[0] != "+": i = 0 # 无符号状态
-          # 遍历数字部分
-          for c in str[i:]:
-              if not "0" <= c <= "9": break
-              # 越界处理
-              if res > bndry or res == bndry and c > "7": return int_max if sign == 1 else int_min
-              # 更新处理
-              res = 10 * res + ord(c) - ord("0")
-          
-          return sign*res
-  
-  ```
 
 ## 矩阵中的路径（<font color = red>重点</font>）
 
@@ -186,9 +38,9 @@
 - 代码（[解题思路](https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof/solution/mian-shi-ti-12-ju-zhen-zhong-de-lu-jing-shen-du-yo/))
 
   图解：
-  
-  ![](./imgs/59.png)
-  
+
+  ![](/home/gavin/Python/剑指offer/总结/imgs/59.png)
+
   ```python
   class Solution:
   
@@ -224,7 +76,7 @@
 
 ## 机器人的运动范围（<font color = red>重点</font>）
 
-题目类型：字符串、回朔法
+题目类型：DFS、BFS
 
 题目难度：:star2::star2::star2:
 
@@ -252,7 +104,7 @@
 - 代码（[解题思路](https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/solution/mian-shi-ti-13-ji-qi-ren-de-yun-dong-fan-wei-dfs-b/)）
 
   数位和公式
-  
+
   ```python
   def sums(self, x):
       """位数和"""
@@ -263,9 +115,9 @@
           x = x // 10  # 去低位
       return s
   ```
-  
-  DFS
-  
+
+  **DFS**
+
   ```python
   class Solution:
   
@@ -284,9 +136,9 @@
          visited = set()
           return dfs(0, 0, 0, 0)
   ```
-  
-  BFS
-  
+
+  **BFS**
+
   ```python
   class Solution:
       def movingCount(self, m: int, n: int, k: int) -> int:
@@ -303,8 +155,154 @@
           
           return len(visited)
   ```
+
+## 岛屿数量（<font color = red>重点</font>）
+
+题目类型：DFS、BFS
+
+题目难度：:star2::star2::star2::star2:
+
+- 问题描述
+
+  ```
+  问题描述:
+          给你一个由'1'（陆地）和 '0'（水）组成的的二维网格，请你计算网格中岛屿
+  的数量。岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻
+  的陆地连接形成。此外，你可以假设该网格的四条边均被水包围。
   
+  解题方法：
+  DFS 和　BFS
+  ```
+
+- 代码
+
+  DFS
   
+  ```python
+  class Solution:
   
+      def numIslands_dfs(self, grid: List[List[str]]) -> int:
+  
+          def dfs(grid, i, j):
+  
+              if not 0 <= i < len(grid) or not 0 <= j < len(grid[0]) or grid[i][j] == "0":
+                  return
+              grid[i][j] = "0"
+              # 上下左右进入节点
+              dfs(grid, i + 1, j)
+              dfs(grid, i - 1, j)
+              dfs(grid, i, j + 1)
+              dfs(grid, i, j - 1)
+  
+          count = 0
+          # 寻找入口
+          for i in range(len(grid)):
+              for j in range(len(grid[0])):
+                  if grid[i][j] == "1":
+                      dfs(grid, i, j)
+                      count += 1
+  
+          return count
+  ```
+  
+  **BFS**
+  
+  ```python
+  class Solution:
+      
+      def numIslands_bfs(self, grid: List[List[str]]) -> int:
+  
+          def bfs(grid, i, j):
+  
+              deque = [[i, j]]
+              while deque:
+                  [i, j] = deque.pop(0)
+                  if 0 <= i < len(grid) and 0 <= j < len(grid[0]) and grid[i][j] == "1":
+                      grid[i][j] = "0"
+                      deque += [[i + 1, j], [i - 1, j], [i, j + 1], [i, j - 1]]
+  
+          count = 0
+          for i in range(len(grid)):
+              for j in range(len(grid[0])):
+                  if grid[i][j] == "0": continue
+                  bfs(grid, i, j)
+                  count += 1
+          return count
+  ```
+
+## 岛屿的最大面积（<font color = red>重点</font>）
+
+题目类型：DFS、BFS
+
+题目难度：:star2::star2::star2:
+
+- 问题描述
+
+  ```
+  问题描述：
+      给定一个包含了一些 0 和 1 的非空二维数组grid 。一个岛屿是由一些相邻的1(代表土地) 构成
+  的组合，这里的「相邻」要求两个 1 必须在水平或者竖直方向上相邻。你可以假设grid的四个边缘都被
+  0（代表水）包围着。找到给定的二维数组中最大的岛屿面积。(如果没有岛屿，则返回面积为0 )
+  
+  解题方法：
+  DFS和BFS
+  ```
+
+- 代码
+
+  **DFS**
+
+  ```python
+  class Solution:
+      def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+  
+          def dfs(grid, i, j):
+  
+              if not 0 <= i < len(grid) or not 0 <= j < len(grid[0]) or grid[i][j] == 0:
+                  return 0
+              # 已访问标记
+              grid[i][j] = 0
+              return 1 + dfs(grid, i + 1, j) + dfs(grid, i - 1, j) + dfs(grid, i, j - 1) + dfs(grid, i, j + 1)
+  
+          ans = 0
+          for i in range(len(grid)):
+              for j in range(len(grid[0])):
+                  if grid[i][j]:
+                      ans = max(ans, dfs(grid, i, j))
+          
+          return ans
+  ```
+
+  **BFS**
+
+  ```python
+  class Solution:
+      def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+  
+          def bfs(grid, i, j):
+              
+              deque = [[i, j]]
+              count = 0
+              while deque:
+                  [i, j] = deque.pop(0)
+                  if 0 <= i < len(grid) and 0 <= j < len(grid[0]) and grid[i][j] == 1:
+                      # 已访问标记
+                      grid[i][j] = 0
+                      count += 1
+                      deque += [[i + 1, j], [i - 1, j], [i, j + 1], [i, j - 1]]
+              
+              return count
+  
+          ans = 0
+          for i in range(len(grid)):
+              for j in range(len(grid[0])):
+                  if grid[i][j]:
+                      ans = max(ans, bfs(grid, i, j))
+          return ans
+  
+  ```
+
+## 
+
   
 

@@ -15,7 +15,7 @@
 
 
 class Solution:
-    
+
     def isSymmetric(self, root):
 
         def recur(L, R):

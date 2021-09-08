@@ -22,13 +22,14 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
 
+        # 定义状态并赋予初值
         dp = [0] + [10001] * amount
-
+        # 状态转移
         for i in range(1, amount + 1):
             for coin in coins:
                 diff = i - coin
                 if diff >= 0:
                     # dp[7] = min(dp[7 - 1], dp[7 - 5], dp[7 - 2]) + 1
                     dp[i] = min(dp[i], dp[diff] + 1)
-
+        # 返回值
         return dp[-1] if dp[-1] != 10001 else -1
