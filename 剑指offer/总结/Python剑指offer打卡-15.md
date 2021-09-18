@@ -179,7 +179,7 @@
 
 题目类型：数组、位运算
 
-题目难度：:star2:
+题目难度：:star2::star2::star2::star2:
 
 ### 数组中数字出现的次数 I
 
@@ -242,19 +242,19 @@
 - 代码
 
   ```python
-  class Solution(object):
-      def singleNumber(self, nums):
-          """
-          :type nums: List[int]
-          :rtype: int
-          """	
+  class Solution:
+      def singleNumber(self, nums: List[int]) -> int:
   
-          ones, twos = 0, 0
-          for num in nums:
-              ones = ones ^ num & ~twos
-              twos = twos ^ num & ~ones
-          
-          return ones
+          res = 0
+          for i in range(32):
+              cnt = 0
+              cnt = sum([((num >> i) &1) for num in nums])
+              if cnt % 3:
+                  if i == 31:
+                      res -= 1 << i
+                  else:
+                      res |= 1 << i
+          return res
   ```
 
 ## 二叉树展开为链表

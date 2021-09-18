@@ -95,7 +95,7 @@ class Solution:
             return False
 
         # 先序遍历，寻找子结构
-        return self.isInclude(A, B) or self.isInclude(A.left, B) or self.isInclude(A.right, B)
+        return self.isInclude(A, B) or self.isSubstructure(A.left, B) or self.isSubstructure(A.right, B)
 
     def isInclude(self, A, B):
 
