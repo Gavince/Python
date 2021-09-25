@@ -1,28 +1,33 @@
+class TreeNode:
+
+    def __init__(self, val, left = None, right = None):
+        self.val = val
+        self.left = None
+        self.right = None
+
+
 class Solution:
+    def reverse(self, root):
+        res = []
+        def dfs(root):
+            if root is None:
+                return
 
-    def mergeSort(self, arr):
+            res.append(root.val)
+            dfs(root.left)
+            dfs(root.right)
 
-        if len(arr) <= 1:
-            return arr
+        dfs(root)
+        return res
 
-        # 划分点
-        mid = len(arr) // 2
-        left, right = arr[:mid], arr[mid:]
-        return self.merge(self.mergeSort(left), self.mergeSort(right))
 
-    def merge(self, left, right):
+if __name__ == "__main__":
+    a, b, c, d, e, f = [TreeNode(val) for val in [1, 3, 4, 6, 7, 5]]
+    a.left, a.right = b, c
+    b.left = d
+    c.left, c.right = e, f
+    obj = Solution()
+    print(obj.reverse(a))
 
-        result = []
-        # 共同部分
-        while left and right:
-            if left[0] < right[0]:
-                result.append(left.pop(0))
-            else:
-                result.append(right.pop(0))
-        # 剩余部分
-        while left:
-            result.append(left.pop(0))
-        while right:
-            result.append(right.pop(0))
 
-        return result
+

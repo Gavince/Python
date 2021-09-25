@@ -26,10 +26,13 @@ class Solution:
     def findNumberIn2DArray(self, matrix, target):
         """在二维数组中找到指定数字"""
 
-        i, j = len(matrix)-1, 0
+        i, j = len(matrix) - 1, 0
         while i >= 0 and j < len(matrix[0]):
-            if matrix[i][j] > target: i -= 1
-            elif matrix[i][j] < target: j += 1
-            else: return True
+            if matrix[i][j] > target:
+                i -= 1
+            elif matrix[i][j] < target:
+                j += 1
+            else:
+                return True
 
         return False
