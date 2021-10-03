@@ -26,35 +26,28 @@
 3> 二叉树的根节点只有右子树而没有左子树，那么可以判断，那么二叉树的深度应该是其右树的深度加1；
 4> 二叉树的根节点既有右子树又有左子树，那么可以判断，那么二叉树的深度应该是其左右子树的深度较大值加1。
 """
-
-
-class TreeNode:
-
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
+import collections
 
 
 class Solution:
 
-    def maxDepth(self, root: TreeNode) -> int:
+    def maxDepth1(self, root: TreeNode) -> int:
         """后序遍历"""
 
         if not root: return 0
 
-        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+        return max(self.maxDepth1(root.left), self.maxDepth1(root.right)) + 1
 
-    def maxDepth1(self, root: TreeNode) -> int:
+    def maxDepth2(self, root: TreeNode) -> int:
 
-        if not root: return None
-        queue, res = [root], 0
-        while queue:
-            tmp = []
-            # 每一层单独进行遍历
-            for node in queue:
-                if node.left: tmp.append(node.left)
-                if node.right: tmp.append(node.right)
-            queue = tmp
-            res += 1
-        return res
+        if root is None: return 0
+        deque = collections.deque([root])
+        depth = 0
+        while deque:
+            for _ in range(len(deque)):
+                node = deque.popleft()
+                if node.left: deque.append(node.left)
+                if node.right: deque.append(node.right)
+            depth += 1
+
+        return depth
