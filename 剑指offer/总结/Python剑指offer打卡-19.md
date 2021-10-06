@@ -336,5 +336,5 @@
   
           # 头尾不能同时偷取
           # index : --> 0~n-2 1~n-1
-          return max(robRange(0, len(nums) - 1), robRange(1, len(nums)))
+          return max(robRange(0, len(nums) - 1), robRange(1, len(nums))
   ```

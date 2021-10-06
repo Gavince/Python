@@ -104,18 +104,16 @@
   1.状态定义，dp[i][j]表示text1[:i]和text2[:j]最长的公共子序列
   2.起始状态，dp[0][i] = 0, dp[j][0] = 0表示空字符和任何字符串的公共子序列长度为0
   3.状态转移
-  
                   if text1[i - 1] == text2[j - 1]:
                       dp[i][j] = dp[i - 1][j - 1] + 1
                   else:
-                      dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
-                      
+                      dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]) 
   4.返回值，dp[m][n]
   
   时间复杂度：O(m*n)
   空间复杂度：O(m*n)
   ```
-
+  
 - 代码（[解题思路](https://leetcode-cn.com/problems/longest-common-subsequence/solution/zui-chang-gong-gong-zi-xu-lie-by-leetcod-y7u0/)）
 
   算法图解
