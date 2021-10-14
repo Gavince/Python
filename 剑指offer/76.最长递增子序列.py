@@ -23,6 +23,7 @@
 (4)返回值：max(dp)
 时间复杂度：O(N^2)
 空间复杂度：O(N)  dp状态的存储
+
 (2)二分法
 时间复杂度：O(NlogN)
 空间复杂度：O(1)
@@ -33,6 +34,7 @@ from typing import List
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
 
+        # 动态规划
         if not nums: return 0
         # 定义dp,并设置初始值
         dp = [1] * len(nums)
@@ -42,5 +44,18 @@ class Solution:
                 if nums[j] < nums[i]:
                     # 更新状态
                     dp[i] = max(dp[i], dp[j] + 1)
+
+        # 输出最长子序列中的任意一个子序列
+        max_index = dp.index(max(dp))
+        res = [nums[max_index]]
+        for i in range(max_index, -1, -1):
+            if nums[i] < nums[max_index] and dp[i] == dp[max_index] - 1:
+                res.append(nums[i])
+                max_index = i
         # 返回值
-        return max(dp)
+        return res
+
+
+if __name__ == "__main__":
+    obj = Solution()
+    print(obj.lengthOfLIS([10,9,2,5,3,7,101,18]))

@@ -47,7 +47,7 @@
 
 - 代码（[解题思路](https://leetcode-cn.com/leetbook/read/illustration-of-algorithm/5vr32s/)）
 
-  ![](/home/gavin/Python/剑指offer/总结/imgs/63.png)
+  ![](./imgs/63.png)
 
   ```python
   class Solution:
@@ -250,7 +250,7 @@
   动态规划
   (1) 定义状态：dp[i][j]表示到达i, j的不同路径
   (2) 初始值：dp[0][j] = 1, dp[i][0] = 1，遇见障碍 break
-  (3) 转态转移：　dp[i][j] = dp[i][j - 1] + dp[i - 1][j] 遇见障碍 continue
+  (3) 转态转移：dp[i][j] = dp[i][j - 1] + dp[i - 1][j] 遇见障碍 continue
   (4) 返回值：dp[-1][-1]
   时间复杂度：O(n*m)
   空间复杂度：O(m*n)
