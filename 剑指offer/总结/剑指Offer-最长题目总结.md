@@ -16,7 +16,7 @@
   数组中连续）的长度。请你设计并实现时间复杂度为O(n) 的算法解决此问题。
   
   解题方法：
-  主要思路在于寻找连续子序列的起始点x,而起始点的上一位x - 1必然不存在数组中
+  主要思路在于寻找连续子序列的起始点x,而起始点的上一位x - 1必然不存在数组中，即起点和终点必然不在数组中
   哈希表
   时间复杂度：O(N)
   空间复杂度：O(N)
@@ -108,34 +108,30 @@
 
     ```python
     class Solution:
-        def LIS(self , arr ):
-            # write code here
-            n = len(arr)
-            if n < 2:
-                return n
-            # 设定初始状态
-            dp = [1]*n
-            # 状态转移
-            for i in range(n):
+        def lengthOfLIS(self, nums: List[int]) -> int:
+            
+            if not nums: return 0
+            # 初始化转态
+            dp = [1] * len(nums)
+            # 转态转移
+            for i in range(len(nums)):
                 for j in range(i):
-                    if arr[i] > arr[j]:
+                    if nums[i] > nums[j]:
                         dp[i] = max(dp[i], dp[j] + 1)
-             # 获取序列
-            m = max(dp)
-            index = dp.index(m)
-            res = [0]*m
-            m -= 1
-            res[m] = arr[index]
-            for i in range(index, -1, -1):
-                if arr[i] < arr[index] and dp[i] == dp[index] - 1:
-                    m -= 1
-                    res[m] = arr[i]
-                    index = i
-            return res
+            # 打印出序列元素
+            
+            max_index = dp.index(max(dp))
+            res = [nums[max_index]]
+            for i in range(max_index, -1, -1):
+                if dp[i] + 1 == dp[max_index] and nums[i] < nums[max_index]:
+                    res.append(nums[i])
+                    max_index = i
+    
+            return res[::-1]
     ```
-
+    
     二分法优化
-
+    
     原理：
 
     1.插入2，[2]

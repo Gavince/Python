@@ -181,6 +181,9 @@
   (2)二分法
   时间复杂度：O(logN)
   空间复杂度：O(1)
+  (3)牛顿迭代法
+  时间复杂度：O(1)
+  空间复杂度：O(1)
   ```
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/sqrtx/solution/x-de-ping-fang-gen-by-leetcode-solution/)）

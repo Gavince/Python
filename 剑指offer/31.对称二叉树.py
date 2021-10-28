@@ -24,3 +24,20 @@ class Solution:
             return recur(L.left, R.right) and recur(L.right, R.left)
 
         return recur(root.left, root.right) if root else True
+
+
+class Solution1:
+    def isSymmetric(self, root: TreeNode) -> bool:
+
+        if root is None: return True
+
+        deque = [(root.left, root.right)]
+        while deque:
+            left, right = deque.pop(0)
+            if not left and not right:
+                continue
+            if not left or not right or left.val != right.val:
+                return False
+            deque.append((left.left, right.right))
+            deque.append((left.right, right.left))
+        return True

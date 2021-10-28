@@ -20,39 +20,24 @@
 """
 
 
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-
 class Solution:
-
     def reverseBetween(self, head: ListNode, left: int, right: int) -> ListNode:
 
-        # 申请哑节点
-        dummmy = ListNode(0)
-        dummmy.next = head
-        # 记录
-        count = 1
-        pre = dummmy
-        # 找到开头节点
-        while pre.next and count < left:
+        if not head: return None
+        dummy = pre = ListNode(0, head)
+        cnt = 1
+        # 寻找左边界
+        while pre and cnt < left:
             pre = pre.next
-            count += 1
-
+            cnt += 1
         cur = pre.next
         tail = cur
-        # 局部翻转
-        while cur and count <= right:
+        # 连接
+        while cur and cnt <= right:
             nxt = cur.next
-            # 节点插入连接
             cur.next = pre.next
             pre.next = cur
-            # tail节点始终未变，只有指向在变换
-            tail.next = nxt
-            # 移动
             cur = nxt
-            count += 1
-
-        return dummmy.next
+            tail.next = cur
+            cnt += 1
+        return dummy.next

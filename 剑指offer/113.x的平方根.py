@@ -13,8 +13,13 @@
 (1)袖珍计算器
 时间复杂度：O(1)
 空间复杂度：O(1)
+
 (2)二分法
 时间复杂度：O(logN)
+空间复杂度：O(1)
+
+(3)牛顿迭代法(可以求得精确解)
+时间复杂度：O(1)
 空间复杂度：O(1)
 """
 
@@ -24,6 +29,7 @@ import math
 class Solution:
 
     def mySqrt1(self, x: int) -> int:
+
         if x == 0:
             return 0
         ans = int(math.exp(0.5 * math.log(x)))
@@ -31,7 +37,9 @@ class Solution:
         return ans + 1 if (ans + 1) ** 2 <= x else ans
 
     def mySqrt2(self, x: int) -> int:
-        # 二分查找
+
+        if x <= 1:
+            return x
 
         l, r, ans = 0, x, -1
         while l <= r:
@@ -43,3 +51,16 @@ class Solution:
                 r = mid - 1
 
         return ans
+
+    def mySqrt3(self, x: int) -> int:
+
+        if x <= 1:
+            return x
+        x0, C = float(x), float(x)
+
+        while True:
+            xi = 0.5 * (x0 + C / x0)
+            if abs(xi - x0) < 1e-7:
+                break
+            x0 = xi
+        return int(x0)

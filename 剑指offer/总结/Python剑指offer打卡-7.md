@@ -97,29 +97,22 @@
   
   ```python
   class Solution:
-      def isSymmetric(self, root: TreeNode) -> bool: 
+      def isSymmetric(self, root: TreeNode) -> bool:
   
-          if not root or not (root.left or root.right):
-              return True
-          
-          deque = [root.left, root.right]
+  
+          if not root: return False
+          deque = [(root.left, root.right)]
           while deque:
-              left, right =deque.pop(0), deque.pop(0)
-              # 同时为空，则继续遍历同层其它节点
-              if not (left or right):
+              L, R = deque.pop(0)
+              # 出口
+              if not L and not R:
                   continue
-              # 只要有一个提前为空，则表示不对称
-              if not (left and right):
+              if not L or not R or L.val != R.val:
                   return False
-              if left.val != right.val:
-                  return False
-              # 入栈
-              deque.append(left.left)
-              deque.append(right.right)
+              # 层序遍历
+              deque.append((L.left, R.right))
+              deque.append((L.right, R.left))
   
-              deque.append(left.right)
-              deque.append(right.left)
-          
           return True
   ```
 

@@ -33,8 +33,8 @@ class Solution1:
 
 
 class Solution2:
-    def maxSubArray(self, nums: List[int]) -> int:
 
+    def maxSubArray(self, nums: List[int]) -> int:
         if not nums:
             return 0
 

@@ -11,34 +11,40 @@
 
 解题方法：
 快速排序
-
 时间复杂度：O(NlogN)
 空间复杂度：O(1)
-
 """
+
+import random
 
 
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
 
-        def quickSort(low, high):
-            if low >= high:
+        def quickSort(start, end):
+
+            if start >= end:
                 return
 
-                # 设置边界条件
-            i, j = low, high
-            pivot = nums[i]
-            while i < j:
-                while i < j and nums[j] >= pivot:
-                    j -= 1
-                nums[i] = nums[j]
+                # 寻找哨兵结点
+            low, high = start, end
+            index = random.randint(low, high)
+            nums[low], nums[index] = nums[index], nums[low]
+            pivot = nums[low]
 
-                while i < j and nums[i] < pivot:
-                    i += 1
-                nums[j] = nums[i]
-            nums[i] = pivot
-            quickSort(low, i - 1)
-            quickSort(i + 1, high)
+            # 划分区间
+            while low < high:
+                while low < high and pivot <= nums[high]:
+                    high -= 1
+                nums[low] = nums[high]
+                while low < high and pivot > nums[low]:
+                    low += 1
+                nums[high] = nums[low]
+            nums[low] = pivot
+            if low > len(nums) - k:
+                quickSort(start, low - 1)
+            else:
+                quickSort(low + 1, end)
 
         quickSort(0, len(nums) - 1)
 

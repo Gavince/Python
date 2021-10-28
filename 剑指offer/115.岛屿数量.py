@@ -11,14 +11,14 @@
 地连接形成。此外，你可以假设该网格的四条边均被水包围。
 
 解题方法：
-DFS 和　BFS
+DFS和BFS
 """
 from typing import List
 
 
 class Solution:
 
-    def numIslands_dfs(self, grid: List[List[str]]) -> int:
+    def numIslandsOfDFS(self, grid: List[List[str]]) -> int:
 
         def dfs(grid, i, j):
 
@@ -41,7 +41,7 @@ class Solution:
 
         return count
 
-    def numIslands_bfs(self, grid: List[List[str]]) -> int:
+    def numIslandsOfBFS(self, grid: List[List[str]]) -> int:
 
         def bfs(grid, i, j):
 

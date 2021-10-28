@@ -29,7 +29,7 @@ from typing import List
 
 class Sulution:
 
-    def trap(self, height: List[int]) -> int:
+    def trap0(self, height: List[int]) -> int:
         """接雨水（暴力法）"""
 
         ans = 0
@@ -46,7 +46,7 @@ class Sulution:
 
         return ans
 
-    def trap(self, height:List[int]) -> int:
+    def trap1(self, height:List[int]) -> int:
         """双指针法"""
 
         if not height: return 0

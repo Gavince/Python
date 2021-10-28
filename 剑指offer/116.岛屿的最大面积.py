@@ -18,7 +18,7 @@ from typing import List
 
 class Solution:
 
-    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+    def maxAreaOfIslandOfDFS(self, grid: List[List[int]]) -> int:
 
         def dfs(grid, i, j):
 
@@ -36,7 +36,7 @@ class Solution:
 
         return ans
 
-    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+    def maxAreaOfIslandOfBFS(self, grid: List[List[int]]) -> int:
 
         def bfs(grid, i, j):
 

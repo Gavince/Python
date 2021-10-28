@@ -33,3 +33,38 @@ class Solution:
 
         # 返回状态
         return grid[-1][-1]
+
+
+class Solution1:
+    """
+    路径中有障碍物，用-1表示
+    """
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        # write code here
+        # 定义dp
+        m, n = len(grid), len(grid[0])
+        # 定义初始状态
+        for i in range(1, m):
+            if grid[i][0] == -1:
+                break
+            else:
+                grid[i][0] += grid[i - 1][0]
+        for i in range(1, n):
+            if grid[0][i] == -1:
+                break
+            else:
+                grid[0][i] += grid[0][i - 1]
+
+        # 转态转移
+        for i in range(1, m):
+            for j in range(1, n):
+                if grid[i][j] == -1:
+                    grid[i][j] = float("inf")
+                grid[i][j] += min(grid[i - 1][j], grid[i][j - 1])
+
+        return grid[-1][-1]
+
+
+if __name__ == "__main__":
+    obj = Solution1()
+    print(obj.minPathSum([[1, 3, 16],[10, 11, -1],[1, 14, 14]]))

@@ -32,8 +32,10 @@
 
   ![](./imgs/126.png)
 
+  方法一：
+  
   ```python
-  class Solution:
+    class Solution:
       def setZeroes(self, matrix: List[List[int]]) -> None:
           """
           Do not return anything, modify matrix in-place instead.
@@ -53,6 +55,30 @@
           for i in range(m):
               for j in range(n):
                   if rows[i] or cols[j]:
+                      matrix[i][j] = 0
+  ```
+  
+  方法二：
+  
+  ```python
+  class Solution:
+      def setZeroes(self, matrix: List[List[int]]) -> None:
+          """
+          Do not return anything, modify matrix in-place instead.
+          """
+  
+          m, n = len(matrix), len(matrix[0])
+          row_zeros, col_zeros = set(), set()
+  
+          for i in range(m):
+              for j in range(n):
+                  if matrix[i][j] == 0:
+                      row_zeros.add(i)
+                      col_zeros.add(j)
+          # 输出
+          for i in range(m):
+              for j in range(n):
+                  if i in row_zeros or j in col_zeros:
                       matrix[i][j] = 0
   ```
 

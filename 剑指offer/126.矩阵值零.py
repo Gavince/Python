@@ -19,11 +19,12 @@
 设置行列标记，行标记或者列标记为零时，元素置为零。
 时间复杂度：O(mn)
 空间复杂度：O(m + n)
+
 """
 from typing import List
 
 
-class Solution:
+class Solution0:
     def setZeroes(self, matrix: List[List[int]]) -> None:
         """
         Do not return anything, modify matrix in-place instead.
@@ -43,4 +44,24 @@ class Solution:
         for i in range(m):
             for j in range(n):
                 if rows[i] or cols[j]:
+                    matrix[i][j] = 0
+
+class Solution1:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+
+        m, n = len(matrix), len(matrix[0])
+        row_zeros, col_zeros = set(), set()
+
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j] == 0:
+                    row_zeros.add(i)
+                    col_zeros.add(j)
+        # 输出
+        for i in range(m):
+            for j in range(n):
+                if i in row_zeros or j in col_zeros:
                     matrix[i][j] = 0

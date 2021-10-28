@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/8/2 下午10:10
 # @Author  : gavin
-# @FileName: 119.K 个一组翻转链表.py
+# @FileName: 119.K个一组翻转链表.py
 # @Software: PyCharm
 # @Blog    ：https://blog.csdn.net/weixin_35154281
 """
@@ -19,42 +19,21 @@ k是一个正整数，它的值小于或等于链表的长度。如果节点总�
 """
 
 
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-
 class Solution:
-
-    def reverse(self, head, tail):
-
-        pre = tail.next
-        cur = head
-        while pre != tail:
-            tmp = cur.next
-            cur.next = pre
-            pre = cur
-            cur = tmp
-        return tail, head
-
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
 
-        hair = ListNode(0)
-        hair.next = head
-        pre = hair
-
-        while head:
-            tail = pre
-            for _ in range(k):
-                tail = tail.next
-                if not tail:
-                    return hair.next
-            nxt = tail.next
-            head, tail = self.reverse(head, tail)
-            pre.next = head
-            tail.next = nxt
-            pre = tail
-            head = tail.next
-
-        return hair.next
+        cur = head
+        count = 0
+        while cur and count < k:
+            cur = cur.next
+            count += 1
+        if count == k:
+            cur = self.reverseKGroup(cur, k)
+            while count:
+                nxt = head.next
+                head.next = cur
+                cur = head
+                head = nxt
+                count -= 1
+            head = cur
+        return head
