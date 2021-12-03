@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/9/18 上午9:53
 # @Author  : gavin
-# @FileName: 148.不同路径.py
+# @FileName: 148.不同路径I.py
 # @Software: PyCharm
 # @Blog    ：https://blog.csdn.net/weixin_35154281
 """
@@ -14,7 +14,7 @@
 动态规划
 (1) 定义状态：dp[i][j]表示到达i, j的不同路径
 (2) 初始值：dp[0][j] = 1, dp[i][0] = 1
-(3) 转态转移：　dp[i][j] = dp[i][j - 1] + dp[i - 1][j]
+(3) 转态转移：dp[i][j] = dp[i][j - 1] + dp[i - 1][j]
 (4) 返回值：dp[-1][-1]
 时间复杂度：O(n*m)
 空间复杂度：O(m*n)

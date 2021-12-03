@@ -23,6 +23,8 @@
 
 
 class Solution:
+
+
     def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
 
         # 定义dp
@@ -40,7 +42,7 @@ class Solution:
         # 转态转移
         for i in range(1, m):
             for j in range(1, n):
-                if obstacleGrid[i][j] == 1: continue
+                if obstacleGrid[i][j]: continue
                 dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
         # 返回值
         return dp[m - 1][n - 1]

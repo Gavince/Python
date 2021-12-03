@@ -8,11 +8,16 @@
 
 """
 问题描述：
-在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。
+    在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的
+结点不保留，返回链表头指针。
+
 解决方案：
 当删除重复结点时，直接遍历重复结点后，跳跃连接一前一后的结点
 前：１->1->2->3->4->5->6->6
 后：2->3->4->5
+
+时间复杂度：O(N)
+空间复杂度：O(1)
 """
 
 
@@ -25,25 +30,20 @@ class ListNode:
 
 class Solution:
 
-    def deleteDuplication(self, pHead):
+    def deleteDuplication(self, head):
         # 申请新的头结点
-        new_head = ListNode(None)
-        new_head.next = pHead
-        pre = new_head
+        if head is None: return head
+        dummy = cur = ListNode(0, head)
 
-        while pHead and pHead.next:
-            if pHead.val == pHead.next.val:
-                tmp = pHead.val
-                # 删除重复的结点
-                while pHead and pHead.val == tmp:
-                    pHead = pHead.next
-                # 结点删除后，重新连接结点
-                pre.next = pHead
+        while cur.next and cur.next.next:
+            if cur.next.val == cur.next.next.val:
+                x = cur.next.val
+                while cur.next and cur.next.val == x:
+                    cur.next = cur.next.next
             else:
-                # 一个在前一个在后
-                pre = pHead
-                pHead = pHead.next
-        return new_head.next
+                cur = cur.next
+
+        return dummy.next
 
     def deleteDuplication1(self, pHead):
         """递归实现"""

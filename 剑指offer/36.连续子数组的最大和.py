@@ -14,33 +14,39 @@
 如果 sum > 0，则说明 sum 对结果有增益效果，则 sum 保留并加上当前遍历数字
 如果 sum <= 0，则说明 sum 对结果无增益效果，需要舍弃，则 sum 直接更新为当前遍历数字
 每次比较 sum 和 ans的大小，将最大值置为ans，遍历结束返回结果
+
+动态规划:
 时间复杂度：O(N)
 空间复杂度：O(N)
+
+优化的动态规划:
+时间复杂度：O(N)
+空间复杂度：O(1)
 """
+from typing import List
 
 
 class Solution1:
-
-    def MaxArray(self, nums):
-        """最大子数组之和"""
+    
+    def maxSubArray(self, nums: List[int]) -> int:
 
         if not nums: return 0
-
+        # 定义状态赋初值
+        dp = [0]*len(nums)
+        dp[0] = nums[0]
+        # 状态转移
         for i in range(1, len(nums)):
-            nums[i] += max(nums[i - 1], 0)
-
-        return max(nums)
-
+            dp[i] = max(dp[i - 1], 0) + nums[i]
+        # 返回值
+        return max(dp)
 
 class Solution2:
 
-    def maxSubArray(self, nums: List[int]) -> int:
-        if not nums:
-            return 0
+        def MaxArray(self, nums):
+            """最大子数组之和"""
 
-        dp = [0] * len(nums)
-        dp[0] = nums[0]
-        for i in range(1, len(nums)):
-            dp[i] = max(dp[i - 1] + nums[i], nums[i])
+            if not nums: return 0
+            for i in range(1, len(nums)):
+                nums[i] += max(nums[i - 1], 0)
 
-        return max(dp)
+            return max(nums)

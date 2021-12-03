@@ -14,6 +14,7 @@
 时间复杂度：(N)
 空间复杂度:O(1)
 """
+from typing import List
 
 
 class Solution:

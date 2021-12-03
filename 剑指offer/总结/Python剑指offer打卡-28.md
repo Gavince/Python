@@ -4,7 +4,7 @@
 
 [toc]
 
-## 二叉树的右视图
+## 二叉树的右视图（<font color = red>重点</font>）
 
 题目类型：二叉树
 
@@ -45,7 +45,7 @@
           return res
   ```
 
-## 排序数组
+## 排序数组（<font color = red>重点</font>）
 
 题目类型：排序
 
@@ -129,7 +129,7 @@
           return result
   ```
 
-## 数组中的逆序对
+## 数组中的逆序对（<font color = red>重点</font>）
 
 题目类型：排序
 

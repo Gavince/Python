@@ -67,4 +67,8 @@ class Solution1:
 
 if __name__ == "__main__":
     obj = Solution1()
-    print(obj.minPathSum([[1, 3, 16],[10, 11, -1],[1, 14, 14]]))
+    print(obj.minPathSum([[1, 3, 16],
+                          [10, 11, -1],
+                          [1, 14, 14]]
+                         )
+          )

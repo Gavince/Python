@@ -34,11 +34,10 @@ class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
 
         # 申请头结点
-        dummy = cur = ListNode()
+        dummy = cur = ListNode(0)
         # 进位节点
         carry = 0
         while l1 or l2:
-
             x = l1.val if l1 else 0
             y = l2.val if l2 else 0
             # 存储节点值
@@ -46,11 +45,9 @@ class Solution:
             cur.next = ListNode(sum % 10)
             carry = sum // 10
             cur = cur.next
-
             # 更新节点
             if l1: l1 = l1.next
             if l2: l2 = l2.next
-
         if carry: cur.next = ListNode(carry)
 
         return dummy.next

@@ -36,7 +36,6 @@ class Solution:
         mid = len(nums) // 2
         left, right = nums[:mid], nums[mid:]
         # 拆分
-
         return self.merge(self.mergeSort(left), self.mergeSort(right))
 
     def merge(self, left, right):

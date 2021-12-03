@@ -351,5 +351,3 @@
           
           return self.reversePrint(head.next) + [head.val]
   ```
-
-## 
