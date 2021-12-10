@@ -210,16 +210,22 @@
 - 问题描述
 
   ```
-  问题描述:
-      给你一个链表的头节点head，旋转链表，将链表每个节点向右移动k个位置。
-  
-  实例：
-  输入：head = [1,2,3,4,5], k = 2
-  输出：[4,5,1,2,3]
-  
+  问题描述：
+      编写一个函数来查找字符串数组中的最长公共前缀。如果不存在公共
+  前缀，返回空字符串 ""。
+  实例1:
+  输入：strs = ["flower","flow","flight"]
+  输出："fl"
+  实例2：
+  输入：strs = ["dog","racecar","car"]
+  输出：""
+  解释：输入不存在公共前缀。
   解题方法：
-  快满指针
-  时间复杂度：O(N)
+  纵向比较
+  跳出原则:
+  （1）比最小的数组长度还小
+  （2）对应位置上的字符不相等
+  时间复杂度：O(MN)
   空间复杂度：O(1)
   ```
 
@@ -227,31 +233,18 @@
 
   ```python
   class Solution:
-      def rotateRight(self, head: ListNode, k: int) -> ListNode:
+      def longestCommonPrefix(self, strs: List[str]) -> str:
   
-          if k == 0 or not head or not head.next:
-              return head
-          # 统计链表长度
-          cur = head
-          node_lens = 1
-          while cur.next:
-              cur = cur.next
-              node_lens += 1
-          k = k % node_lens
+          if not strs:
+              return ""
   
-          # 快慢指针
-          slow, fast = head, head
-          for _ in range(k):
-              fast = fast.next
-          while fast.next:
-              fast = fast.next
-              slow = slow.next
-          # 循环链接
-          fast.next = head
-          head = slow.next
-          slow.next = None
+          length, count = len(strs[0]), len(strs)
+          for i in range(length):
+              c = strs[0][i]
+              # 比较剩余部分
+              if any(i == len(strs[j]) or c != strs[j][i] for j in range(1, count)):
+                  return strs[0][:i]
   
-          return head
+          # 只有一个字符时
+          return strs[0]
   ```
-
-## 
