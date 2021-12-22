@@ -26,26 +26,16 @@
 """
 
 
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-
 class Solution:
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
-        # 标识路径
-        self.ans = 1
+        self.ans = 0
 
         def dfs(root):
-            if root is None:
-                return 0
-
+            if root is None: return 0
             left = dfs(root.left)
             right = dfs(root.right)
-            # 当前节点，左右结点的最长路径长度
-            self.ans = max(self.ans, left + right + 1)
+            cur_high = 1 + left + right
+            self.ans = max(self.ans, cur_high)
 
             return max(left, right) + 1
 

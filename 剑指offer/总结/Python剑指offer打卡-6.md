@@ -40,6 +40,10 @@
 
 - 代码（[解题思路](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/solution/mian-shi-ti-34-er-cha-shu-zhong-he-wei-mou-yi-zh-5/))
 
+  图解算法
+  
+  ![](./imgs/27.png)
+  
   ```python
   class Solution:
   
