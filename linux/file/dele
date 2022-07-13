@@ -1,5 +1,0 @@
-#!/bin/sh
-
-rm -rf ./shell/*
-cp ./passwd ./shell
-echo "$(date)"%F %T""
