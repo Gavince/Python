@@ -1,0 +1,25 @@
+import json
+
+
+def main():
+    """计算json.
+        
+    
+    Arg:
+        
+    Return:
+        de
+
+    """
+    res = []
+    with open("file", "r") as f:
+        for line in f.readlines():
+            try:
+                val = json.dumps(line.strip("\n"))
+                res.append(val)
+                print(val)
+            except:
+                continue
+
+if __name__ == "__main__":
+    main()
